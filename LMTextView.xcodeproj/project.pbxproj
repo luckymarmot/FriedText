@@ -22,6 +22,7 @@
 		AE04F639170EEB110032338C /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AE04F637170EEB110032338C /* QuartzCore.framework */; };
 		AE04F640170EEDB90032338C /* LMTextTestingWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = AE04F63F170EEDB90032338C /* LMTextTestingWindow.m */; };
 		AE0C57E7170FBF4700FDFBDA /* LMJSONTextParser.m in Sources */ = {isa = PBXBuildFile; fileRef = AE0C57E6170FBF4700FDFBDA /* LMJSONTextParser.m */; };
+		AE0C57F1170FEDAC00FDFBDA /* LMFoldingTextAttachmentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AE0C57F0170FEDAC00FDFBDA /* LMFoldingTextAttachmentCell.m */; };
 		AE4E749A170EF98F003BF794 /* NSView+CocoaExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = AE4E7499170EF98E003BF794 /* NSView+CocoaExtensions.m */; };
 		AE4E74A2170F1561003BF794 /* jsmn.c in Sources */ = {isa = PBXBuildFile; fileRef = AE4E74A0170F1561003BF794 /* jsmn.c */; };
 		AE4E74AB170F4504003BF794 /* NSArray+KeyPath.m in Sources */ = {isa = PBXBuildFile; fileRef = AE4E74AA170F4504003BF794 /* NSArray+KeyPath.m */; };
@@ -58,6 +59,8 @@
 		AE0C57E4170FBE5900FDFBDA /* LMTextParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LMTextParser.h; sourceTree = "<group>"; };
 		AE0C57E5170FBF4700FDFBDA /* LMJSONTextParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LMJSONTextParser.h; sourceTree = "<group>"; };
 		AE0C57E6170FBF4700FDFBDA /* LMJSONTextParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LMJSONTextParser.m; sourceTree = "<group>"; };
+		AE0C57EF170FEDAC00FDFBDA /* LMFoldingTextAttachmentCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LMFoldingTextAttachmentCell.h; sourceTree = "<group>"; };
+		AE0C57F0170FEDAC00FDFBDA /* LMFoldingTextAttachmentCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LMFoldingTextAttachmentCell.m; sourceTree = "<group>"; };
 		AE4E7498170EF98E003BF794 /* NSView+CocoaExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSView+CocoaExtensions.h"; sourceTree = "<group>"; };
 		AE4E7499170EF98E003BF794 /* NSView+CocoaExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSView+CocoaExtensions.m"; sourceTree = "<group>"; };
 		AE4E74A0170F1561003BF794 /* jsmn.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = jsmn.c; path = Dependencies/jsmn/jsmn.c; sourceTree = "<group>"; };
@@ -123,6 +126,7 @@
 			children = (
 				AE04F642170EEDC80032338C /* App */,
 				AE04F643170EEDCC0032338C /* Text Field */,
+				AE0C57E8170FECB600FDFBDA /* LMTextParser */,
 				AE04F641170EEDC10032338C /* Completion */,
 				AE4E74A8170F41D0003BF794 /* KeyPath */,
 				AE4E749B170EF991003BF794 /* Categories */,
@@ -176,11 +180,20 @@
 				AE04F61F170EEA8A0032338C /* LMTextField.m */,
 				AE04F620170EEA8A0032338C /* LMTextScrollView.h */,
 				AE04F621170EEA8A0032338C /* LMTextScrollView.m */,
+				AE0C57EF170FEDAC00FDFBDA /* LMFoldingTextAttachmentCell.h */,
+				AE0C57F0170FEDAC00FDFBDA /* LMFoldingTextAttachmentCell.m */,
+			);
+			name = "Text Field";
+			sourceTree = "<group>";
+		};
+		AE0C57E8170FECB600FDFBDA /* LMTextParser */ = {
+			isa = PBXGroup;
+			children = (
 				AE0C57E4170FBE5900FDFBDA /* LMTextParser.h */,
 				AE0C57E5170FBF4700FDFBDA /* LMJSONTextParser.h */,
 				AE0C57E6170FBF4700FDFBDA /* LMJSONTextParser.m */,
 			);
-			name = "Text Field";
+			name = LMTextParser;
 			sourceTree = "<group>";
 		};
 		AE4E749B170EF991003BF794 /* Categories */ = {
@@ -295,6 +308,7 @@
 				AE4E74A2170F1561003BF794 /* jsmn.c in Sources */,
 				AE4E74AB170F4504003BF794 /* NSArray+KeyPath.m in Sources */,
 				AE0C57E7170FBF4700FDFBDA /* LMJSONTextParser.m in Sources */,
+				AE0C57F1170FEDAC00FDFBDA /* LMFoldingTextAttachmentCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

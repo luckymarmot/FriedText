@@ -14,6 +14,8 @@
 
 #import "NSArray+KeyPath.h"
 
+#import "LMFoldingTextAttachmentCell.h"
+
 @interface LMTextTestingWindow () <NSTextStorageDelegate, LMTextFieldDelegate>
 
 @end
@@ -32,10 +34,16 @@
 	
 	[self.textField setParser:[[LMJSONTextParser alloc] init]];
 	
-	[self.textField setString:[[NSString alloc] initWithData:[NSData dataWithContentsOfFile:@"/Users/michamazaheri/Desktop/Photoshot.json"] encoding:NSUTF8StringEncoding]];
+	[self.textField setString:[[NSString alloc] initWithData:[NSData dataWithContentsOfFile:@"/Users/michamazaheri/Desktop/Facebook.json"] encoding:NSUTF8StringEncoding]];
 	[self.textField didChangeText];
 
 	[self.tokenPopover setBehavior:NSPopoverBehaviorTransient];
+	
+	NSTextAttachment* textAttachment = [[NSTextAttachment alloc] init];
+	textAttachment.attachmentCell = [[LMFoldingTextAttachmentCell alloc] init];
+	NSAttributedString* attributedString = [NSAttributedString attributedStringWithAttachment:textAttachment];
+	[self.textField.textStorage insertAttributedString:attributedString atIndex:10];
+	[self.textField didChangeText];
 }
 
 #pragma mark - NSTextViewDelegate
