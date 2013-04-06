@@ -34,19 +34,29 @@
 
 @implementation LMTextField
 
-- (void)awakeFromNib {
-    [[self window] setAcceptsMouseMovedEvents:YES];
+- (id)initWithCoder:(NSCoder *)aDecoder
+{
+	self = [super initWithCoder:aDecoder];
+	if (self) {
+		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(textDidChange:) name:NSTextDidChangeNotification object:self];
+	}
+	return self;
 }
 
-- (void)t
+- (void)awakeFromNib
+{
+	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(boundsDidChange:) name:NSViewBoundsDidChangeNotification object:self.enclosingScrollView.contentView];
+}
+
+- (void)parse
 {
 	[self.parser parseString:[self.textStorage string]];
 }
 
-- (void)boundsDidChange
+- (void)boundsDidChange:(NSNotification*)notification
 {
 	NSAssert([[NSThread currentThread] isMainThread], @"Not main thread");
-
+	
 	if (!_kIsProcessing) {
 		if (self.timer != nil) {
 			[self.timer invalidate];
@@ -56,9 +66,9 @@
 	}
 }
 
-- (void)textDidChange
+- (void)textDidChange:(NSNotification *)notification
 {
-	NSAssert([[NSThread currentThread] isMainThread], @"Not main thread");
+	[self parse];
 	
 	if (!_kIsProcessing) {
 		if (self.timer != nil) {
@@ -97,8 +107,9 @@
 
 	[layoutManager removeTemporaryAttribute:NSForegroundColorAttributeName forCharacterRange:NSMakeRange(0, [self.textStorage.string length])];
 	
-	[self.parser applyAttributesInRange:characterRange withBlock:^(LMTextParserTokenType tokenType, NSRange range) {
-		switch (tokenType) {
+	[self.parser applyAttributesInRange:characterRange withBlock:^(NSUInteger tokenTypeMask, NSRange range) {
+		
+		switch (tokenTypeMask & LMTextParserTokenTypeMask) {
 			case LMTextParserTokenTypeBoolean:
 				[layoutManager addTemporaryAttribute:NSForegroundColorAttributeName value:primitiveColor forCharacterRange:range];
 				break;
@@ -117,41 +128,88 @@
 	_kIsProcessing = NO;
 }
 
-- (void)mouseMoved:(NSEvent *)theEvent {
-    NSLayoutManager *layoutManager = [self layoutManager];
-    NSTextContainer *textContainer = [self textContainer];
-    NSUInteger glyphIndex, charIndex, textLength = [[self textStorage] length];
-    NSPoint point = [self convertPoint:[theEvent locationInWindow] fromView:nil];
+- (NSUInteger)charIndexForPoint:(NSPoint)point
+{
+	NSLayoutManager *layoutManager = [self layoutManager];
+	NSUInteger glyphIndex = 0;
     NSRect glyphRect;
-    
-    // Remove any existing coloring.
-    [layoutManager removeTemporaryAttribute:NSUnderlineStyleAttributeName forCharacterRange:NSMakeRange(0, textLength)];
-    
-    // Convert view coordinates to container coordinates
+	NSTextContainer *textContainer = [self textContainer];
+	
+	// Convert view coordinates to container coordinates
     point.x -= [self textContainerOrigin].x;
     point.y -= [self textContainerOrigin].y;
-    
-    // Convert those coordinates to the nearest glyph index
+	
+	// Convert those coordinates to the nearest glyph index
     glyphIndex = [layoutManager glyphIndexForPoint:point inTextContainer:textContainer];
-    
-    // Check to see whether the mouse actually lies over the glyph it is nearest to
+
+	// Check to see whether the mouse actually lies over the glyph it is nearest to
     glyphRect = [layoutManager boundingRectForGlyphRange:NSMakeRange(glyphIndex, 1) inTextContainer:textContainer];
-    if (NSPointInRect(point, glyphRect)) {
-        // Convert the glyph index to a character index
-        charIndex = [layoutManager characterIndexForGlyphAtIndex:glyphIndex];
-        
-		NSRange tokenRange;
-		
-		NSArray* path = [self.parser keyPathForObjectAtCharIndex:charIndex correctedRange:&tokenRange];
-        
-		if (tokenRange.location != NSNotFound) {
-			[layoutManager addTemporaryAttribute:NSUnderlineStyleAttributeName value:@(NSUnderlinePatternDot | NSUnderlineStyleSingle | NSUnderlineByWordMask) forCharacterRange:tokenRange];
-		}
-		
-		if (path) {
-			NSLog(@"> %@", [path keyPathDescription]);
+
+	if (NSPointInRect(point, glyphRect)) {
+		// Convert the glyph index to a character index
+        return [layoutManager characterIndexForGlyphAtIndex:glyphIndex];
+	}
+	else {
+		return NSNotFound;
+	}
+}
+
+- (void)mouseMoved:(NSEvent *)theEvent {
+    NSLayoutManager *layoutManager = [self layoutManager];
+    
+    // Remove any existing coloring.
+    [layoutManager removeTemporaryAttribute:NSUnderlineStyleAttributeName forCharacterRange:NSMakeRange(0, [[self textStorage] length])];
+	
+	BOOL needsCursor = NO;
+	
+	NSUInteger charIndex = [self charIndexForPoint:[self convertPoint:[theEvent locationInWindow] fromView:nil]];
+    if (charIndex != NSNotFound) {
+		if (self.parser) {
+			NSRange tokenRange;
+			[self.parser keyPathForObjectAtCharIndex:charIndex correctedRange:&tokenRange];
+			if (tokenRange.location != NSNotFound) {
+				[layoutManager addTemporaryAttribute:NSUnderlineStyleAttributeName value:@(NSUnderlinePatternDot | NSUnderlineStyleSingle) forCharacterRange:tokenRange];
+				
+				needsCursor = YES;
+			}
 		}
     }
+	
+	if (needsCursor) {
+		if ([NSCursor currentCursor] != [NSCursor pointingHandCursor] && self.changeCursorOnTokens) {
+			[[NSCursor pointingHandCursor] push];
+		}
+	}
+	else {
+		[[NSCursor pointingHandCursor] pop];
+	}
+}
+
+- (void)mouseDown:(NSEvent *)theEvent
+{
+	NSLayoutManager *layoutManager = [self layoutManager];
+	NSTextContainer *textContainer = [self textContainer];
+	NSUInteger charIndex = [self charIndexForPoint:[self convertPoint:[theEvent locationInWindow] fromView:nil]];
+    if (charIndex != NSNotFound) {
+		if (self.parser) {
+			NSRange tokenRange;
+			NSArray* path = [self.parser keyPathForObjectAtCharIndex:charIndex correctedRange:&tokenRange];
+			NSRect bounds = [layoutManager boundingRectForGlyphRange:tokenRange inTextContainer:textContainer];
+			
+			if (tokenRange.location != NSNotFound) {
+				if ([self.delegate respondsToSelector:@selector(textView:mouseDownForTokenAtRange:withBounds:keyPath:)]) {
+					[(id<LMTextFieldDelegate>)self.delegate textView:self mouseDownForTokenAtRange:tokenRange withBounds:bounds keyPath:path];
+				}
+				return;
+			}
+		}
+    }
+	
+	if ([self.delegate respondsToSelector:@selector(mouseDownOutsideTokenInTextView:)]) {
+		[(id<LMTextFieldDelegate>)self.delegate mouseDownOutsideTokenInTextView:self];
+	}
+	
+	[super mouseDown:theEvent];
 }
 
 @end

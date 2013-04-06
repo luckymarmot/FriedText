@@ -12,7 +12,9 @@
 
 #import "LMJSONTextParser.h"
 
-@interface LMTextTestingWindow () /* <LMTextFieldDelegate> */ <NSTextStorageDelegate, NSTextViewDelegate>
+#import "NSArray+KeyPath.h"
+
+@interface LMTextTestingWindow () <NSTextStorageDelegate, LMTextFieldDelegate>
 
 @end
 
@@ -26,19 +28,14 @@
 	[self.textField setFont:[NSFont fontWithName:@"Menlo" size:11.f]];
 	[self.textField setContinuousSpellCheckingEnabled:NO];
 	[self.textField setAutomaticSpellingCorrectionEnabled:NO];
-	
-	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(boundsDidChange:) name:NSViewBoundsDidChangeNotification object:self.textField.enclosingScrollView.contentView];
+	[self.textField setChangeCursorOnTokens:YES];
 	
 	[self.textField setParser:[[LMJSONTextParser alloc] init]];
 	
 	[self.textField setString:[[NSString alloc] initWithData:[NSData dataWithContentsOfFile:@"/Users/michamazaheri/Desktop/Photoshot.json"] encoding:NSUTF8StringEncoding]];
 	[self.textField didChangeText];
-}
 
-- (void)boundsDidChange:(NSNotification*)notification
-{
-//	NSLog(@"BDC");
-	[self.textField boundsDidChange];
+	[self.tokenPopover setBehavior:NSPopoverBehaviorTransient];
 }
 
 #pragma mark - NSTextViewDelegate
@@ -51,34 +48,11 @@
 		  ];
 }
 
-- (void)textDidChange:(NSNotification *)notification
+- (void)textView:(LMTextField *)textView mouseDownForTokenAtRange:(NSRange)range withBounds:(NSRect)bounds keyPath:(NSArray *)keyPath
 {
-	[self.textField t];
-	[self.textField textDidChange];
-}
-
-#pragma mark - NSTextStorageDelegate
-
-- (void)textStorageDidProcessEditing:(NSNotification *)notification
-{
-	
-//	NSTextStorage* textStorage = notification.object;
-//	
-//	NSRange range = NSMakeRange(0, textStorage.length);
-//	
-//	NSMutableDictionary* attributesDefault = [NSMutableDictionary dictionaryWithObjectsAndKeys:
-//											  [NSFont fontWithName:@"Menlo" size:11.f], NSFontAttributeName,
-//											  [NSColor colorWithCalibratedWhite:0.0f alpha:1.f], NSForegroundColorAttributeName,
-//											  nil];
-//	
-//	[textStorage setAttributes:attributesDefault range:range];
-//	
-//	[textStorage removeAttribute:NSForegroundColorAttributeName range:range];
-	
-	//add new coloring
-//	[textStorage addAttribute:NSForegroundColorAttributeName
-//						value:[NSColor yellowColor]
-//						range:range];
+	[self.tokenPopover showRelativeToRect:bounds ofView:textView preferredEdge:CGRectMaxYEdge];
+	[(NSTextField*)[self.tokenPopover.contentViewController.view viewWithTag:1] setStringValue:[keyPath keyPathDescription]];
+	[(NSTextField*)[self.tokenPopover.contentViewController.view viewWithTag:2] setStringValue:[self.textField.textStorage.string substringWithRange:range]];
 }
 
 @end

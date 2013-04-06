@@ -10,6 +10,12 @@
 
 #import "LMTextParser.h"
 
+typedef enum {
+	LMTextParserTokenJSONTypeTrue		= 0x0010,
+	LMTextParserTokenJSONTypeFalse		= 0x0020,
+	LMTextParserTokenJSONTypeNull		= 0x0030,
+} LMTextParserTokenJSONType;
+
 @interface LMJSONTextParser : NSObject <LMTextParser>
 
 @end

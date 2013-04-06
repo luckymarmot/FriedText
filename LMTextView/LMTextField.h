@@ -10,12 +10,21 @@
 
 #import "LMTextParser.h"
 
+@class LMTextField;
+
+@protocol LMTextFieldDelegate <NSTextViewDelegate>
+
+@optional
+- (void)textView:(LMTextField*)textView mouseDownForTokenAtRange:(NSRange)range withBounds:(NSRect)bounds keyPath:(NSArray*)keyPath;
+- (void)mouseDownOutsideTokenInTextView:(LMTextField*)textView;
+
+@end
+
 @interface LMTextField : NSTextView
-- (void)t;
-- (void)boundsDidChange;
-- (void)textDidChange;
 - (void)_k:(NSTimer*)timer;
 
 @property (strong, nonatomic) id <LMTextParser> parser;
+
+@property (nonatomic) BOOL changeCursorOnTokens;
 
 @end

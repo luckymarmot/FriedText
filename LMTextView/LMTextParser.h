@@ -9,17 +9,19 @@
 #import <Foundation/Foundation.h>
 
 typedef enum {
-	LMTextParserTokenTypeOther = 0,
-	LMTextParserTokenTypeBoolean,
-	LMTextParserTokenTypeNumber,
-	LMTextParserTokenTypeString,
+	LMTextParserTokenTypeOther			= 0x0,
+	LMTextParserTokenTypeBoolean		= 0x1,
+	LMTextParserTokenTypeNumber			= 0x2,
+	LMTextParserTokenTypeString			= 0x3,
 } LMTextParserTokenType;
+#define LMTextParserTokenTypeMask		0x000f
+#define LMTextParserTokenCustomTypeMask 0xfff0
 
 @protocol LMTextParser <NSObject>
 
 - (void)parseString:(NSString*)string;
 
-- (void)applyAttributesInRange:(NSRange)range withBlock:(void(^)(LMTextParserTokenType tokenType, NSRange range))block;
+- (void)applyAttributesInRange:(NSRange)range withBlock:(void(^)(NSUInteger tokenTypeMask, NSRange range))block;
 
 - (NSArray *)keyPathForObjectAtCharIndex:(NSUInteger)charIndex correctedRange:(NSRange *)correctedRange;
 

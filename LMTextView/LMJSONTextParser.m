@@ -38,7 +38,7 @@
 	}
 }
 
-- (void)applyAttributesInRange:(NSRange)characterRange withBlock:(void (^)(LMTextParserTokenType, NSRange))block
+- (void)applyAttributesInRange:(NSRange)characterRange withBlock:(void (^)(NSUInteger, NSRange))block
 {
 	if (block == NULL) {
 		return;
@@ -49,11 +49,14 @@
 		if (NSIntersectionRange(characterRange, range).length > 0) {
 			if (tokens[i].type == JSMN_PRIMITIVE) {
 				const char c = ((char *)[_data bytes])[tokens[i].start];
-				if (c == 't' || c == 'f') {
-					block(LMTextParserTokenTypeBoolean, range);
+				if (c == 't') {
+					block(LMTextParserTokenTypeBoolean | LMTextParserTokenJSONTypeTrue, range);
+				}
+				else if (c == 'f') {
+					block(LMTextParserTokenTypeBoolean | LMTextParserTokenJSONTypeFalse, range);
 				}
 				else if (c == 'n') {
-					block(LMTextParserTokenTypeOther, range);
+					block(LMTextParserTokenTypeOther | LMTextParserTokenJSONTypeNull, range);
 				}
 				else {
 					block(LMTextParserTokenTypeNumber, range);

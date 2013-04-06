@@ -14,5 +14,6 @@
 
 @property (strong) IBOutlet LMTextScrollView *textScrollView;
 @property (strong) IBOutlet LMTextField *textField;
+@property (weak) IBOutlet NSPopover *tokenPopover;
 
 @end
