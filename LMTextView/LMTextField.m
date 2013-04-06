@@ -15,469 +15,143 @@
 
 #import "NSView+CocoaExtensions.h"
 
-@interface LMTextField () <LMCompletionViewDelegate> {
-	BOOL _continueCompletion;
-}
+#import "jsmn.h"
 
-- (NSRange)_completionRangeWithRange:(NSRange)range;
+#import "NSArray+KeyPath.h"
 
-@property (strong) LMCompletionView* completionView;
-- (BOOL)isCompleting;
-- (void)stopCompletion:(id)sender validated:(BOOL)validated animated:(BOOL)animated;
-- (void)complete:(id)sender animated:(BOOL)animated;
+#define NUM_TOKENS 100024
 
-@property NSRange temporaryCompletingRange;
+@interface LMTextField () {
+	BOOL _kIsProcessing;
+	NSRect _oldBounds;
+} /*<LMCompletionViewDelegate>*/
 
-@property NSMutableString* stringWithoutCompletion;
+@property (strong, nonatomic) NSTimer* timer;
 
 @end
 
-/*
- * TODO: Clean this class by reading more carefully this doc:
- * https://developer.apple.com/library/mac/#documentation/TextFonts/Conceptual/CocoaTextArchitecture/TextEditing/TextEditing.html#//apple_ref/doc/uid/TP40009459-CH3-SW16
- * In particular the "Subclassing NSTextView" part
- */
+
 
 @implementation LMTextField
 
-#pragma mark - Initialization
-
-- (void)_initialize
-{
-	_enabled = YES;
-	self.forbiddenCharacterSet = [NSMutableCharacterSet characterSetWithRange:NSMakeRange(0, 0)];
-	self.completionSeparatingCharacterSet = [NSMutableCharacterSet whitespaceAndNewlineCharacterSet];
-	
-	[self addObserver:self forKeyPath:@"editable" options:NSKeyValueObservingOptionNew context:NULL];
-	[self addObserver:self forKeyPath:@"enabled" options:NSKeyValueObservingOptionNew context:NULL];
-	[self addObserver:self forKeyPath:@"multiline" options:NSKeyValueObservingOptionNew context:NULL];
+- (void)awakeFromNib {
+    [[self window] setAcceptsMouseMovedEvents:YES];
 }
 
-- (void)setMultiline:(BOOL)multiline
+- (void)t
 {
-	if (multiline) {
-		[self.forbiddenCharacterSet formIntersectionWithCharacterSet:[[NSCharacterSet newlineCharacterSet] invertedSet]];
-	}
-	else {
-		[self.forbiddenCharacterSet formUnionWithCharacterSet:[NSCharacterSet newlineCharacterSet]];
-	}
+	[self.parser parseString:[self.textStorage string]];
 }
 
-- (BOOL)isMultiline
+- (void)boundsDidChange
 {
-	return ![self.forbiddenCharacterSet isSupersetOfSet:[NSCharacterSet newlineCharacterSet]];
-}
+	NSAssert([[NSThread currentThread] isMainThread], @"Not main thread");
 
-- (id)initWithCoder:(NSCoder *)aDecoder
-{
-	self = [super initWithCoder:aDecoder];
-	if (self) {
-		[self _initialize];
-	}
-	return self;
-}
-
-- (id)init
-{
-	self = [super init];
-	if (self) {
-		[self _initialize];
-	}
-	return self;
-}
-
-- (id)initWithFrame:(NSRect)frameRect textContainer:(NSTextContainer *)container
-{
-	self = [super initWithFrame:frameRect textContainer:container];
-	if (self) {
-		[self _initialize];
-	}
-	return self;
-}
-
-#pragma KVO
-
-- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
-{
-	NSLog(@"KVO: %@ %@ > %@", NSStringFromClass([object class]), keyPath, [change objectForKey:NSKeyValueChangeNewKey]);
-	
-	if (object == self.completionView && [keyPath isEqualToString:@"completingString"]) {
-		NSString* completingString = [self.completionView completingString];
-		[self insertCompletion:completingString forPartialWordRange:self.rangeForUserCompletion movement:0 isFinal:NO];
-	}
-}
-
-#pragma Implementation
-
-- (NSRange)secureTemporaryCompletingRange
-{
-	NSInteger position = MIN(MAX(0, _temporaryCompletingRange.location), self.textStorage.length);
-	NSRange securedRange = NSMakeRange(position, MIN(_temporaryCompletingRange.length, self.textStorage.length - position));
-	return securedRange;
-}
-
-- (BOOL)acceptsFirstResponder
-{
-	return _enabled;
-}
-
-- (BOOL)isCompleting
-{
-	return [self.completionView superview] != nil;
-}
-
-- (void)awakeFromNib
-{
-	_temporaryCompletingRange = NSMakeRange(NSNotFound, 0);
-	_continueCompletion = NO;
-	
-	self.completionView = [[LMCompletionView alloc] initWithFrame:NSMakeRect(0.f, 0.f, 200.f, 100.f)];
-	self.completionView.delegate = self;
-	
-	[self.completionView addObserver:self forKeyPath:@"completingString" options:0 context:NULL];
-	
-	[self setContinuousSpellCheckingEnabled:NO];
-	[self setAutomaticSpellingCorrectionEnabled:NO];
-	[self setGrammarCheckingEnabled:NO];
-	
-	const float LargeNumberForText = 1.0e7;
-	
-	NSScrollView *scrollView = [self enclosingScrollView];
-	[scrollView setHasVerticalScroller:NO];
-	[scrollView setHasHorizontalScroller:NO];
-	
-	NSTextContainer *textContainer = [self textContainer];
-	[textContainer setContainerSize:NSMakeSize(LargeNumberForText, LargeNumberForText)];
-	[textContainer setWidthTracksTextView:NO];
-	[textContainer setHeightTracksTextView:NO];
-	
-	[self setMaxSize:NSMakeSize(LargeNumberForText, LargeNumberForText)];
-	[self setHorizontallyResizable:YES];
-	[self setVerticallyResizable:YES];
-	[self setAutoresizingMask:NSViewNotSizable];
-	
-	[self setTextContainerInset:NSMakeSize(2.f, 4.f)];
-	
-	[self setSelectedTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
-									[NSColor colorWithCalibratedWhite:0.6f alpha:0.4f], NSBackgroundColorAttributeName,
-									nil]];
-
-}
-
-- (void)_setAttributes
-{
-	NSMutableDictionary* attributesDefault = [NSMutableDictionary dictionaryWithObjectsAndKeys:
-											  [NSFont fontWithName:@"Menlo" size:11.f], NSFontAttributeName,
-											  [NSColor colorWithCalibratedWhite:0.0f alpha:1.f], NSForegroundColorAttributeName,
-											  nil];
-	
-	NSMutableDictionary* attributesTemporaryCompleting = [attributesDefault mutableCopy];
-	[attributesTemporaryCompleting setValue:[NSColor colorWithCalibratedWhite:0.3f alpha:1.f] forKey:NSForegroundColorAttributeName];
-	
-	[self.textStorage setAttributes:attributesDefault range:NSMakeRange(0, self.textStorage.length)];
-	if (_temporaryCompletingRange.location != NSNotFound) {
-		[self.textStorage setAttributes:attributesTemporaryCompleting range:[self secureTemporaryCompletingRange]];
-	}
-}
-
-- (void)insertText:(id)insertString
-{
-	[super insertText:insertString];
-	
-	if (_stringWithoutCompletion) {
-		[_stringWithoutCompletion appendString:insertString];
-	}
-	
-	[self complete:nil animated:NO];
-}
-
-- (NSArray *)completionsForPartialWordRange:(NSRange)charRange indexOfSelectedItem:(NSInteger *)index
-{
-	return [self.delegate textView:self completions:nil forPartialWordRange:charRange indexOfSelectedItem:index];
-}
-
-- (NSRange)rangeForUserCompletion
-{
-	return [self _completionRangeWithRange:self.selectedRange];
-}
-
-- (void)stopCompletion:(id)sender validated:(BOOL)validated animated:(BOOL)animated
-{
-	if (_stringWithoutCompletion && !validated) {
-		[self.textStorage replaceCharactersInRange:NSMakeRange(0, [self.textStorage length]) withString:[_stringWithoutCompletion substringWithRange:NSMakeRange(0, MIN([_stringWithoutCompletion length], [self.textStorage length]))]];
-	}
-	_stringWithoutCompletion = nil;
-	_temporaryCompletingRange = NSMakeRange(NSNotFound, 0);
-
-	if ([self isCompleting]) {
-		if (animated) {
-			[self.completionView setWantsLayer:YES];
-
-			CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:@"opacity"];
-			animation.fromValue = [NSNumber numberWithDouble:1.0];
-			animation.toValue = [NSNumber numberWithDouble:0.0];
-			animation.delegate = self;
-			animation.fillMode = kCAFillModeForwards;
-			animation.removedOnCompletion = NO;
-			
-			[self.completionView.layer addAnimation:animation forKey:@"opacity"];
+	if (!_kIsProcessing) {
+		if (self.timer != nil) {
+			[self.timer invalidate];
+			self.timer = nil;
 		}
-		else {
-			[self.completionView removeFromSuperview];
-		}
+		self.timer = [NSTimer scheduledTimerWithTimeInterval:0.1 target:self selector:@selector(_k:) userInfo:@(1) repeats:NO];
 	}
 }
 
-- (void)animationDidStop:(CAAnimation *)anim finished:(BOOL)flag
+- (void)textDidChange
 {
-    [self.completionView removeFromSuperview];
-}
-
-- (void)cancelCompletion:(id)sender
-{
-	// Erase previous completion
-	if (_temporaryCompletingRange.location != NSNotFound) {
-		[self.textStorage replaceCharactersInRange:[self secureTemporaryCompletingRange] withString:@""];
-	}
-	_temporaryCompletingRange = NSMakeRange(NSNotFound, 0);
-}
-
-- (void)complete:(id)sender
-{
-	[self complete:sender animated:YES];
-}
-
-- (void)complete:(id)sender animated:(BOOL)animated
-{
-	NSRange rangeForUserCompletion = self.rangeForUserCompletion;
-	NSArray* completions = [self completionsForPartialWordRange:rangeForUserCompletion indexOfSelectedItem:NULL];
-
-	if ([completions count] == 0) {
-		[self.completionView removeFromSuperview];
-	}
-	else {
-		_continueCompletion = YES;
-		
-		[self.completionView setCompletions:completions];
-
-		// Calculating completion view frame
-		NSRect glyphRange = [self.layoutManager boundingRectForGlyphRange:rangeForUserCompletion inTextContainer:self.textContainer];
-		NSRect glyphRangeInTextView = NSOffsetRect(glyphRange, self.textContainerOrigin.x, self.textContainerOrigin.y);
-		
-		CGFloat completionWidth = self.superview.bounds.size.width + 28.f;
-		CGFloat completionHeight = MIN(self.completionView.tableView.rowHeight * [self.completionView.completions count],
-									   self.completionContainer.bounds.size.height > 550.f ? 250.f : 100.f)  + self.completionView.textFieldHeight + self.completionView.completionInset.height * 2;
-		CGFloat completionVerticalMargin = 10.f;
-
-		// Get the container rect in the view's coordinates to check if the completion view won't move outside the text when text is scrolled
-		CGRect containerRect = [self convertRect:self.enclosingScrollView.bounds fromView:self.enclosingScrollView];
-
-		CGRect completionRect = CGRectMake(round(MAX(glyphRangeInTextView.origin.x, containerRect.origin.x) - completionVerticalMargin - self.completionView.completionInset.width),
-										   round(glyphRangeInTextView.origin.y + glyphRangeInTextView.size.height - self.completionView.completionInset.height),
-										   completionWidth,
-										   completionHeight);
-		CGRect completionRectConverted = [self.completionContainer convertRect:completionRect fromView:self];
-		CGPoint anchorPoint = CGPointMake(0.5,1.0);
-		
-		// If completion view cannot fit downside the text view, move it upside
-		if (!CGRectContainsRect(self.completionContainer.bounds, completionRectConverted)) {
-			anchorPoint = CGPointMake(0.5,0.0);
-			completionRect.origin.y = round(glyphRangeInTextView.origin.y - completionHeight);
-			completionRectConverted = [self.completionContainer convertRect:completionRect fromView:self];
-		}
-
-		self.completionView.frame = completionRectConverted;
-		
-		if (self.completionView.superview == nil) {
-			[self.completionContainer addSubview:self.completionView positioned:NSWindowAbove relativeTo:nil];
-			
-			[self.completionView setWantsLayer:YES];
-
-			if (animated) {
-				[self.completionView setAnchorPoint:anchorPoint];
-				{
-					CAKeyframeAnimation *animation = [CAKeyframeAnimation
-													  animationWithKeyPath:@"transform"];
-					NSArray *frameValues = [NSArray arrayWithObjects:
-											[NSValue valueWithCATransform3D:CATransform3DMakeAffineTransform(CGAffineTransformMakeScale(0.1f, 0.1f))],
-											[NSValue valueWithCATransform3D:CATransform3DMakeAffineTransform(CGAffineTransformMakeScale(1.1f, 1.1f))],
-											[NSValue valueWithCATransform3D:CATransform3DMakeAffineTransform(CGAffineTransformMakeScale(1.0f, 1.0f))],
-											nil];
-					[animation setValues:frameValues];
-					NSArray *frameTimes = [NSArray arrayWithObjects:
-										   [NSNumber numberWithFloat:0.0],
-										   [NSNumber numberWithFloat:0.9],
-										   [NSNumber numberWithFloat:1.0],
-										   nil];
-					[animation setKeyTimes:frameTimes];
-					animation.fillMode = kCAFillModeForwards;
-					animation.removedOnCompletion = YES;
-					
-					[self.completionView.layer addAnimation:animation forKey:@"popup"];
-				}
-				
-				{
-					CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:@"opacity"];
-					animation.fromValue = [NSNumber numberWithDouble:0.0];
-					animation.toValue = [NSNumber numberWithDouble:1.0];
-					animation.fillMode = kCAFillModeForwards;
-					animation.removedOnCompletion = YES;
-					
-					[self.completionView.layer addAnimation:animation forKey:@"opacity"];
-				}
-			}
-		}
-	}
-}
-
-- (void)insertCompletion:(NSString *)word forPartialWordRange:(NSRange)charRange movement:(NSInteger)movement isFinal:(BOOL)isFinal
-{
-	if (_stringWithoutCompletion == nil) {
-		_stringWithoutCompletion = [[self.textStorage string] mutableCopy];
-	}
+	NSAssert([[NSThread currentThread] isMainThread], @"Not main thread");
 	
-	NSRange selectedRange = self.selectedRange;
-	NSRange replaceRange;
-	NSRange secureTemporaryCompletingRange = [self secureTemporaryCompletingRange];
-	if (secureTemporaryCompletingRange.location == NSNotFound) {
-		replaceRange = charRange;
+	if (!_kIsProcessing) {
+		if (self.timer != nil) {
+			[self.timer invalidate];
+			self.timer = nil;
+		}
+		self.timer = [NSTimer scheduledTimerWithTimeInterval:0.1 target:self selector:@selector(_k:) userInfo:@(2) repeats:NO];
 	}
-	else {
-		replaceRange = NSMakeRange(charRange.location, secureTemporaryCompletingRange.location + secureTemporaryCompletingRange.length - charRange.location);
-	}
+}
+
+- (void)_k:(NSTimer*)timer
+{
+	NSAssert([[NSThread currentThread] isMainThread], @"Not main thread");
+	NSAssert(timer == self.timer, @"Weird timer");
 	
-	if (![self shouldChangeTextInRange:replaceRange replacementString:word]) {
+	if ([timer.userInfo isEqual:@(1)] && NSEqualRects(self.enclosingScrollView.contentView.bounds, _oldBounds)) {
 		return;
 	}
 	
-	[self.textStorage replaceCharactersInRange:replaceRange withString:word];
-
-	if (isFinal) {
-		_temporaryCompletingRange = NSMakeRange(NSNotFound, 0);
-		[self setSelectedRange:NSMakeRange(replaceRange.location + [word length], 0)];
-		[self stopCompletion:nil validated:YES animated:YES];
-	}
-	else {
-		_temporaryCompletingRange = NSMakeRange(selectedRange.location, [word length] - (selectedRange.location - replaceRange.location));
-		[self setSelectedRange:selectedRange];
-	}
-
-	[self didChangeText];
-}
-
-- (void)didChangeText
-{
-	NSRange forbiddenCharactersRange = [[self.textStorage string] rangeOfCharacterFromSet:self.forbiddenCharacterSet];
-	if (forbiddenCharactersRange.location != NSNotFound) {
-		[self.textStorage replaceCharactersInRange:NSMakeRange(forbiddenCharactersRange.location, [self.textStorage length] - forbiddenCharactersRange.location) withString:@""];
-	}
+	_oldBounds = self.enclosingScrollView.contentView.bounds;
 	
-	[self _setAttributes];
+	_kIsProcessing = YES;
 
-	[super didChangeText];
+	NSLayoutManager *layoutManager = [self layoutManager];
+	
+	NSColor* baseColor = [NSColor colorWithCalibratedRed:93.f/255.f green:72.f/255.f blue:55.f/255.f alpha:1.f];
+	NSColor* primitiveColor = [NSColor colorWithCalibratedRed:160.f/255.f green:208.f/255.f blue:202.f/255.f alpha:1.f];
+	NSColor* stringColor = [NSColor colorWithCalibratedRed:33.f/255.f green:82.f/255.f blue:116.f/255.f alpha:1.f];
+	
+	[self setTextColor:baseColor];
+	
+	NSRange glyphRange = [self.layoutManager glyphRangeForBoundingRect:self.enclosingScrollView.documentVisibleRect inTextContainer:self.textContainer];
+//	NSRange characterRange = [self.textStorage editedRange];
+	NSRange characterRange = [self.layoutManager characterRangeForGlyphRange:glyphRange actualGlyphRange:NULL];
+//	NSRange characterRange = NSMakeRange(0, [self.textStorage.string length]);
+
+	[layoutManager removeTemporaryAttribute:NSForegroundColorAttributeName forCharacterRange:NSMakeRange(0, [self.textStorage.string length])];
+	
+	[self.parser applyAttributesInRange:characterRange withBlock:^(LMTextParserTokenType tokenType, NSRange range) {
+		switch (tokenType) {
+			case LMTextParserTokenTypeBoolean:
+				[layoutManager addTemporaryAttribute:NSForegroundColorAttributeName value:primitiveColor forCharacterRange:range];
+				break;
+			case LMTextParserTokenTypeNumber:
+				[layoutManager addTemporaryAttribute:NSForegroundColorAttributeName value:primitiveColor forCharacterRange:range];
+				break;
+			case LMTextParserTokenTypeString:
+				[layoutManager addTemporaryAttribute:NSForegroundColorAttributeName value:stringColor forCharacterRange:range];
+				break;
+			case LMTextParserTokenTypeOther:
+				[layoutManager addTemporaryAttribute:NSForegroundColorAttributeName value:primitiveColor forCharacterRange:range];
+				break;
+		}
+	}];
+	
+	_kIsProcessing = NO;
 }
 
-- (NSRange)_completionRangeWithRange:(NSRange)range
-{
-	NSRange whiteRange = [self.string rangeOfCharacterFromSet:self.completionSeparatingCharacterSet options:NSBackwardsSearch range:NSMakeRange(0, range.location)];
-	NSRange completionWordRange;
-	if (whiteRange.location == NSNotFound) {
-		completionWordRange = NSMakeRange(0, range.location);
-	}
-	else {
-		completionWordRange = NSMakeRange(whiteRange.location + whiteRange.length, range.location - whiteRange.location - whiteRange.length);
-	}
-	return completionWordRange;
-}
-
-- (void)keyDown:(NSEvent *)theEvent
-{
-	if (theEvent.keyCode == 36) { // ENTER
-		if ([self isCompleting]) {
-			NSString* completingString = [self.completionView completingString];
-			[self insertCompletion:completingString forPartialWordRange:self.rangeForUserCompletion movement:0 isFinal:YES];
-		}
-		else {
-			if ([self isMultiline]) {
-				[super keyDown:theEvent];
-			}
-		}
-	}
-	else if (theEvent.keyCode == 53) { // ESC
-		if ([self isCompleting]) {
-			[self stopCompletion:nil validated:NO animated:YES];
-		}
-		else {
-			[self complete:nil animated:YES];
-		}
-	}
-	else if (theEvent.keyCode == 125) { // Move down
-		if ([self isCompleting]) {
-			[self.completionView selectNextCompletion];
-		}
-		else {
-			[super keyDown:theEvent];
-		}
-	}
-	else if (theEvent.keyCode == 126) { // Move up
-		if ([self isCompleting]) {
-			[self.completionView selectPreviousCompletion];
-		}
-		else {
-			[super keyDown:theEvent];
-		}
-	}
-	else if (theEvent.keyCode == 48) { // TAB
-		[self stopCompletion:nil validated:NO animated:YES];
+- (void)mouseMoved:(NSEvent *)theEvent {
+    NSLayoutManager *layoutManager = [self layoutManager];
+    NSTextContainer *textContainer = [self textContainer];
+    NSUInteger glyphIndex, charIndex, textLength = [[self textStorage] length];
+    NSPoint point = [self convertPoint:[theEvent locationInWindow] fromView:nil];
+    NSRect glyphRect;
+    
+    // Remove any existing coloring.
+    [layoutManager removeTemporaryAttribute:NSUnderlineStyleAttributeName forCharacterRange:NSMakeRange(0, textLength)];
+    
+    // Convert view coordinates to container coordinates
+    point.x -= [self textContainerOrigin].x;
+    point.y -= [self textContainerOrigin].y;
+    
+    // Convert those coordinates to the nearest glyph index
+    glyphIndex = [layoutManager glyphIndexForPoint:point inTextContainer:textContainer];
+    
+    // Check to see whether the mouse actually lies over the glyph it is nearest to
+    glyphRect = [layoutManager boundingRectForGlyphRange:NSMakeRange(glyphIndex, 1) inTextContainer:textContainer];
+    if (NSPointInRect(point, glyphRect)) {
+        // Convert the glyph index to a character index
+        charIndex = [layoutManager characterIndexForGlyphAtIndex:glyphIndex];
+        
+		NSRange tokenRange;
 		
-		if (theEvent.modifierFlags & NSShiftKeyMask) {
-			if ([self.delegate respondsToSelector:@selector(shouldSetPreviousResponder:)]) {
-				[self.delegate performSelector:@selector(shouldSetPreviousResponder:)withObject:self];
-			}
+		NSArray* path = [self.parser keyPathForObjectAtCharIndex:charIndex correctedRange:&tokenRange];
+        
+		if (tokenRange.location != NSNotFound) {
+			[layoutManager addTemporaryAttribute:NSUnderlineStyleAttributeName value:@(NSUnderlinePatternDot | NSUnderlineStyleSingle | NSUnderlineByWordMask) forCharacterRange:tokenRange];
 		}
-		else {
-			if ([self.delegate respondsToSelector:@selector(shouldSetNextResponder:)]) {
-				[self.delegate performSelector:@selector(shouldSetNextResponder:)withObject:self];
-			}
+		
+		if (path) {
+			NSLog(@"> %@", [path keyPathDescription]);
 		}
-	}
-	else {
-		_continueCompletion = NO;
-		[self cancelCompletion:nil];
-		[super keyDown:theEvent];
-		if (!_continueCompletion) {
-			[self stopCompletion:nil validated:NO animated:NO];
-		}
-	}
-}
-
-- (void)mouseDown:(NSEvent *)theEvent
-{
-	[self stopCompletion:nil validated:NO animated:YES];
-	[super mouseDown:theEvent];
-}
-
-- (void)setEnabled:(BOOL)enabled
-{
-	_enabled = enabled;
-	self.alphaValue = enabled ? 1.0f : 0.3f;
-	[self setEditable:enabled];
-	[self setNeedsDisplay:YES];
-}
-
-- (BOOL)resignFirstResponder
-{
-	self.selectedRange = NSMakeRange(self.selectedRange.location, 0);
-	[self stopCompletion:nil validated:NO animated:NO];
-	[super resignFirstResponder];
-	return YES;
-}
-
-#pragma mark - LMCompletionViewDelegate
-
-- (void)didSelectCompletingString:(NSString *)completingString
-{
-	[self insertCompletion:completingString forPartialWordRange:self.rangeForUserCompletion movement:0 isFinal:YES];
+    }
 }
 
 @end

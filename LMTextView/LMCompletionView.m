@@ -13,7 +13,8 @@
 
 #import "NSView+CocoaExtensions.h"
 
-#import "LMCompletionEntry.h"
+NSString* LMCompletionEntryWordKey = @"word";
+NSString* LMCompletionEntryDescriptionKey = @"desc";
 
 @interface LMCompletionView () <NSTableViewDataSource, NSTableViewDelegate>
 
@@ -162,7 +163,7 @@
 - (NSView *)tableView:(NSTableView *)tableView viewForTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row
 {
 	LMCompletionTableCellView* view = [[LMCompletionTableCellView alloc] init];
-	view.string = [(LMCompletionEntry*)[_completions objectAtIndex:row] word];
+	view.string = [[_completions objectAtIndex:row] valueForKey:LMCompletionEntryWordKey];
 	return view;
 }
 
@@ -178,8 +179,8 @@
 - (NSString *)completingString
 {
 	if (self.tableView.selectedRow >= 0) {
-		LMCompletionEntry* completion = [_completions objectAtIndex:self.tableView.selectedRow];
-		return completion.word;
+		id completionEntry = [_completions objectAtIndex:self.tableView.selectedRow];
+		return [completionEntry objectForKey:LMCompletionEntryWordKey];
 	}
 	else {
 		return nil;
@@ -189,8 +190,8 @@
 - (NSString *)completingDescription
 {
 	if (self.tableView.selectedRow >= 0) {
-		LMCompletionEntry* completion = [_completions objectAtIndex:self.tableView.selectedRow];
-		return completion.desc;
+		id completionEntry = [_completions objectAtIndex:self.tableView.selectedRow];
+		return [completionEntry objectForKey:LMCompletionEntryDescriptionKey];
 	}
 	else {
 		return nil;

@@ -12,6 +12,7 @@
 
 @implementation LMTextScrollView
 
+#ifdef __DISABLED__
 - (void)drawRect:(NSRect)dirtyRect
 {
 	//// General Declarations
@@ -57,5 +58,6 @@
 {
 	[self.nextResponder scrollWheel:theEvent];
 }
+#endif
 
 @end

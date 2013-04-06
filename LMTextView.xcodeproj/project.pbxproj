@@ -15,18 +15,20 @@
 		AE04F618170EEA170032338C /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = AE04F616170EEA170032338C /* MainMenu.xib */; };
 		AE04F622170EEA8A0032338C /* LMTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = AE04F61F170EEA8A0032338C /* LMTextField.m */; };
 		AE04F623170EEA8A0032338C /* LMTextScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = AE04F621170EEA8A0032338C /* LMTextScrollView.m */; };
-		AE04F630170EEAEF0032338C /* LMCompletionEntry.m in Sources */ = {isa = PBXBuildFile; fileRef = AE04F625170EEAEF0032338C /* LMCompletionEntry.m */; };
 		AE04F633170EEAEF0032338C /* LMCompletionTableCellView.m in Sources */ = {isa = PBXBuildFile; fileRef = AE04F62B170EEAEF0032338C /* LMCompletionTableCellView.m */; };
 		AE04F634170EEAEF0032338C /* LMCompletionTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = AE04F62D170EEAEF0032338C /* LMCompletionTableView.m */; };
 		AE04F635170EEAEF0032338C /* LMCompletionView.m in Sources */ = {isa = PBXBuildFile; fileRef = AE04F62F170EEAEF0032338C /* LMCompletionView.m */; };
 		AE04F638170EEB110032338C /* Quartz.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AE04F636170EEB110032338C /* Quartz.framework */; };
 		AE04F639170EEB110032338C /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AE04F637170EEB110032338C /* QuartzCore.framework */; };
 		AE04F640170EEDB90032338C /* LMTextTestingWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = AE04F63F170EEDB90032338C /* LMTextTestingWindow.m */; };
+		AE0C57E7170FBF4700FDFBDA /* LMJSONTextParser.m in Sources */ = {isa = PBXBuildFile; fileRef = AE0C57E6170FBF4700FDFBDA /* LMJSONTextParser.m */; };
 		AE4E749A170EF98F003BF794 /* NSView+CocoaExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = AE4E7499170EF98E003BF794 /* NSView+CocoaExtensions.m */; };
+		AE4E74A2170F1561003BF794 /* jsmn.c in Sources */ = {isa = PBXBuildFile; fileRef = AE4E74A0170F1561003BF794 /* jsmn.c */; };
+		AE4E74AB170F4504003BF794 /* NSArray+KeyPath.m in Sources */ = {isa = PBXBuildFile; fileRef = AE4E74AA170F4504003BF794 /* NSArray+KeyPath.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		AE04F5FE170EEA170032338C /* LMTextView.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; name = LMTextView.app; path = "LMTextView Testing.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		AE04F5FE170EEA170032338C /* LMTextView Testing.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "LMTextView Testing.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		AE04F601170EEA170032338C /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		AE04F604170EEA170032338C /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
 		AE04F605170EEA170032338C /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
@@ -43,8 +45,6 @@
 		AE04F61F170EEA8A0032338C /* LMTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LMTextField.m; sourceTree = "<group>"; };
 		AE04F620170EEA8A0032338C /* LMTextScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LMTextScrollView.h; sourceTree = "<group>"; };
 		AE04F621170EEA8A0032338C /* LMTextScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LMTextScrollView.m; sourceTree = "<group>"; };
-		AE04F624170EEAEF0032338C /* LMCompletionEntry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LMCompletionEntry.h; sourceTree = "<group>"; };
-		AE04F625170EEAEF0032338C /* LMCompletionEntry.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LMCompletionEntry.m; sourceTree = "<group>"; };
 		AE04F62A170EEAEF0032338C /* LMCompletionTableCellView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LMCompletionTableCellView.h; sourceTree = "<group>"; };
 		AE04F62B170EEAEF0032338C /* LMCompletionTableCellView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LMCompletionTableCellView.m; sourceTree = "<group>"; };
 		AE04F62C170EEAEF0032338C /* LMCompletionTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LMCompletionTableView.h; sourceTree = "<group>"; };
@@ -55,8 +55,15 @@
 		AE04F637170EEB110032338C /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		AE04F63E170EEDB90032338C /* LMTextTestingWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LMTextTestingWindow.h; sourceTree = "<group>"; };
 		AE04F63F170EEDB90032338C /* LMTextTestingWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LMTextTestingWindow.m; sourceTree = "<group>"; };
+		AE0C57E4170FBE5900FDFBDA /* LMTextParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LMTextParser.h; sourceTree = "<group>"; };
+		AE0C57E5170FBF4700FDFBDA /* LMJSONTextParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LMJSONTextParser.h; sourceTree = "<group>"; };
+		AE0C57E6170FBF4700FDFBDA /* LMJSONTextParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LMJSONTextParser.m; sourceTree = "<group>"; };
 		AE4E7498170EF98E003BF794 /* NSView+CocoaExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSView+CocoaExtensions.h"; sourceTree = "<group>"; };
 		AE4E7499170EF98E003BF794 /* NSView+CocoaExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSView+CocoaExtensions.m"; sourceTree = "<group>"; };
+		AE4E74A0170F1561003BF794 /* jsmn.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = jsmn.c; path = Dependencies/jsmn/jsmn.c; sourceTree = "<group>"; };
+		AE4E74A1170F1561003BF794 /* jsmn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = jsmn.h; path = Dependencies/jsmn/jsmn.h; sourceTree = "<group>"; };
+		AE4E74A9170F4504003BF794 /* NSArray+KeyPath.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+KeyPath.h"; sourceTree = "<group>"; };
+		AE4E74AA170F4504003BF794 /* NSArray+KeyPath.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+KeyPath.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -85,7 +92,7 @@
 		AE04F5FF170EEA170032338C /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				AE04F5FE170EEA170032338C /* LMTextView.app */,
+				AE04F5FE170EEA170032338C /* LMTextView Testing.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -117,7 +124,9 @@
 				AE04F642170EEDC80032338C /* App */,
 				AE04F643170EEDCC0032338C /* Text Field */,
 				AE04F641170EEDC10032338C /* Completion */,
+				AE4E74A8170F41D0003BF794 /* KeyPath */,
 				AE4E749B170EF991003BF794 /* Categories */,
+				AE4E74A3170F1565003BF794 /* Dependencies */,
 				AE04F608170EEA170032338C /* Supporting Files */,
 			);
 			path = LMTextView;
@@ -138,8 +147,6 @@
 		AE04F641170EEDC10032338C /* Completion */ = {
 			isa = PBXGroup;
 			children = (
-				AE04F624170EEAEF0032338C /* LMCompletionEntry.h */,
-				AE04F625170EEAEF0032338C /* LMCompletionEntry.m */,
 				AE04F62A170EEAEF0032338C /* LMCompletionTableCellView.h */,
 				AE04F62B170EEAEF0032338C /* LMCompletionTableCellView.m */,
 				AE04F62C170EEAEF0032338C /* LMCompletionTableView.h */,
@@ -169,6 +176,9 @@
 				AE04F61F170EEA8A0032338C /* LMTextField.m */,
 				AE04F620170EEA8A0032338C /* LMTextScrollView.h */,
 				AE04F621170EEA8A0032338C /* LMTextScrollView.m */,
+				AE0C57E4170FBE5900FDFBDA /* LMTextParser.h */,
+				AE0C57E5170FBF4700FDFBDA /* LMJSONTextParser.h */,
+				AE0C57E6170FBF4700FDFBDA /* LMJSONTextParser.m */,
 			);
 			name = "Text Field";
 			sourceTree = "<group>";
@@ -180,6 +190,32 @@
 				AE4E7499170EF98E003BF794 /* NSView+CocoaExtensions.m */,
 			);
 			name = Categories;
+			sourceTree = "<group>";
+		};
+		AE4E74A3170F1565003BF794 /* Dependencies */ = {
+			isa = PBXGroup;
+			children = (
+				AE4E74A4170F156A003BF794 /* JSMN */,
+			);
+			name = Dependencies;
+			sourceTree = "<group>";
+		};
+		AE4E74A4170F156A003BF794 /* JSMN */ = {
+			isa = PBXGroup;
+			children = (
+				AE4E74A0170F1561003BF794 /* jsmn.c */,
+				AE4E74A1170F1561003BF794 /* jsmn.h */,
+			);
+			name = JSMN;
+			sourceTree = "<group>";
+		};
+		AE4E74A8170F41D0003BF794 /* KeyPath */ = {
+			isa = PBXGroup;
+			children = (
+				AE4E74A9170F4504003BF794 /* NSArray+KeyPath.h */,
+				AE4E74AA170F4504003BF794 /* NSArray+KeyPath.m */,
+			);
+			name = KeyPath;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -199,7 +235,7 @@
 			);
 			name = "LMTextView Testing";
 			productName = LMTextView;
-			productReference = AE04F5FE170EEA170032338C /* LMTextView.app */;
+			productReference = AE04F5FE170EEA170032338C /* LMTextView Testing.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -251,12 +287,14 @@
 				AE04F615170EEA170032338C /* LMAppDelegate.m in Sources */,
 				AE04F622170EEA8A0032338C /* LMTextField.m in Sources */,
 				AE04F623170EEA8A0032338C /* LMTextScrollView.m in Sources */,
-				AE04F630170EEAEF0032338C /* LMCompletionEntry.m in Sources */,
 				AE04F633170EEAEF0032338C /* LMCompletionTableCellView.m in Sources */,
 				AE04F634170EEAEF0032338C /* LMCompletionTableView.m in Sources */,
 				AE04F635170EEAEF0032338C /* LMCompletionView.m in Sources */,
 				AE04F640170EEDB90032338C /* LMTextTestingWindow.m in Sources */,
 				AE4E749A170EF98F003BF794 /* NSView+CocoaExtensions.m in Sources */,
+				AE4E74A2170F1561003BF794 /* jsmn.c in Sources */,
+				AE4E74AB170F4504003BF794 /* NSArray+KeyPath.m in Sources */,
+				AE0C57E7170FBF4700FDFBDA /* LMJSONTextParser.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

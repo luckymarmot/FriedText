@@ -8,26 +8,14 @@
 
 #import <Cocoa/Cocoa.h>
 
-@class LMTextField;
-
-@protocol LMTextFieldDelegate <NSTextViewDelegate>
-
-@optional
-
-- (void)shouldSetNextResponder:(LMTextField*)textField;
-- (void)shouldSetPreviousResponder:(LMTextField*)textField;
-
-@end
+#import "LMTextParser.h"
 
 @interface LMTextField : NSTextView
+- (void)t;
+- (void)boundsDidChange;
+- (void)textDidChange;
+- (void)_k:(NSTimer*)timer;
 
-@property (strong, nonatomic) NSMutableCharacterSet* completionSeparatingCharacterSet;
-@property (weak, nonatomic) NSView* completionContainer;
-@property (strong, nonatomic) NSMutableCharacterSet* forbiddenCharacterSet;
-
-@property (nonatomic) BOOL enabled;
-
-- (void)setMultiline:(BOOL)multiline;
-- (BOOL)isMultiline;
+@property (strong, nonatomic) id <LMTextParser> parser;
 
 @end
