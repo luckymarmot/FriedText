@@ -17,5 +17,6 @@
 @property (weak) IBOutlet NSPopover *tokenPopover;
 
 - (IBAction)tokenize:(id)sender;
+- (IBAction)foldSelection:(id)sender;
 
 @end

@@ -15,6 +15,7 @@
 #import "NSArray+KeyPath.h"
 
 #import "LMTokenAttachmentCell.h"
+#import "LMFoldingTextAttachmentCell.h"
 
 @interface LMTextTestingWindow () <NSTextStorageDelegate, LMTextFieldDelegate> {
 	NSRange _tokenPopoverRange;
@@ -51,10 +52,41 @@
 	NSTextAttachment* textAttachment = [[NSTextAttachment alloc] init];
 	textAttachment.attachmentCell = tokenCell;
 	NSAttributedString* attributedString = [NSAttributedString attributedStringWithAttachment:textAttachment];
-	[self.textField.textStorage replaceCharactersInRange:_tokenPopoverRange withAttributedString:attributedString];
-	[self.textField didChangeText];
+	if ([self.textField shouldChangeTextInRange:_tokenPopoverRange replacementString:[attributedString string]]) {
+		[self.textField.textStorage replaceCharactersInRange:_tokenPopoverRange withAttributedString:attributedString];
+		[self.textField didChangeText];
+	}
 	
 	[self.tokenPopover close];
+}
+
+- (void)foldSelection:(id)sender
+{
+	NSMutableArray* ranges = [NSMutableArray array];
+	NSMutableArray* attributedStrings = [NSMutableArray array];
+	NSMutableArray* strings = [NSMutableArray array];
+	
+	[[self.textField selectedRanges] enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+		if ([obj rangeValue].length > 0 && [obj rangeValue].location != NSNotFound) {
+			LMFoldingTextAttachmentCell* cell = [[LMFoldingTextAttachmentCell alloc] init];
+			
+			NSTextAttachment* textAttachment = [[NSTextAttachment alloc] init];
+			textAttachment.attachmentCell = cell;
+			NSAttributedString* attributedString = [NSAttributedString attributedStringWithAttachment:textAttachment];
+			[ranges addObject:obj];
+			[attributedStrings addObject:attributedString];
+			[strings addObject:[attributedString string]];
+		}
+	}];
+
+	if ([ranges count] > 0 && [self.textField shouldChangeTextInRanges:ranges replacementStrings:strings]) {
+		[self.textField.textStorage beginEditing];
+		for (NSUInteger i = 0; i < [ranges count]; i++) {
+			[self.textField.textStorage replaceCharactersInRange:[[ranges objectAtIndex:i] rangeValue] withAttributedString:[attributedStrings objectAtIndex:i]];
+		}
+		[self.textField.textStorage endEditing];
+		[self.textField didChangeText];
+	}
 }
 
 #pragma mark - NSTextViewDelegate

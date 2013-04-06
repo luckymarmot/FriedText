@@ -18,7 +18,7 @@
 
 - (NSSize)cellSize
 {
-	return NSMakeSize(80.f, 13.f);
+	return NSMakeSize(20.f, 13.f);
 }
 
 - (NSPoint)cellBaselineOffset
@@ -40,8 +40,8 @@
 {
 //	NSLog(@"Draw");
 	
-	NSColor* bgColor = [NSColor colorWithCalibratedRed:173.f/255.f green:179.f/255.f blue:182.f/255.f alpha:1.f];
-	NSColor* borderColor = [NSColor colorWithCalibratedRed:110.f/255.f green:116.f/255.f blue:114.f/255.f alpha:1.f];
+	NSColor* bgColor = [NSColor colorWithCalibratedRed:0.f/255.f green:179.f/255.f blue:182.f/255.f alpha:1.f];
+	NSColor* borderColor = [NSColor colorWithCalibratedRed:0.f/255.f green:116.f/255.f blue:114.f/255.f alpha:1.f];
 	
 	NSRect frame = cellFrame;
 	CGFloat radius = ceilf([self cellSize].height / 2.f);

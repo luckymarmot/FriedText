@@ -1184,6 +1184,25 @@
 										</array>
 									</object>
 								</object>
+								<object class="NSMenuItem" id="836096751">
+									<reference key="NSMenu" ref="941447902"/>
+									<bool key="NSIsDisabled">YES</bool>
+									<bool key="NSIsSeparator">YES</bool>
+									<string key="NSTitle"/>
+									<string key="NSKeyEquiv"/>
+									<int key="NSMnemonicLoc">2147483647</int>
+									<reference key="NSOnImage" ref="35465992"/>
+									<reference key="NSMixedImage" ref="502551668"/>
+								</object>
+								<object class="NSMenuItem" id="107581460">
+									<reference key="NSMenu" ref="941447902"/>
+									<string key="NSTitle">Fold selection</string>
+									<string key="NSKeyEquiv">L</string>
+									<int key="NSKeyEquivModMask">1572864</int>
+									<int key="NSMnemonicLoc">2147483647</int>
+									<reference key="NSOnImage" ref="35465992"/>
+									<reference key="NSMixedImage" ref="502551668"/>
+								</object>
 							</array>
 						</object>
 					</object>
@@ -1450,6 +1469,7 @@
 									<string key="NSFrame">{{654, 1}, {16, 470}}</string>
 									<reference key="NSSuperview" ref="504487044"/>
 									<reference key="NSWindow"/>
+									<reference key="NSNextKeyView"/>
 									<string key="NSReuseIdentifierKey">_NS:83</string>
 									<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
 									<reference key="NSTarget" ref="504487044"/>
@@ -1588,6 +1608,7 @@
 						<string key="NSFrame">{{116, 14}, {82, 28}}</string>
 						<reference key="NSSuperview" ref="4454245"/>
 						<reference key="NSWindow"/>
+						<reference key="NSNextKeyView"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSButtonCell" key="NSCell" id="51461613">
@@ -2394,6 +2415,14 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBActionConnection" key="connection">
+						<string key="label">foldSelection:</string>
+						<reference key="source" ref="972006081"/>
+						<reference key="destination" ref="107581460"/>
+					</object>
+					<int key="connectionID">676</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
 						<string key="label">addFontTrait:</string>
 						<reference key="source" ref="755631768"/>
 						<reference key="destination" ref="305399458"/>
@@ -3120,6 +3149,8 @@
 						<array class="NSMutableArray" key="children">
 							<reference ref="792887677"/>
 							<reference ref="215659978"/>
+							<reference ref="107581460"/>
+							<reference ref="836096751"/>
 						</array>
 						<reference key="parent" ref="302598603"/>
 					</object>
@@ -4090,6 +4121,16 @@
 						<reference key="object" ref="426247149"/>
 						<reference key="parent" ref="4454245"/>
 					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">674</int>
+						<reference key="object" ref="836096751"/>
+						<reference key="parent" ref="941447902"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">673</int>
+						<reference key="object" ref="107581460"/>
+						<reference key="parent" ref="941447902"/>
+					</object>
 				</array>
 			</object>
 			<dictionary class="NSMutableDictionary" key="flattenedProperties">
@@ -4322,6 +4363,8 @@
 				<string key="668.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="669.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="670.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<string key="673.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<string key="674.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="72.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="73.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="74.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -4338,7 +4381,7 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">672</int>
+			<int key="maxID">676</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -4380,17 +4423,20 @@
 				<object class="IBPartialClassDescription">
 					<string key="className">LMTextTestingWindow</string>
 					<string key="superclassName">NSWindow</string>
-					<object class="NSMutableDictionary" key="actions">
-						<string key="NS.key.0">tokenize:</string>
-						<string key="NS.object.0">id</string>
-					</object>
-					<object class="NSMutableDictionary" key="actionInfosByName">
-						<string key="NS.key.0">tokenize:</string>
-						<object class="IBActionInfo" key="NS.object.0">
+					<dictionary class="NSMutableDictionary" key="actions">
+						<string key="foldSelection:">id</string>
+						<string key="tokenize:">id</string>
+					</dictionary>
+					<dictionary class="NSMutableDictionary" key="actionInfosByName">
+						<object class="IBActionInfo" key="foldSelection:">
+							<string key="name">foldSelection:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="tokenize:">
 							<string key="name">tokenize:</string>
 							<string key="candidateClassName">id</string>
 						</object>
-					</object>
+					</dictionary>
 					<dictionary class="NSMutableDictionary" key="outlets">
 						<string key="textField">LMTextField</string>
 						<string key="textScrollView">LMTextScrollView</string>
