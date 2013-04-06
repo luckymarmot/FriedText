@@ -23,6 +23,7 @@
 		AE04F640170EEDB90032338C /* LMTextTestingWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = AE04F63F170EEDB90032338C /* LMTextTestingWindow.m */; };
 		AE0C57E7170FBF4700FDFBDA /* LMJSONTextParser.m in Sources */ = {isa = PBXBuildFile; fileRef = AE0C57E6170FBF4700FDFBDA /* LMJSONTextParser.m */; };
 		AE0C57F1170FEDAC00FDFBDA /* LMFoldingTextAttachmentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AE0C57F0170FEDAC00FDFBDA /* LMFoldingTextAttachmentCell.m */; };
+		AE4AC703171035E200DB8A77 /* LMTokenAttachmentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AE4AC702171035E200DB8A77 /* LMTokenAttachmentCell.m */; };
 		AE4E749A170EF98F003BF794 /* NSView+CocoaExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = AE4E7499170EF98E003BF794 /* NSView+CocoaExtensions.m */; };
 		AE4E74A2170F1561003BF794 /* jsmn.c in Sources */ = {isa = PBXBuildFile; fileRef = AE4E74A0170F1561003BF794 /* jsmn.c */; };
 		AE4E74AB170F4504003BF794 /* NSArray+KeyPath.m in Sources */ = {isa = PBXBuildFile; fileRef = AE4E74AA170F4504003BF794 /* NSArray+KeyPath.m */; };
@@ -61,6 +62,8 @@
 		AE0C57E6170FBF4700FDFBDA /* LMJSONTextParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LMJSONTextParser.m; sourceTree = "<group>"; };
 		AE0C57EF170FEDAC00FDFBDA /* LMFoldingTextAttachmentCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LMFoldingTextAttachmentCell.h; sourceTree = "<group>"; };
 		AE0C57F0170FEDAC00FDFBDA /* LMFoldingTextAttachmentCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LMFoldingTextAttachmentCell.m; sourceTree = "<group>"; };
+		AE4AC701171035E200DB8A77 /* LMTokenAttachmentCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LMTokenAttachmentCell.h; sourceTree = "<group>"; };
+		AE4AC702171035E200DB8A77 /* LMTokenAttachmentCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LMTokenAttachmentCell.m; sourceTree = "<group>"; };
 		AE4E7498170EF98E003BF794 /* NSView+CocoaExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSView+CocoaExtensions.h"; sourceTree = "<group>"; };
 		AE4E7499170EF98E003BF794 /* NSView+CocoaExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSView+CocoaExtensions.m"; sourceTree = "<group>"; };
 		AE4E74A0170F1561003BF794 /* jsmn.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = jsmn.c; path = Dependencies/jsmn/jsmn.c; sourceTree = "<group>"; };
@@ -182,6 +185,8 @@
 				AE04F621170EEA8A0032338C /* LMTextScrollView.m */,
 				AE0C57EF170FEDAC00FDFBDA /* LMFoldingTextAttachmentCell.h */,
 				AE0C57F0170FEDAC00FDFBDA /* LMFoldingTextAttachmentCell.m */,
+				AE4AC701171035E200DB8A77 /* LMTokenAttachmentCell.h */,
+				AE4AC702171035E200DB8A77 /* LMTokenAttachmentCell.m */,
 			);
 			name = "Text Field";
 			sourceTree = "<group>";
@@ -309,6 +314,7 @@
 				AE4E74AB170F4504003BF794 /* NSArray+KeyPath.m in Sources */,
 				AE0C57E7170FBF4700FDFBDA /* LMJSONTextParser.m in Sources */,
 				AE0C57F1170FEDAC00FDFBDA /* LMFoldingTextAttachmentCell.m in Sources */,
+				AE4AC703171035E200DB8A77 /* LMTokenAttachmentCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

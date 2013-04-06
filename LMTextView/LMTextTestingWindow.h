@@ -16,4 +16,6 @@
 @property (strong) IBOutlet LMTextField *textField;
 @property (weak) IBOutlet NSPopover *tokenPopover;
 
+- (IBAction)tokenize:(id)sender;
+
 @end

@@ -191,7 +191,10 @@
 	NSTextContainer *textContainer = [self textContainer];
 	NSUInteger charIndex = [self charIndexForPoint:[self convertPoint:[theEvent locationInWindow] fromView:nil]];
     if (charIndex != NSNotFound) {
-		if (self.parser) {
+		if ([[self.textStorage string] characterAtIndex:charIndex] == 0xFFFC) {
+			
+		}
+		else if (self.parser) {
 			NSRange tokenRange;
 			NSArray* path = [self.parser keyPathForObjectAtCharIndex:charIndex correctedRange:&tokenRange];
 			NSRect bounds = [layoutManager boundingRectForGlyphRange:tokenRange inTextContainer:textContainer];

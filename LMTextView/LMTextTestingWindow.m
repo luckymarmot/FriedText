@@ -14,9 +14,12 @@
 
 #import "NSArray+KeyPath.h"
 
-#import "LMFoldingTextAttachmentCell.h"
+#import "LMTokenAttachmentCell.h"
 
-@interface LMTextTestingWindow () <NSTextStorageDelegate, LMTextFieldDelegate>
+@interface LMTextTestingWindow () <NSTextStorageDelegate, LMTextFieldDelegate> {
+	NSRange _tokenPopoverRange;
+	NSString* _tokenPopoverValue;
+}
 
 @end
 
@@ -34,16 +37,24 @@
 	
 	[self.textField setParser:[[LMJSONTextParser alloc] init]];
 	
-	[self.textField setString:[[NSString alloc] initWithData:[NSData dataWithContentsOfFile:@"/Users/michamazaheri/Desktop/Facebook.json"] encoding:NSUTF8StringEncoding]];
+	[self.textField setString:[[NSString alloc] initWithData:[NSData dataWithContentsOfFile:@"/Users/michamazaheri/Desktop/Photoshot.json"] encoding:NSUTF8StringEncoding]];
 	[self.textField didChangeText];
 
 	[self.tokenPopover setBehavior:NSPopoverBehaviorTransient];
+}
+
+- (void)tokenize:(id)sender
+{
+	LMTokenAttachmentCell* tokenCell = [[LMTokenAttachmentCell alloc] init];
+	tokenCell.string = _tokenPopoverValue;
 	
 	NSTextAttachment* textAttachment = [[NSTextAttachment alloc] init];
-	textAttachment.attachmentCell = [[LMFoldingTextAttachmentCell alloc] init];
+	textAttachment.attachmentCell = tokenCell;
 	NSAttributedString* attributedString = [NSAttributedString attributedStringWithAttachment:textAttachment];
-	[self.textField.textStorage insertAttributedString:attributedString atIndex:10];
+	[self.textField.textStorage replaceCharactersInRange:_tokenPopoverRange withAttributedString:attributedString];
 	[self.textField didChangeText];
+	
+	[self.tokenPopover close];
 }
 
 #pragma mark - NSTextViewDelegate
@@ -58,6 +69,8 @@
 
 - (void)textView:(LMTextField *)textView mouseDownForTokenAtRange:(NSRange)range withBounds:(NSRect)bounds keyPath:(NSArray *)keyPath
 {
+	_tokenPopoverRange = range;
+	_tokenPopoverValue = [keyPath keyPathDescription];
 	[self.tokenPopover showRelativeToRect:bounds ofView:textView preferredEdge:CGRectMaxYEdge];
 	[(NSTextField*)[self.tokenPopover.contentViewController.view viewWithTag:1] setStringValue:[keyPath keyPathDescription]];
 	[(NSTextField*)[self.tokenPopover.contentViewController.view viewWithTag:2] setStringValue:[self.textField.textStorage.string substringWithRange:range]];
