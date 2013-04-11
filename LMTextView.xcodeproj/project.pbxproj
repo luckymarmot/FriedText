@@ -13,7 +13,7 @@
 		AE04F612170EEA170032338C /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = AE04F610170EEA170032338C /* Credits.rtf */; };
 		AE04F615170EEA170032338C /* LMAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = AE04F614170EEA170032338C /* LMAppDelegate.m */; };
 		AE04F618170EEA170032338C /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = AE04F616170EEA170032338C /* MainMenu.xib */; };
-		AE04F622170EEA8A0032338C /* LMTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = AE04F61F170EEA8A0032338C /* LMTextField.m */; };
+		AE04F622170EEA8A0032338C /* LMTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = AE04F61F170EEA8A0032338C /* LMTextView.m */; };
 		AE04F623170EEA8A0032338C /* LMTextScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = AE04F621170EEA8A0032338C /* LMTextScrollView.m */; };
 		AE04F633170EEAEF0032338C /* LMCompletionTableCellView.m in Sources */ = {isa = PBXBuildFile; fileRef = AE04F62B170EEAEF0032338C /* LMCompletionTableCellView.m */; };
 		AE04F634170EEAEF0032338C /* LMCompletionTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = AE04F62D170EEAEF0032338C /* LMCompletionTableView.m */; };
@@ -44,8 +44,8 @@
 		AE04F613170EEA170032338C /* LMAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LMAppDelegate.h; sourceTree = "<group>"; };
 		AE04F614170EEA170032338C /* LMAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LMAppDelegate.m; sourceTree = "<group>"; };
 		AE04F617170EEA170032338C /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainMenu.xib; sourceTree = "<group>"; };
-		AE04F61E170EEA8A0032338C /* LMTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LMTextField.h; sourceTree = "<group>"; };
-		AE04F61F170EEA8A0032338C /* LMTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LMTextField.m; sourceTree = "<group>"; };
+		AE04F61E170EEA8A0032338C /* LMTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LMTextView.h; sourceTree = "<group>"; };
+		AE04F61F170EEA8A0032338C /* LMTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LMTextView.m; sourceTree = "<group>"; };
 		AE04F620170EEA8A0032338C /* LMTextScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LMTextScrollView.h; sourceTree = "<group>"; };
 		AE04F621170EEA8A0032338C /* LMTextScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LMTextScrollView.m; sourceTree = "<group>"; };
 		AE04F62A170EEAEF0032338C /* LMCompletionTableCellView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LMCompletionTableCellView.h; sourceTree = "<group>"; };
@@ -132,7 +132,7 @@
 			children = (
 				AE04F642170EEDC80032338C /* App */,
 				AE64243B171581FD00C14DA5 /* Line Numbers Ruler */,
-				AE04F643170EEDCC0032338C /* Text Field */,
+				AE04F643170EEDCC0032338C /* Text View */,
 				AE0C57E8170FECB600FDFBDA /* LMTextParser */,
 				AE04F641170EEDC10032338C /* Completion */,
 				AE4E74A8170F41D0003BF794 /* KeyPath */,
@@ -180,11 +180,11 @@
 			name = App;
 			sourceTree = "<group>";
 		};
-		AE04F643170EEDCC0032338C /* Text Field */ = {
+		AE04F643170EEDCC0032338C /* Text View */ = {
 			isa = PBXGroup;
 			children = (
-				AE04F61E170EEA8A0032338C /* LMTextField.h */,
-				AE04F61F170EEA8A0032338C /* LMTextField.m */,
+				AE04F61E170EEA8A0032338C /* LMTextView.h */,
+				AE04F61F170EEA8A0032338C /* LMTextView.m */,
 				AE04F620170EEA8A0032338C /* LMTextScrollView.h */,
 				AE04F621170EEA8A0032338C /* LMTextScrollView.m */,
 				AE0C57EF170FEDAC00FDFBDA /* LMFoldingTextAttachmentCell.h */,
@@ -192,7 +192,7 @@
 				AE4AC701171035E200DB8A77 /* LMTokenAttachmentCell.h */,
 				AE4AC702171035E200DB8A77 /* LMTokenAttachmentCell.m */,
 			);
-			name = "Text Field";
+			name = "Text View";
 			sourceTree = "<group>";
 		};
 		AE0C57E8170FECB600FDFBDA /* LMTextParser */ = {
@@ -316,7 +316,7 @@
 			files = (
 				AE04F60E170EEA170032338C /* main.m in Sources */,
 				AE04F615170EEA170032338C /* LMAppDelegate.m in Sources */,
-				AE04F622170EEA8A0032338C /* LMTextField.m in Sources */,
+				AE04F622170EEA8A0032338C /* LMTextView.m in Sources */,
 				AE04F623170EEA8A0032338C /* LMTextScrollView.m in Sources */,
 				AE04F633170EEAEF0032338C /* LMCompletionTableCellView.m in Sources */,
 				AE04F634170EEAEF0032338C /* LMCompletionTableView.m in Sources */,

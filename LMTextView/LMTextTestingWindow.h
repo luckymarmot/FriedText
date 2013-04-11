@@ -8,12 +8,12 @@
 
 #import <Cocoa/Cocoa.h>
 
-@class LMTextField, LMTextScrollView;
+@class LMTextView, LMTextScrollView;
 
 @interface LMTextTestingWindow : NSWindow
 
 @property (strong) IBOutlet LMTextScrollView *textScrollView;
-@property (strong) IBOutlet LMTextField *textField;
+@property (strong) IBOutlet LMTextView *textField;
 @property (weak) IBOutlet NSPopover *tokenPopover;
 
 - (IBAction)tokenize:(id)sender;

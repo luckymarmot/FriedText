@@ -6,7 +6,7 @@
 //  Copyright (c) 2012 Lucky Marmot. All rights reserved.
 //
 
-#import "LMTextField.h"
+#import "LMTextView.h"
 
 #import "LMCompletionView.h"
 #import "LMCompletionTableView.h"
@@ -21,7 +21,7 @@
 
 #define NUM_TOKENS 100024
 
-@interface LMTextField () {
+@interface LMTextView () {
 	BOOL _kIsProcessing;
 	NSRect _oldBounds;
 } /*<LMCompletionViewDelegate>*/
@@ -32,7 +32,7 @@
 
 
 
-@implementation LMTextField
+@implementation LMTextView
 
 - (id)initWithCoder:(NSCoder *)aDecoder
 {

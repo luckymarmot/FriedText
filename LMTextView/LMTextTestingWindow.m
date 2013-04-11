@@ -8,7 +8,7 @@
 
 #import "LMTextTestingWindow.h"
 
-#import "LMTextField.h"
+#import "LMTextView.h"
 #import "LMTextScrollView.h"
 
 #import "LMJSONTextParser.h"
@@ -107,7 +107,7 @@
 		  ];
 }
 
-- (void)textView:(LMTextField *)textView mouseDownForTokenAtRange:(NSRange)range withBounds:(NSRect)bounds keyPath:(NSArray *)keyPath
+- (void)textView:(LMTextView *)textView mouseDownForTokenAtRange:(NSRange)range withBounds:(NSRect)bounds keyPath:(NSArray *)keyPath
 {
 	_tokenPopoverRange = range;
 	_tokenPopoverValue = [keyPath keyPathDescription];

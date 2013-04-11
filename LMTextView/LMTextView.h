@@ -10,17 +10,17 @@
 
 #import "LMTextParser.h"
 
-@class LMTextField;
+@class LMTextView;
 
 @protocol LMTextFieldDelegate <NSTextViewDelegate>
 
 @optional
-- (void)textView:(LMTextField*)textView mouseDownForTokenAtRange:(NSRange)range withBounds:(NSRect)bounds keyPath:(NSArray*)keyPath;
-- (void)mouseDownOutsideTokenInTextView:(LMTextField*)textView;
+- (void)textView:(LMTextView*)textView mouseDownForTokenAtRange:(NSRange)range withBounds:(NSRect)bounds keyPath:(NSArray*)keyPath;
+- (void)mouseDownOutsideTokenInTextView:(LMTextView*)textView;
 
 @end
 
-@interface LMTextField : NSTextView
+@interface LMTextView : NSTextView
 - (void)_k:(NSTimer*)timer;
 
 @property (strong, nonatomic) id <LMTextParser> parser;

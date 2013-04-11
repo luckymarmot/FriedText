@@ -8,7 +8,7 @@
 
 #import "LMTextScrollView.h"
 
-#import "LMTextField.h"
+#import "LMTextView.h"
 
 @implementation LMTextScrollView
 
