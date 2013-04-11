@@ -22,7 +22,6 @@
 #define NUM_TOKENS 100024
 
 @interface LMTextView () {
-	BOOL _kIsProcessing;
 	NSRect _oldBounds;
 } /*<LMCompletionViewDelegate>*/
 
@@ -64,7 +63,7 @@
 
 - (BOOL)becomeFirstResponder
 {
-	[self _k:nil];
+	[self highlightSyntax:nil];
 	return [super becomeFirstResponder];
 }
 
@@ -87,36 +86,40 @@
 - (void)boundsDidChange:(NSNotification*)notification
 {
 	NSAssert([[NSThread currentThread] isMainThread], @"Not main thread");
-	
-	if (!_kIsProcessing) {
+
+	if (_optimizeHighlightingOnScrolling) {
 		if (self.timer != nil) {
 			[self.timer invalidate];
 			self.timer = nil;
 		}
-		self.timer = [NSTimer scheduledTimerWithTimeInterval:0.1 target:self selector:@selector(_k:) userInfo:@(1) repeats:NO];
+		self.timer = [NSTimer scheduledTimerWithTimeInterval:0.1 target:self selector:@selector(highlightSyntax:) userInfo:@(1) repeats:NO];
+	}
+	else {
+		[self highlightSyntax:nil];
 	}
 }
 
 - (void)textDidChange:(NSNotification *)notification
 {
-	if (!_kIsProcessing) {
+	if (_optimizeHighlightingOnEditing) {
 		if (self.timer != nil) {
 			[self.timer invalidate];
 			self.timer = nil;
 		}
-		self.timer = [NSTimer scheduledTimerWithTimeInterval:0.1 target:self selector:@selector(_k:) userInfo:@(2) repeats:NO];
+		self.timer = [NSTimer scheduledTimerWithTimeInterval:0.1 target:self selector:@selector(highlightSyntax:) userInfo:@(1) repeats:NO];
+	}
+	else {
+		[self highlightSyntax:nil];
 	}
 }
 
-- (void)_k:(NSTimer*)timer
+- (void)highlightSyntax:(NSTimer*)timer
 {
 	if ([timer.userInfo isEqual:@(1)] && NSEqualRects(self.enclosingScrollView.contentView.bounds, _oldBounds)) {
 		return;
 	}
 	
 	_oldBounds = self.enclosingScrollView.contentView.bounds;
-	
-	_kIsProcessing = YES;
 
 	NSLayoutManager *layoutManager = [self layoutManager];
 	
@@ -150,8 +153,6 @@
 				break;
 		}
 	}];
-	
-	_kIsProcessing = NO;
 }
 
 - (NSUInteger)charIndexForPoint:(NSPoint)point

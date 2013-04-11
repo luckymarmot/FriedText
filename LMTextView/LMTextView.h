@@ -21,10 +21,12 @@
 @end
 
 @interface LMTextView : NSTextView
-- (void)_k:(NSTimer*)timer;
 
 @property (strong, nonatomic) id <LMTextParser> parser;
 
 @property (nonatomic) BOOL changeCursorOnTokens;
+
+@property (nonatomic) BOOL optimizeHighlightingOnScrolling;
+@property (nonatomic) BOOL optimizeHighlightingOnEditing;
 
 @end
