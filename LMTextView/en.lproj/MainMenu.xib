@@ -1379,7 +1379,7 @@
 													<array class="NSMutableArray" key="NSTextContainers">
 														<reference ref="1026374570"/>
 													</array>
-													<int key="NSLMFlags">166</int>
+													<int key="NSLMFlags">38</int>
 													<nil key="NSDelegate"/>
 												</object>
 												<reference key="NSTextView" ref="64296420"/>
@@ -1387,7 +1387,7 @@
 												<int key="NSTCFlags">1</int>
 											</object>
 											<object class="NSTextViewSharedData" key="NSSharedData">
-												<int key="NSFlags">67121127</int>
+												<int key="NSFlags">67121091</int>
 												<int key="NSTextCheckingTypes">0</int>
 												<nil key="NSMarkedAttributes"/>
 												<object class="NSColor" key="NSBackgroundColor" id="767438035">
@@ -1469,7 +1469,6 @@
 									<string key="NSFrame">{{654, 1}, {16, 470}}</string>
 									<reference key="NSSuperview" ref="504487044"/>
 									<reference key="NSWindow"/>
-									<reference key="NSNextKeyView"/>
 									<string key="NSReuseIdentifierKey">_NS:83</string>
 									<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
 									<reference key="NSTarget" ref="504487044"/>
@@ -1608,7 +1607,6 @@
 						<string key="NSFrame">{{116, 14}, {82, 28}}</string>
 						<reference key="NSSuperview" ref="4454245"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSButtonCell" key="NSCell" id="51461613">
@@ -3130,8 +3128,8 @@
 								<float key="scoringTypeFloat">29</float>
 								<int key="contentType">3</int>
 							</object>
-							<reference ref="504487044"/>
 							<reference ref="445739730"/>
+							<reference ref="504487044"/>
 						</array>
 						<reference key="parent" ref="972006081"/>
 					</object>

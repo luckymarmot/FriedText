@@ -9,6 +9,7 @@
 #import "LMTextTestingWindow.h"
 
 #import "LMTextField.h"
+#import "LMTextScrollView.h"
 
 #import "LMJSONTextParser.h"
 
@@ -16,6 +17,7 @@
 
 #import "LMTokenAttachmentCell.h"
 #import "LMFoldingTextAttachmentCell.h"
+#import "LMLineNumberRuler.h"
 
 @interface LMTextTestingWindow () <NSTextStorageDelegate, LMTextFieldDelegate> {
 	NSRange _tokenPopoverRange;
@@ -42,6 +44,12 @@
 	[self.textField didChangeText];
 
 	[self.tokenPopover setBehavior:NSPopoverBehaviorTransient];
+	
+	LMLineNumberRuler *rulerView = [[LMLineNumberRuler alloc] initWithTextView:self.textField];
+	[self.textScrollView setHasHorizontalRuler:NO];
+	[self.textScrollView setHasVerticalRuler:YES];
+	[self.textScrollView setVerticalRulerView:rulerView];
+	[self.textScrollView setRulersVisible:YES];
 }
 
 - (void)tokenize:(id)sender

@@ -27,6 +27,7 @@
 		AE4E749A170EF98F003BF794 /* NSView+CocoaExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = AE4E7499170EF98E003BF794 /* NSView+CocoaExtensions.m */; };
 		AE4E74A2170F1561003BF794 /* jsmn.c in Sources */ = {isa = PBXBuildFile; fileRef = AE4E74A0170F1561003BF794 /* jsmn.c */; };
 		AE4E74AB170F4504003BF794 /* NSArray+KeyPath.m in Sources */ = {isa = PBXBuildFile; fileRef = AE4E74AA170F4504003BF794 /* NSArray+KeyPath.m */; };
+		AE64243E171582E300C14DA5 /* LMLineNumberRuler.m in Sources */ = {isa = PBXBuildFile; fileRef = AE64243D171582E300C14DA5 /* LMLineNumberRuler.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -70,6 +71,8 @@
 		AE4E74A1170F1561003BF794 /* jsmn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = jsmn.h; path = Dependencies/jsmn/jsmn.h; sourceTree = "<group>"; };
 		AE4E74A9170F4504003BF794 /* NSArray+KeyPath.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+KeyPath.h"; sourceTree = "<group>"; };
 		AE4E74AA170F4504003BF794 /* NSArray+KeyPath.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+KeyPath.m"; sourceTree = "<group>"; };
+		AE64243C171582E300C14DA5 /* LMLineNumberRuler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LMLineNumberRuler.h; sourceTree = "<group>"; };
+		AE64243D171582E300C14DA5 /* LMLineNumberRuler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LMLineNumberRuler.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -128,6 +131,7 @@
 			isa = PBXGroup;
 			children = (
 				AE04F642170EEDC80032338C /* App */,
+				AE64243B171581FD00C14DA5 /* Line Numbers Ruler */,
 				AE04F643170EEDCC0032338C /* Text Field */,
 				AE0C57E8170FECB600FDFBDA /* LMTextParser */,
 				AE04F641170EEDC10032338C /* Completion */,
@@ -236,6 +240,15 @@
 			name = KeyPath;
 			sourceTree = "<group>";
 		};
+		AE64243B171581FD00C14DA5 /* Line Numbers Ruler */ = {
+			isa = PBXGroup;
+			children = (
+				AE64243C171582E300C14DA5 /* LMLineNumberRuler.h */,
+				AE64243D171582E300C14DA5 /* LMLineNumberRuler.m */,
+			);
+			name = "Line Numbers Ruler";
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -315,6 +328,7 @@
 				AE0C57E7170FBF4700FDFBDA /* LMJSONTextParser.m in Sources */,
 				AE0C57F1170FEDAC00FDFBDA /* LMFoldingTextAttachmentCell.m in Sources */,
 				AE4AC703171035E200DB8A77 /* LMTokenAttachmentCell.m in Sources */,
+				AE64243E171582E300C14DA5 /* LMLineNumberRuler.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
