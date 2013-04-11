@@ -19,7 +19,7 @@
 #import "LMFoldingTextAttachmentCell.h"
 #import "LMLineNumberRuler.h"
 
-@interface LMTextViewWindow () <NSTextStorageDelegate, LMTextFieldDelegate> {
+@interface LMTextViewWindow () <NSTextStorageDelegate, LMTextViewDelegate> {
 	NSRange _tokenPopoverRange;
 	NSString* _tokenPopoverValue;
 }
@@ -30,22 +30,22 @@
 
 - (void)awakeFromNib
 {
-	self.textField.delegate = self;
-	self.textField.textStorage.delegate = self;
-	[self.textField setRichText:NO];
-	[self.textField setFont:[NSFont fontWithName:@"Menlo" size:11.f]];
-	[self.textField setContinuousSpellCheckingEnabled:NO];
-	[self.textField setAutomaticSpellingCorrectionEnabled:NO];
-	[self.textField setChangeCursorOnTokens:YES];
+	self.textView.delegate = self;
+	self.textView.textStorage.delegate = self;
+	[self.textView setRichText:NO];
+	[self.textView setFont:[NSFont fontWithName:@"Menlo" size:11.f]];
+	[self.textView setContinuousSpellCheckingEnabled:NO];
+	[self.textView setAutomaticSpellingCorrectionEnabled:NO];
+	[self.textView setChangeCursorOnTokens:YES];
 	
-	[self.textField setParser:[[LMJSONTextParser alloc] init]];
+	[self.textView setParser:[[LMJSONTextParser alloc] init]];
 	
-	[self.textField setString:[[NSString alloc] initWithData:[NSData dataWithContentsOfFile:@"/Users/michamazaheri/Desktop/Photoshot.json"] encoding:NSUTF8StringEncoding]];
-	[self.textField didChangeText];
+	[self.textView setString:[[NSString alloc] initWithData:[NSData dataWithContentsOfFile:@"/Users/michamazaheri/Desktop/Photoshot.json"] encoding:NSUTF8StringEncoding]];
+	[self.textView didChangeText];
 
 	[self.tokenPopover setBehavior:NSPopoverBehaviorTransient];
 	
-	LMLineNumberRuler *rulerView = [[LMLineNumberRuler alloc] initWithTextView:self.textField];
+	LMLineNumberRuler *rulerView = [[LMLineNumberRuler alloc] initWithTextView:self.textView];
 	[self.textScrollView setHasHorizontalRuler:NO];
 	[self.textScrollView setHasVerticalRuler:YES];
 	[self.textScrollView setVerticalRulerView:rulerView];
@@ -60,9 +60,9 @@
 	NSTextAttachment* textAttachment = [[NSTextAttachment alloc] init];
 	textAttachment.attachmentCell = tokenCell;
 	NSAttributedString* attributedString = [NSAttributedString attributedStringWithAttachment:textAttachment];
-	if ([self.textField shouldChangeTextInRange:_tokenPopoverRange replacementString:[attributedString string]]) {
-		[self.textField.textStorage replaceCharactersInRange:_tokenPopoverRange withAttributedString:attributedString];
-		[self.textField didChangeText];
+	if ([self.textView shouldChangeTextInRange:_tokenPopoverRange replacementString:[attributedString string]]) {
+		[self.textView.textStorage replaceCharactersInRange:_tokenPopoverRange withAttributedString:attributedString];
+		[self.textView didChangeText];
 	}
 	
 	[self.tokenPopover close];
@@ -74,7 +74,7 @@
 	NSMutableArray* attributedStrings = [NSMutableArray array];
 	NSMutableArray* strings = [NSMutableArray array];
 	
-	[[self.textField selectedRanges] enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+	[[self.textView selectedRanges] enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
 		if ([obj rangeValue].length > 0 && [obj rangeValue].location != NSNotFound) {
 			LMFoldingTextAttachmentCell* cell = [[LMFoldingTextAttachmentCell alloc] init];
 			
@@ -87,13 +87,13 @@
 		}
 	}];
 
-	if ([ranges count] > 0 && [self.textField shouldChangeTextInRanges:ranges replacementStrings:strings]) {
-		[self.textField.textStorage beginEditing];
+	if ([ranges count] > 0 && [self.textView shouldChangeTextInRanges:ranges replacementStrings:strings]) {
+		[self.textView.textStorage beginEditing];
 		for (NSUInteger i = 0; i < [ranges count]; i++) {
-			[self.textField.textStorage replaceCharactersInRange:[[ranges objectAtIndex:i] rangeValue] withAttributedString:[attributedStrings objectAtIndex:i]];
+			[self.textView.textStorage replaceCharactersInRange:[[ranges objectAtIndex:i] rangeValue] withAttributedString:[attributedStrings objectAtIndex:i]];
 		}
-		[self.textField.textStorage endEditing];
-		[self.textField didChangeText];
+		[self.textView.textStorage endEditing];
+		[self.textView didChangeText];
 	}
 }
 
@@ -113,7 +113,7 @@
 	_tokenPopoverValue = [keyPath keyPathDescription];
 	[self.tokenPopover showRelativeToRect:bounds ofView:textView preferredEdge:CGRectMaxYEdge];
 	[(NSTextField*)[self.tokenPopover.contentViewController.view viewWithTag:1] setStringValue:[keyPath keyPathDescription]];
-	[(NSTextField*)[self.tokenPopover.contentViewController.view viewWithTag:2] setStringValue:[self.textField.textStorage.string substringWithRange:range]];
+	[(NSTextField*)[self.tokenPopover.contentViewController.view viewWithTag:2] setStringValue:[self.textView.textStorage.string substringWithRange:range]];
 }
 
 @end

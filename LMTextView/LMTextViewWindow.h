@@ -13,7 +13,7 @@
 @interface LMTextViewWindow : NSWindow
 
 @property (strong) IBOutlet LMTextScrollView *textScrollView;
-@property (strong) IBOutlet LMTextView *textField;
+@property (strong) IBOutlet LMTextView *textView;
 @property (weak) IBOutlet NSPopover *tokenPopover;
 
 - (IBAction)tokenize:(id)sender;

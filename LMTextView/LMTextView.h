@@ -12,7 +12,7 @@
 
 @class LMTextView;
 
-@protocol LMTextFieldDelegate <NSTextViewDelegate>
+@protocol LMTextViewDelegate <NSTextViewDelegate>
 
 @optional
 - (void)textView:(LMTextView*)textView mouseDownForTokenAtRange:(NSRange)range withBounds:(NSRect)bounds keyPath:(NSArray*)keyPath;

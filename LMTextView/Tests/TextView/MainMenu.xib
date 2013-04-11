@@ -1469,6 +1469,7 @@
 									<string key="NSFrame">{{654, 1}, {16, 470}}</string>
 									<reference key="NSSuperview" ref="504487044"/>
 									<reference key="NSWindow"/>
+									<reference key="NSNextKeyView"/>
 									<string key="NSReuseIdentifierKey">_NS:83</string>
 									<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
 									<reference key="NSTarget" ref="504487044"/>
@@ -1569,7 +1570,7 @@
 				<bool key="NSAnimates">YES</bool>
 			</object>
 			<object class="NSCustomView" id="4454245">
-				<nil key="NSNextResponder"/>
+				<reference key="NSNextResponder"/>
 				<int key="NSvFlags">268</int>
 				<array class="NSMutableArray" key="NSSubviews">
 					<object class="NSButton" id="927078754">
@@ -1577,6 +1578,7 @@
 						<int key="NSvFlags">268</int>
 						<string key="NSFrame">{{108, 42}, {98, 28}}</string>
 						<reference key="NSSuperview" ref="4454245"/>
+						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="372423606"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="NSEnabled">YES</bool>
@@ -1605,6 +1607,8 @@
 						<int key="NSvFlags">268</int>
 						<string key="NSFrame">{{116, 14}, {82, 28}}</string>
 						<reference key="NSSuperview" ref="4454245"/>
+						<reference key="NSWindow"/>
+						<reference key="NSNextKeyView"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSButtonCell" key="NSCell" id="51461613">
@@ -1628,6 +1632,7 @@
 						<int key="NSvFlags">268</int>
 						<string key="NSFrame">{{95, 84}, {198, 19}}</string>
 						<reference key="NSSuperview" ref="4454245"/>
+						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="927078754"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<int key="NSTag">2</int>
@@ -1660,6 +1665,7 @@
 						<int key="NSvFlags">268</int>
 						<string key="NSFrame">{{95, 111}, {198, 19}}</string>
 						<reference key="NSSuperview" ref="4454245"/>
+						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="232380167"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<int key="NSTag">1</int>
@@ -1685,6 +1691,7 @@
 						<int key="NSvFlags">268</int>
 						<string key="NSFrame">{{17, 85}, {39, 17}}</string>
 						<reference key="NSSuperview" ref="4454245"/>
+						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="215884327"/>
 						<string key="NSReuseIdentifierKey">_NS:1535</string>
 						<bool key="NSEnabled">YES</bool>
@@ -1715,6 +1722,7 @@
 						<int key="NSvFlags">268</int>
 						<string key="NSFrame">{{17, 112}, {58, 17}}</string>
 						<reference key="NSSuperview" ref="4454245"/>
+						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="322659483"/>
 						<string key="NSReuseIdentifierKey">_NS:1535</string>
 						<bool key="NSEnabled">YES</bool>
@@ -1732,6 +1740,8 @@
 					</object>
 				</array>
 				<string key="NSFrameSize">{313, 150}</string>
+				<reference key="NSSuperview"/>
+				<reference key="NSWindow"/>
 				<reference key="NSNextKeyView" ref="140536520"/>
 				<string key="NSReuseIdentifierKey">_NS:9</string>
 				<string key="NSClassName">NSView</string>
@@ -2373,14 +2383,6 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBOutletConnection" key="connection">
-						<string key="label">textField</string>
-						<reference key="source" ref="972006081"/>
-						<reference key="destination" ref="64296420"/>
-					</object>
-					<int key="connectionID">581</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBOutletConnection" key="connection">
 						<string key="label">textScrollView</string>
 						<reference key="source" ref="972006081"/>
 						<reference key="destination" ref="504487044"/>
@@ -2410,6 +2412,14 @@
 						<reference key="destination" ref="107581460"/>
 					</object>
 					<int key="connectionID">676</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">textView</string>
+						<reference key="source" ref="972006081"/>
+						<reference key="destination" ref="64296420"/>
+					</object>
+					<int key="connectionID">678</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBActionConnection" key="connection">
@@ -2461,19 +2471,19 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
-						<string key="label">value: window.textField.editable</string>
+						<string key="label">value: window.textView.editable</string>
 						<reference key="source" ref="445739730"/>
 						<reference key="destination" ref="976324537"/>
 						<object class="NSNibBindingConnector" key="connector">
 							<reference key="NSSource" ref="445739730"/>
 							<reference key="NSDestination" ref="976324537"/>
-							<string key="NSLabel">value: window.textField.editable</string>
+							<string key="NSLabel">value: window.textView.editable</string>
 							<string key="NSBinding">value</string>
-							<string key="NSKeyPath">window.textField.editable</string>
+							<string key="NSKeyPath">window.textView.editable</string>
 							<int key="NSNibBindingConnectorVersion">2</int>
 						</object>
 					</object>
-					<int key="connectionID">591</int>
+					<int key="connectionID">680</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBOutletConnection" key="connection">
@@ -4371,7 +4381,7 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">676</int>
+			<int key="maxID">680</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -4428,18 +4438,18 @@
 						</object>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="outlets">
-						<string key="textField">LMTextView</string>
 						<string key="textScrollView">LMTextScrollView</string>
+						<string key="textView">LMTextView</string>
 						<string key="tokenPopover">NSPopover</string>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="toOneOutletInfosByName">
-						<object class="IBToOneOutletInfo" key="textField">
-							<string key="name">textField</string>
-							<string key="candidateClassName">LMTextView</string>
-						</object>
 						<object class="IBToOneOutletInfo" key="textScrollView">
 							<string key="name">textScrollView</string>
 							<string key="candidateClassName">LMTextScrollView</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="textView">
+							<string key="name">textView</string>
+							<string key="candidateClassName">LMTextView</string>
 						</object>
 						<object class="IBToOneOutletInfo" key="tokenPopover">
 							<string key="name">tokenPopover</string>

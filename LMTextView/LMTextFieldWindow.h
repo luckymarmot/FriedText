@@ -8,6 +8,8 @@
 
 #import <Cocoa/Cocoa.h>
 
-@interface LMTextFieldWindow : NSWindow
+#import "LMTextField.h"
+
+@interface LMTextFieldWindow : NSWindow <LMTextFieldDelegate>
 
 @end

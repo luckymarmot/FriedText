@@ -9,8 +9,17 @@
 #import <Cocoa/Cocoa.h>
 
 #import "LMTextParser.h"
+#import "LMTextView.h"
 
-@interface LMTextField : NSTextField
+@class LMTextField;
+
+@protocol LMTextFieldDelegate <NSTextFieldDelegate>
+
+- (void)textField:(LMTextField*)textField usingTextView:(LMTextView*)textView mouseDownForTokenAtRange:(NSRange)range withBounds:(NSRect)bounds keyPath:(NSArray*)keyPath;
+
+@end
+
+@interface LMTextField : NSTextField <LMTextViewDelegate>
 
 @property (strong, nonatomic) IBOutlet id <LMTextParser> parser;
 

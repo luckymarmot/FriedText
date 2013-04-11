@@ -227,7 +227,7 @@
 			
 			if (tokenRange.location != NSNotFound) {
 				if ([self.delegate respondsToSelector:@selector(textView:mouseDownForTokenAtRange:withBounds:keyPath:)]) {
-					[(id<LMTextFieldDelegate>)self.delegate textView:self mouseDownForTokenAtRange:tokenRange withBounds:bounds keyPath:path];
+					[(id<LMTextViewDelegate>)self.delegate textView:self mouseDownForTokenAtRange:tokenRange withBounds:bounds keyPath:path];
 				}
 				return;
 			}
@@ -235,7 +235,7 @@
     }
 	
 	if ([self.delegate respondsToSelector:@selector(mouseDownOutsideTokenInTextView:)]) {
-		[(id<LMTextFieldDelegate>)self.delegate mouseDownOutsideTokenInTextView:self];
+		[(id<LMTextViewDelegate>)self.delegate mouseDownOutsideTokenInTextView:self];
 	}
 	
 	[super mouseDown:theEvent];
