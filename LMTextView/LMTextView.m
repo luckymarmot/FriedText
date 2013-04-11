@@ -37,7 +37,6 @@
 - (void)_setup
 {
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(textDidChange:) name:NSTextDidChangeNotification object:self];
-	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(textDidBeginEditing:) name:NSTextDidBeginEditingNotification object:self];
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(boundsDidChange:) name:NSViewBoundsDidChangeNotification object:self.enclosingScrollView.contentView];
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(textStorageDidProcessEditing:) name:NSTextStorageDidProcessEditingNotification object:self.enclosingScrollView.contentView];
 	
@@ -61,6 +60,12 @@
 		[self _setup];
 	}
 	return self;
+}
+
+- (BOOL)becomeFirstResponder
+{
+	[self _k:nil];
+	return [super becomeFirstResponder];
 }
 
 - (void)setParser:(id<LMTextParser>)parser
@@ -90,11 +95,6 @@
 		}
 		self.timer = [NSTimer scheduledTimerWithTimeInterval:0.1 target:self selector:@selector(_k:) userInfo:@(1) repeats:NO];
 	}
-}
-
-- (void)textDidBeginEditing:(NSNotification*)notification
-{
-	[self _k:nil];
 }
 
 - (void)textDidChange:(NSNotification *)notification
