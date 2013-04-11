@@ -34,23 +34,43 @@
 
 @implementation LMTextView
 
+- (void)_setup
+{
+	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(textDidChange:) name:NSTextDidChangeNotification object:self];
+	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(textDidBeginEditing:) name:NSTextDidBeginEditingNotification object:self];
+	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(boundsDidChange:) name:NSViewBoundsDidChangeNotification object:self.enclosingScrollView.contentView];
+	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(textStorageDidProcessEditing:) name:NSTextStorageDidProcessEditingNotification object:self.enclosingScrollView.contentView];
+	
+	NSColor* baseColor = [NSColor colorWithCalibratedRed:93.f/255.f green:72.f/255.f blue:55.f/255.f alpha:1.f];
+	[self setTextColor:baseColor];
+}
+
 - (id)initWithCoder:(NSCoder *)aDecoder
 {
 	self = [super initWithCoder:aDecoder];
 	if (self) {
-		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(textDidChange:) name:NSTextDidChangeNotification object:self];
+		[self _setup];
 	}
 	return self;
 }
 
-- (void)awakeFromNib
+- (id)init
 {
-	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(boundsDidChange:) name:NSViewBoundsDidChangeNotification object:self.enclosingScrollView.contentView];
+	self = [super init];
+	if (self) {
+		[self _setup];
+	}
+	return self;
 }
 
 - (void)parse
 {
 	[self.parser parseString:[self.textStorage string]];
+}
+
+- (void)textStorageDidProcessEditing:(NSNotification*)notification
+{
+	[self parse];
 }
 
 - (void)boundsDidChange:(NSNotification*)notification
@@ -66,10 +86,13 @@
 	}
 }
 
+- (void)textDidBeginEditing:(NSNotification*)notification
+{
+	[self _k:nil];
+}
+
 - (void)textDidChange:(NSNotification *)notification
 {
-	[self parse];
-	
 	if (!_kIsProcessing) {
 		if (self.timer != nil) {
 			[self.timer invalidate];
@@ -81,9 +104,6 @@
 
 - (void)_k:(NSTimer*)timer
 {
-	NSAssert([[NSThread currentThread] isMainThread], @"Not main thread");
-	NSAssert(timer == self.timer, @"Weird timer");
-	
 	if ([timer.userInfo isEqual:@(1)] && NSEqualRects(self.enclosingScrollView.contentView.bounds, _oldBounds)) {
 		return;
 	}
@@ -94,21 +114,21 @@
 
 	NSLayoutManager *layoutManager = [self layoutManager];
 	
-	NSColor* baseColor = [NSColor colorWithCalibratedRed:93.f/255.f green:72.f/255.f blue:55.f/255.f alpha:1.f];
 	NSColor* primitiveColor = [NSColor colorWithCalibratedRed:160.f/255.f green:208.f/255.f blue:202.f/255.f alpha:1.f];
 	NSColor* stringColor = [NSColor colorWithCalibratedRed:33.f/255.f green:82.f/255.f blue:116.f/255.f alpha:1.f];
 	
-	[self setTextColor:baseColor];
-	
-	NSRange glyphRange = [self.layoutManager glyphRangeForBoundingRect:self.enclosingScrollView.documentVisibleRect inTextContainer:self.textContainer];
-//	NSRange characterRange = [self.textStorage editedRange];
-	NSRange characterRange = [self.layoutManager characterRangeForGlyphRange:glyphRange actualGlyphRange:NULL];
-//	NSRange characterRange = NSMakeRange(0, [self.textStorage.string length]);
+	NSRange characterRange;
+	if ([self isFieldEditor]) {
+		characterRange = NSMakeRange(0, [self.textStorage.string length]);
+	}
+	else {
+		NSRange glyphRange = [self.layoutManager glyphRangeForBoundingRect:self.enclosingScrollView.documentVisibleRect inTextContainer:self.textContainer];
+		characterRange = [self.layoutManager characterRangeForGlyphRange:glyphRange actualGlyphRange:NULL];
+	}
 
 	[layoutManager removeTemporaryAttribute:NSForegroundColorAttributeName forCharacterRange:NSMakeRange(0, [self.textStorage.string length])];
 	
 	[self.parser applyAttributesInRange:characterRange withBlock:^(NSUInteger tokenTypeMask, NSRange range) {
-		
 		switch (tokenTypeMask & LMTextParserTokenTypeMask) {
 			case LMTextParserTokenTypeBoolean:
 				[layoutManager addTemporaryAttribute:NSForegroundColorAttributeName value:primitiveColor forCharacterRange:range];

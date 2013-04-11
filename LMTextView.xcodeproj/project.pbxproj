@@ -49,6 +49,10 @@
 		AED2D2FB1716ACBA00C38A87 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = AED2D2FA1716ACBA00C38A87 /* MainMenu.xib */; };
 		AED2D2FD1716ACC200C38A87 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = AED2D2FC1716ACC200C38A87 /* MainMenu.xib */; };
 		AED2D3001716AD5F00C38A87 /* LMTextFieldWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = AED2D2FF1716AD5F00C38A87 /* LMTextFieldWindow.m */; };
+		AED2D3041716AF8500C38A87 /* LMTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = AED2D3031716AF8500C38A87 /* LMTextField.m */; };
+		AED2D3051716AF8500C38A87 /* LMTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = AED2D3031716AF8500C38A87 /* LMTextField.m */; };
+		AED2D3081716AFA200C38A87 /* LMTextFieldCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AED2D3071716AFA200C38A87 /* LMTextFieldCell.m */; };
+		AED2D3091716AFA200C38A87 /* LMTextFieldCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AED2D3071716AFA200C38A87 /* LMTextFieldCell.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -99,6 +103,10 @@
 		AED2D2FC1716ACC200C38A87 /* MainMenu.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = MainMenu.xib; path = Tests/TextField/MainMenu.xib; sourceTree = "<group>"; };
 		AED2D2FE1716AD5F00C38A87 /* LMTextFieldWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LMTextFieldWindow.h; sourceTree = "<group>"; };
 		AED2D2FF1716AD5F00C38A87 /* LMTextFieldWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LMTextFieldWindow.m; sourceTree = "<group>"; };
+		AED2D3021716AF8500C38A87 /* LMTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LMTextField.h; sourceTree = "<group>"; };
+		AED2D3031716AF8500C38A87 /* LMTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LMTextField.m; sourceTree = "<group>"; };
+		AED2D3061716AFA200C38A87 /* LMTextFieldCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LMTextFieldCell.h; sourceTree = "<group>"; };
+		AED2D3071716AFA200C38A87 /* LMTextFieldCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LMTextFieldCell.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -169,7 +177,8 @@
 			children = (
 				AED2D2F81716AC4400C38A87 /* Test Applications */,
 				AE64243B171581FD00C14DA5 /* Line Numbers Ruler */,
-				AE04F643170EEDCC0032338C /* Text View */,
+				AE04F643170EEDCC0032338C /* LMTextView */,
+				AED2D3011716AF6600C38A87 /* LMTextField */,
 				AE0C57E8170FECB600FDFBDA /* LMTextParser */,
 				AE04F641170EEDC10032338C /* Completion */,
 				AE4E74A8170F41D0003BF794 /* KeyPath */,
@@ -216,7 +225,7 @@
 			name = "Text View App";
 			sourceTree = "<group>";
 		};
-		AE04F643170EEDCC0032338C /* Text View */ = {
+		AE04F643170EEDCC0032338C /* LMTextView */ = {
 			isa = PBXGroup;
 			children = (
 				AE04F61E170EEA8A0032338C /* LMTextView.h */,
@@ -228,7 +237,7 @@
 				AE4AC701171035E200DB8A77 /* LMTokenAttachmentCell.h */,
 				AE4AC702171035E200DB8A77 /* LMTokenAttachmentCell.m */,
 			);
-			name = "Text View";
+			name = LMTextView;
 			sourceTree = "<group>";
 		};
 		AE0C57E8170FECB600FDFBDA /* LMTextParser */ = {
@@ -304,6 +313,17 @@
 				AED2D2FC1716ACC200C38A87 /* MainMenu.xib */,
 			);
 			name = "Text Field App";
+			sourceTree = "<group>";
+		};
+		AED2D3011716AF6600C38A87 /* LMTextField */ = {
+			isa = PBXGroup;
+			children = (
+				AED2D3021716AF8500C38A87 /* LMTextField.h */,
+				AED2D3031716AF8500C38A87 /* LMTextField.m */,
+				AED2D3061716AFA200C38A87 /* LMTextFieldCell.h */,
+				AED2D3071716AFA200C38A87 /* LMTextFieldCell.m */,
+			);
+			name = LMTextField;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -414,6 +434,8 @@
 				AE0C57F1170FEDAC00FDFBDA /* LMFoldingTextAttachmentCell.m in Sources */,
 				AE4AC703171035E200DB8A77 /* LMTokenAttachmentCell.m in Sources */,
 				AE64243E171582E300C14DA5 /* LMLineNumberRuler.m in Sources */,
+				AED2D3041716AF8500C38A87 /* LMTextField.m in Sources */,
+				AED2D3081716AFA200C38A87 /* LMTextFieldCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -436,6 +458,8 @@
 				AED2D2E91716ABF300C38A87 /* LMTokenAttachmentCell.m in Sources */,
 				AED2D2EA1716ABF300C38A87 /* LMLineNumberRuler.m in Sources */,
 				AED2D3001716AD5F00C38A87 /* LMTextFieldWindow.m in Sources */,
+				AED2D3051716AF8500C38A87 /* LMTextField.m in Sources */,
+				AED2D3091716AFA200C38A87 /* LMTextFieldCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
