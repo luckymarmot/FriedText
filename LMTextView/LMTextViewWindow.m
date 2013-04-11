@@ -6,7 +6,7 @@
 //  Copyright (c) 2013 Lucky Marmot. All rights reserved.
 //
 
-#import "LMTextTestingWindow.h"
+#import "LMTextViewWindow.h"
 
 #import "LMTextView.h"
 #import "LMTextScrollView.h"
@@ -19,14 +19,14 @@
 #import "LMFoldingTextAttachmentCell.h"
 #import "LMLineNumberRuler.h"
 
-@interface LMTextTestingWindow () <NSTextStorageDelegate, LMTextFieldDelegate> {
+@interface LMTextViewWindow () <NSTextStorageDelegate, LMTextFieldDelegate> {
 	NSRange _tokenPopoverRange;
 	NSString* _tokenPopoverValue;
 }
 
 @end
 
-@implementation LMTextTestingWindow
+@implementation LMTextViewWindow
 
 - (void)awakeFromNib
 {

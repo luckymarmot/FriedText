@@ -10,7 +10,7 @@
 
 @class LMTextView, LMTextScrollView;
 
-@interface LMTextTestingWindow : NSWindow
+@interface LMTextViewWindow : NSWindow
 
 @property (strong) IBOutlet LMTextScrollView *textScrollView;
 @property (strong) IBOutlet LMTextView *textField;
