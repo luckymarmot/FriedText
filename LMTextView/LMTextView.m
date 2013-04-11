@@ -63,14 +63,20 @@
 	return self;
 }
 
-- (void)parse
+- (void)setParser:(id<LMTextParser>)parser
 {
-	[self.parser parseString:[self.textStorage string]];
+	[self willChangeValueForKey:@"parser"];
+	_parser = parser;
+	__unsafe_unretained LMTextView* textView = self;
+	[_parser setStringBlock:^NSString *{
+		return [textView string];
+	}];
+	[self didChangeValueForKey:@"parser"];
 }
 
 - (void)textStorageDidProcessEditing:(NSNotification*)notification
 {
-	[self parse];
+	[self.parser invalidateString];
 }
 
 - (void)boundsDidChange:(NSNotification*)notification

@@ -21,17 +21,43 @@
 @property (strong, nonatomic) NSData* data;
 @property (strong, nonatomic) NSString* string;
 
+@property (nonatomic, getter = isStringValid) BOOL stringIsValid;
+
 @end
 
 @implementation LMJSONTextParser
 
-- (void)parseString:(NSString *)string
+@synthesize stringBlock = _stringBlock;
+
+- (void)invalidateString
+{
+	_stringIsValid = NO;
+}
+
+- (NSString *)string
+{
+	if (![self isStringValid]) {
+		if ([self stringBlock]) {
+			_string = [self stringBlock]();
+		}
+		_stringIsValid = YES;
+	}
+	return _string;
+}
+
+- (NSData *)data
+{
+	if (![self isStringValid]) {
+		_data = [[self string] dataUsingEncoding:NSASCIIStringEncoding allowLossyConversion:YES];
+	}
+	return _data;
+}
+
+- (void)parse
 {
 	jsmn_init(&parser);
-	self.string = string;
-	self.data = [string dataUsingEncoding:NSASCIIStringEncoding allowLossyConversion:YES];
 	char c[MAX_JSON_SIZE];
-	memcpy(c, [_data bytes], MIN([_data length], MAX_JSON_SIZE));
+	memcpy(c, [[self data] bytes], MIN([[self data] length], MAX_JSON_SIZE));
 	jsmnerr_t result = jsmn_parse(&parser, c, tokens, NUM_TOKENS);
 	if (result != JSMN_SUCCESS) {
 		
@@ -44,11 +70,15 @@
 		return;
 	}
 	
+	if (![self isStringValid]) {
+		[self parse];
+	}
+	
 	for (unsigned int i = 0; i < parser.toknext; i++) {
 		NSRange range = NSMakeRange(tokens[i].start, tokens[i].end-tokens[i].start);
 		if (NSIntersectionRange(characterRange, range).length > 0) {
 			if (tokens[i].type == JSMN_PRIMITIVE) {
-				const char c = ((char *)[_data bytes])[tokens[i].start];
+				const char c = ((char *)[[self data] bytes])[tokens[i].start];
 				if (c == 't') {
 					block(LMTextParserTokenTypeBoolean | LMTextParserTokenJSONTypeTrue, range);
 				}
@@ -71,6 +101,10 @@
 
 - (NSArray *)keyPathForObjectAtCharIndex:(NSUInteger)charIndex correctedRange:(NSRange *)correctedRange
 {
+	if (![self isStringValid]) {
+		[self parse];
+	}
+	
 	for (unsigned int i = 0; i < parser.toknext; i++) {
 		if (tokens[i].type == JSMN_PRIMITIVE || tokens[i].type == JSMN_STRING) {
 			if (charIndex >= tokens[i].start && charIndex < tokens[i].end) {

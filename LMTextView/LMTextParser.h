@@ -19,7 +19,11 @@ typedef enum {
 
 @protocol LMTextParser <NSObject>
 
-- (void)parseString:(NSString*)string;
+- (void)parse; // Shouldn't be called
+
+@property (strong, nonatomic) NSString*(^stringBlock)(void);
+
+- (void)invalidateString;
 
 - (void)applyAttributesInRange:(NSRange)range withBlock:(void(^)(NSUInteger tokenTypeMask, NSRange range))block;
 
