@@ -29,8 +29,18 @@
         self.textColor = [NSColor darkGrayColor];
         self.backgroundColor = [NSColor colorWithCalibratedWhite:0.9 alpha:1.0];
 		[self setClientView:textView];
+		
+		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(boundsDidChange:) name:NSViewBoundsDidChangeNotification object:textView.enclosingScrollView.contentView];
     }
     return self;
+}
+
+- (void)boundsDidChange:(NSNotification*)notification
+{
+	// When the text view is using non-contiguous layout, it is necessary to redraw the whole NSRulerView to prevent some pixels to be drawn incorrectly, this decrease performance, but disabling non-contiguous layout performance drop is much much worse
+	if ([[(NSTextView*)self.clientView layoutManager] hasNonContiguousLayout]) {
+		[self setNeedsDisplay:YES];
+	}
 }
 
 - (BOOL)isFlipped {
