@@ -38,8 +38,6 @@
 
 - (void)drawWithFrame:(NSRect)cellFrame inView:(NSView *)controlView characterIndex:(NSUInteger)charIndex layoutManager:(NSLayoutManager *)layoutManager
 {
-//	NSLog(@"Draw");
-	
 	NSColor* bgColor = [NSColor colorWithCalibratedRed:0.f/255.f green:179.f/255.f blue:182.f/255.f alpha:1.f];
 	NSColor* borderColor = [NSColor colorWithCalibratedRed:0.f/255.f green:116.f/255.f blue:114.f/255.f alpha:1.f];
 	
@@ -57,7 +55,6 @@
 {
 	self.highlighted = flag;
 	[controlView setNeedsDisplayInRect:cellFrame];
-	NSLog(@"Highlight");
 }
 
 - (BOOL)wantsToTrackMouse
@@ -77,7 +74,7 @@
 
 - (BOOL)trackMouse:(NSEvent *)theEvent inRect:(NSRect)cellFrame ofView:(NSView *)controlView atCharacterIndex:(NSUInteger)charIndex untilMouseUp:(BOOL)flag
 {
-	NSLog(@"Mouse");
+	NSLog(@"Mouse Pressed on Text Attachment");
 	return YES;
 }
 

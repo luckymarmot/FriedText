@@ -33,6 +33,8 @@
 
 @implementation LMTextView
 
+#pragma mark - Initializers / Setup
+
 - (void)_setup
 {
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(textDidChange:) name:NSTextDidChangeNotification object:self];
@@ -61,11 +63,7 @@
 	return self;
 }
 
-- (BOOL)becomeFirstResponder
-{
-	[self highlightSyntax:nil];
-	return [super becomeFirstResponder];
-}
+#pragma mark - Accessors
 
 - (void)setParser:(id<LMTextParser>)parser
 {
@@ -76,6 +74,14 @@
 		return [textView string];
 	}];
 	[self didChangeValueForKey:@"parser"];
+}
+
+#pragma mark - Observers / View Events
+
+- (BOOL)becomeFirstResponder
+{
+	[self highlightSyntax:nil];
+	return [super becomeFirstResponder];
 }
 
 - (void)textStorageDidProcessEditing:(NSNotification*)notification
@@ -113,73 +119,7 @@
 	}
 }
 
-- (void)highlightSyntax:(NSTimer*)timer
-{
-	if ([timer.userInfo isEqual:@(1)] && NSEqualRects(self.enclosingScrollView.contentView.bounds, _oldBounds)) {
-		return;
-	}
-	
-	_oldBounds = self.enclosingScrollView.contentView.bounds;
-
-	NSLayoutManager *layoutManager = [self layoutManager];
-	
-	NSColor* primitiveColor = [NSColor colorWithCalibratedRed:160.f/255.f green:208.f/255.f blue:202.f/255.f alpha:1.f];
-	NSColor* stringColor = [NSColor colorWithCalibratedRed:33.f/255.f green:82.f/255.f blue:116.f/255.f alpha:1.f];
-	
-	NSRange characterRange;
-	if ([self isFieldEditor]) {
-		characterRange = NSMakeRange(0, [self.textStorage.string length]);
-	}
-	else {
-		NSRange glyphRange = [self.layoutManager glyphRangeForBoundingRect:self.enclosingScrollView.documentVisibleRect inTextContainer:self.textContainer];
-		characterRange = [self.layoutManager characterRangeForGlyphRange:glyphRange actualGlyphRange:NULL];
-	}
-
-	[layoutManager removeTemporaryAttribute:NSForegroundColorAttributeName forCharacterRange:NSMakeRange(0, [self.textStorage.string length])];
-	
-	[self.parser applyAttributesInRange:characterRange withBlock:^(NSUInteger tokenTypeMask, NSRange range) {
-		switch (tokenTypeMask & LMTextParserTokenTypeMask) {
-			case LMTextParserTokenTypeBoolean:
-				[layoutManager addTemporaryAttribute:NSForegroundColorAttributeName value:primitiveColor forCharacterRange:range];
-				break;
-			case LMTextParserTokenTypeNumber:
-				[layoutManager addTemporaryAttribute:NSForegroundColorAttributeName value:primitiveColor forCharacterRange:range];
-				break;
-			case LMTextParserTokenTypeString:
-				[layoutManager addTemporaryAttribute:NSForegroundColorAttributeName value:stringColor forCharacterRange:range];
-				break;
-			case LMTextParserTokenTypeOther:
-				[layoutManager addTemporaryAttribute:NSForegroundColorAttributeName value:primitiveColor forCharacterRange:range];
-				break;
-		}
-	}];
-}
-
-- (NSUInteger)charIndexForPoint:(NSPoint)point
-{
-	NSLayoutManager *layoutManager = [self layoutManager];
-	NSUInteger glyphIndex = 0;
-    NSRect glyphRect;
-	NSTextContainer *textContainer = [self textContainer];
-	
-	// Convert view coordinates to container coordinates
-    point.x -= [self textContainerOrigin].x;
-    point.y -= [self textContainerOrigin].y;
-	
-	// Convert those coordinates to the nearest glyph index
-    glyphIndex = [layoutManager glyphIndexForPoint:point inTextContainer:textContainer];
-
-	// Check to see whether the mouse actually lies over the glyph it is nearest to
-    glyphRect = [layoutManager boundingRectForGlyphRange:NSMakeRange(glyphIndex, 1) inTextContainer:textContainer];
-
-	if (NSPointInRect(point, glyphRect)) {
-		// Convert the glyph index to a character index
-        return [layoutManager characterIndexForGlyphAtIndex:glyphIndex];
-	}
-	else {
-		return NSNotFound;
-	}
-}
+#pragma mark - Mouse Events
 
 - (void)mouseMoved:(NSEvent *)theEvent {
     NSLayoutManager *layoutManager = [self layoutManager];
@@ -240,6 +180,76 @@
 	}
 	
 	[super mouseDown:theEvent];
+}
+
+#pragma mark - Syntax Highlighting
+
+- (void)highlightSyntax:(NSTimer*)timer
+{
+	if ([timer.userInfo isEqual:@(1)] && NSEqualRects(self.enclosingScrollView.contentView.bounds, _oldBounds)) {
+		return;
+	}
+	
+	_oldBounds = self.enclosingScrollView.contentView.bounds;
+	
+	NSLayoutManager *layoutManager = [self layoutManager];
+	
+	NSColor* primitiveColor = [NSColor colorWithCalibratedRed:160.f/255.f green:208.f/255.f blue:202.f/255.f alpha:1.f];
+	NSColor* stringColor = [NSColor colorWithCalibratedRed:33.f/255.f green:82.f/255.f blue:116.f/255.f alpha:1.f];
+	
+	NSRange characterRange;
+	if ([self isFieldEditor]) {
+		characterRange = NSMakeRange(0, [self.textStorage.string length]);
+	}
+	else {
+		NSRange glyphRange = [self.layoutManager glyphRangeForBoundingRect:self.enclosingScrollView.documentVisibleRect inTextContainer:self.textContainer];
+		characterRange = [self.layoutManager characterRangeForGlyphRange:glyphRange actualGlyphRange:NULL];
+	}
+	
+	[layoutManager removeTemporaryAttribute:NSForegroundColorAttributeName forCharacterRange:NSMakeRange(0, [self.textStorage.string length])];
+	
+	[self.parser applyAttributesInRange:characterRange withBlock:^(NSUInteger tokenTypeMask, NSRange range) {
+		switch (tokenTypeMask & LMTextParserTokenTypeMask) {
+			case LMTextParserTokenTypeBoolean:
+				[layoutManager addTemporaryAttribute:NSForegroundColorAttributeName value:primitiveColor forCharacterRange:range];
+				break;
+			case LMTextParserTokenTypeNumber:
+				[layoutManager addTemporaryAttribute:NSForegroundColorAttributeName value:primitiveColor forCharacterRange:range];
+				break;
+			case LMTextParserTokenTypeString:
+				[layoutManager addTemporaryAttribute:NSForegroundColorAttributeName value:stringColor forCharacterRange:range];
+				break;
+			case LMTextParserTokenTypeOther:
+				[layoutManager addTemporaryAttribute:NSForegroundColorAttributeName value:primitiveColor forCharacterRange:range];
+				break;
+		}
+	}];
+}
+
+- (NSUInteger)charIndexForPoint:(NSPoint)point
+{
+	NSLayoutManager *layoutManager = [self layoutManager];
+	NSUInteger glyphIndex = 0;
+    NSRect glyphRect;
+	NSTextContainer *textContainer = [self textContainer];
+	
+	// Convert view coordinates to container coordinates
+    point.x -= [self textContainerOrigin].x;
+    point.y -= [self textContainerOrigin].y;
+	
+	// Convert those coordinates to the nearest glyph index
+    glyphIndex = [layoutManager glyphIndexForPoint:point inTextContainer:textContainer];
+	
+	// Check to see whether the mouse actually lies over the glyph it is nearest to
+    glyphRect = [layoutManager boundingRectForGlyphRange:NSMakeRange(glyphIndex, 1) inTextContainer:textContainer];
+	
+	if (NSPointInRect(point, glyphRect)) {
+		// Convert the glyph index to a character index
+        return [layoutManager characterIndexForGlyphAtIndex:glyphIndex];
+	}
+	else {
+		return NSNotFound;
+	}
 }
 
 @end

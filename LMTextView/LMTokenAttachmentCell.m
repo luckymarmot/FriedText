@@ -63,7 +63,6 @@
 {
 	self.highlighted = flag;
 	[controlView setNeedsDisplayInRect:cellFrame];
-	NSLog(@"Highlight");
 }
 
 - (BOOL)wantsToTrackMouse
@@ -83,7 +82,7 @@
 
 - (BOOL)trackMouse:(NSEvent *)theEvent inRect:(NSRect)cellFrame ofView:(NSView *)controlView atCharacterIndex:(NSUInteger)charIndex untilMouseUp:(BOOL)flag
 {
-	NSLog(@"Mouse");
+	NSLog(@"Mouse Pressed on Text Attachment");
 	return YES;
 }
 
