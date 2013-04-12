@@ -27,6 +27,6 @@ typedef enum {
 
 - (void)applyAttributesInRange:(NSRange)range withBlock:(void(^)(NSUInteger tokenTypeMask, NSRange range))block;
 
-- (NSArray *)keyPathForObjectAtCharIndex:(NSUInteger)charIndex correctedRange:(NSRange *)correctedRange;
+- (NSArray *)keyPathForObjectAtRange:(NSRange)range objectRange:(NSRange *)correctedRange;
 
 @end

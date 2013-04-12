@@ -101,10 +101,13 @@
 
 - (NSArray *)textView:(NSTextView *)textView completions:(NSArray *)words forPartialWordRange:(NSRange)charRange indexOfSelectedItem:(NSInteger *)index
 {
-	return @[
-			@{@"word":@"Reina"},
-			@{@"word":@"Micha"},
-		  ];
+	NSLog(@"Words: %@ CharRange: %@, Index: %ld", words, NSStringFromRange(charRange), *index);
+	*index = 2;
+	return @[@"Accept", @"Accept-Encoding", @"Accept-Language"];
+//	return @[
+//			@{@"word":@"Reina"},
+//			@{@"word":@"Micha"},
+//		  ];
 }
 
 - (void)textView:(LMTextView *)textView mouseDownForTokenAtRange:(NSRange)range withBounds:(NSRect)bounds keyPath:(NSArray *)keyPath

@@ -119,6 +119,34 @@
 	}
 }
 
+#pragma mark - Helpers
+
+- (NSUInteger)charIndexForPoint:(NSPoint)point
+{
+	NSLayoutManager *layoutManager = [self layoutManager];
+	NSUInteger glyphIndex = 0;
+    NSRect glyphRect;
+	NSTextContainer *textContainer = [self textContainer];
+	
+	// Convert view coordinates to container coordinates
+    point.x -= [self textContainerOrigin].x;
+    point.y -= [self textContainerOrigin].y;
+	
+	// Convert those coordinates to the nearest glyph index
+    glyphIndex = [layoutManager glyphIndexForPoint:point inTextContainer:textContainer];
+	
+	// Check to see whether the mouse actually lies over the glyph it is nearest to
+    glyphRect = [layoutManager boundingRectForGlyphRange:NSMakeRange(glyphIndex, 1) inTextContainer:textContainer];
+	
+	if (NSPointInRect(point, glyphRect)) {
+		// Convert the glyph index to a character index
+        return [layoutManager characterIndexForGlyphAtIndex:glyphIndex];
+	}
+	else {
+		return NSNotFound;
+	}
+}
+
 #pragma mark - Mouse Events
 
 - (void)mouseMoved:(NSEvent *)theEvent {
@@ -133,7 +161,7 @@
     if (charIndex != NSNotFound) {
 		if (self.parser) {
 			NSRange tokenRange;
-			[self.parser keyPathForObjectAtCharIndex:charIndex correctedRange:&tokenRange];
+			[self.parser keyPathForObjectAtRange:NSMakeRange(charIndex, 1) objectRange:&tokenRange];
 			if (tokenRange.location != NSNotFound) {
 				[layoutManager addTemporaryAttribute:NSUnderlineStyleAttributeName value:@(NSUnderlinePatternDot | NSUnderlineStyleSingle) forCharacterRange:tokenRange];
 				
@@ -163,7 +191,7 @@
 		}
 		else if (self.parser) {
 			NSRange tokenRange;
-			NSArray* path = [self.parser keyPathForObjectAtCharIndex:charIndex correctedRange:&tokenRange];
+			NSArray* path = [self.parser keyPathForObjectAtRange:NSMakeRange(charIndex, 1) objectRange:&tokenRange];
 			NSRect bounds = [layoutManager boundingRectForGlyphRange:tokenRange inTextContainer:textContainer];
 			
 			if (tokenRange.location != NSNotFound) {
@@ -226,29 +254,17 @@
 	}];
 }
 
-- (NSUInteger)charIndexForPoint:(NSPoint)point
+#pragma mark - Completion
+
+- (NSRange)rangeForUserCompletion
 {
-	NSLayoutManager *layoutManager = [self layoutManager];
-	NSUInteger glyphIndex = 0;
-    NSRect glyphRect;
-	NSTextContainer *textContainer = [self textContainer];
-	
-	// Convert view coordinates to container coordinates
-    point.x -= [self textContainerOrigin].x;
-    point.y -= [self textContainerOrigin].y;
-	
-	// Convert those coordinates to the nearest glyph index
-    glyphIndex = [layoutManager glyphIndexForPoint:point inTextContainer:textContainer];
-	
-	// Check to see whether the mouse actually lies over the glyph it is nearest to
-    glyphRect = [layoutManager boundingRectForGlyphRange:NSMakeRange(glyphIndex, 1) inTextContainer:textContainer];
-	
-	if (NSPointInRect(point, glyphRect)) {
-		// Convert the glyph index to a character index
-        return [layoutManager characterIndexForGlyphAtIndex:glyphIndex];
+	if (self.parser) {
+		NSRange range = {NSNotFound, 0};
+		[self.parser keyPathForObjectAtRange:self.selectedRange objectRange:&range];
+		return range;
 	}
 	else {
-		return NSNotFound;
+		return [super rangeForUserCompletion];
 	}
 }
 

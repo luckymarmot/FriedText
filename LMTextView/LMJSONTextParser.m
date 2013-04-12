@@ -99,7 +99,7 @@
 	}
 }
 
-- (NSArray *)keyPathForObjectAtCharIndex:(NSUInteger)charIndex correctedRange:(NSRange *)correctedRange
+- (NSArray *)keyPathForObjectAtRange:(NSRange)range objectRange:(NSRange *)objectRange
 {
 	if (![self isStringValid]) {
 		[self parse];
@@ -107,10 +107,10 @@
 	
 	for (unsigned int i = 0; i < parser.toknext; i++) {
 		if (tokens[i].type == JSMN_PRIMITIVE || tokens[i].type == JSMN_STRING) {
-			if (charIndex >= tokens[i].start && charIndex < tokens[i].end) {
+			if (range.location >= tokens[i].start && range.location+range.length <= tokens[i].end) {
 				NSRange range = NSMakeRange(tokens[i].start, tokens[i].end-tokens[i].start);
 				
-				*correctedRange = range;
+				*objectRange = range;
 				
 				NSMutableArray* path = [NSMutableArray array];
 				for (unsigned int j = i; tokens[j].parent != (-1); j = tokens[j].parent) {
@@ -131,7 +131,7 @@
 		}
 	}
 	
-	*correctedRange = NSMakeRange(NSNotFound, 0);
+	*objectRange = NSMakeRange(NSNotFound, 0);
 	
 	return nil;
 }
