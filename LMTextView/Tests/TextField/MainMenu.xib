@@ -1508,6 +1508,7 @@
 							<string key="NSFrame">{{301, 347}, {276, 41}}</string>
 							<reference key="NSSuperview" ref="439893737"/>
 							<reference key="NSWindow"/>
+							<reference key="NSNextKeyView"/>
 							<string key="NSReuseIdentifierKey">_NS:1535</string>
 							<bool key="NSEnabled">YES</bool>
 							<object class="NSTextFieldCell" key="NSCell" id="790109573">
@@ -2217,6 +2218,14 @@
 					<int key="connectionID">776</int>
 				</object>
 				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">jsonField2</string>
+						<reference key="source" ref="972006081"/>
+						<reference key="destination" ref="20777581"/>
+					</object>
+					<int key="connectionID">778</int>
+				</object>
+				<object class="IBConnectionRecord">
 					<object class="IBActionConnection" key="connection">
 						<string key="label">addFontTrait:</string>
 						<reference key="source" ref="755631768"/>
@@ -2343,6 +2352,14 @@
 						<reference key="destination" ref="972006081"/>
 					</object>
 					<int key="connectionID">744</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">parser</string>
+						<reference key="source" ref="20777581"/>
+						<reference key="destination" ref="775486024"/>
+					</object>
+					<int key="connectionID">777</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBOutletConnection" key="connection">
@@ -4305,6 +4322,7 @@
 				<string key="705.CustomClassName">LMTextField</string>
 				<boolean value="NO" key="705.IBNSViewMetadataTranslatesAutoresizingMaskIntoConstraints"/>
 				<string key="705.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<string key="706.CustomClassName">LMTextFieldCell</string>
 				<string key="706.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="707.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="709.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -4355,7 +4373,7 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">776</int>
+			<int key="maxID">778</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -4418,11 +4436,16 @@
 					<string key="superclassName">NSWindow</string>
 					<dictionary class="NSMutableDictionary" key="outlets">
 						<string key="jsonField">LMTextField</string>
+						<string key="jsonField2">LMTextField</string>
 						<string key="serializationTestField">NSTextField</string>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="toOneOutletInfosByName">
 						<object class="IBToOneOutletInfo" key="jsonField">
 							<string key="name">jsonField</string>
+							<string key="candidateClassName">LMTextField</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="jsonField2">
+							<string key="name">jsonField2</string>
 							<string key="candidateClassName">LMTextField</string>
 						</object>
 						<object class="IBToOneOutletInfo" key="serializationTestField">

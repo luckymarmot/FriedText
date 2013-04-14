@@ -10,7 +10,7 @@
 #import "LMTextView.h"
 #import "LMTextField.h"
 
-#warning Won't Work with Multiple Windows
+#warning Won't Work with Multiple Windows (even doesn't work with multiple fields)
 LMTextView* _sharedFieldEditor = nil;
 
 @interface LMTextFieldCell ()

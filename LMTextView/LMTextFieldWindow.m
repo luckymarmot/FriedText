@@ -23,6 +23,7 @@
 	[self.jsonField bind:LMTextFieldAttributedStringValueBinding toObject:[NSUserDefaults standardUserDefaults] withKeyPath:@"TestBindingsKey" options:@{NSValueTransformerNameBindingOption:@"LMAttributedTokenStringValueTransformer"}];
 	[self.serializationTestField bind:LMTextFieldAttributedStringValueBinding toObject:[NSUserDefaults standardUserDefaults] withKeyPath:@"TestBindingsKey" options:@{NSValueTransformerNameBindingOption:@"LMAttributedTokenStringValueTransformer"}];
 	self.jsonField.richText = NO;
+	self.jsonField2.richText = NO;
 }
 
 #pragma mark - LMTextFieldDelegate

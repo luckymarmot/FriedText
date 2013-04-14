@@ -12,6 +12,7 @@
 
 @interface LMTextFieldWindow : NSWindow <LMTextFieldDelegate>
 @property (strong) IBOutlet LMTextField *jsonField;
+@property (strong) IBOutlet LMTextField *jsonField2;
 @property (strong) IBOutlet NSTextField *serializationTestField;
 
 @end
