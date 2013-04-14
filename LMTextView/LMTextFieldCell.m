@@ -23,6 +23,9 @@ LMTextView* _sharedFieldEditor = nil;
 			if ([(LMTextField*)aControlView parser]) {
 				[_sharedFieldEditor setParser:[(LMTextField*)aControlView parser]];
 			}
+			else {
+				[_sharedFieldEditor setParser:nil];
+			}
 		}
 		return _sharedFieldEditor;
 	}
