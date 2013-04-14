@@ -29,6 +29,4 @@
 @property (nonatomic) BOOL optimizeHighlightingOnScrolling;
 @property (nonatomic) BOOL optimizeHighlightingOnEditing;
 
-@property (weak, nonatomic) LMTextField* editingField;
-
 @end

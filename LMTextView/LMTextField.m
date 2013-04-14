@@ -35,6 +35,16 @@ NSString* LMTextFieldAttributedStringValueBinding = @"attributedStringValue";
 	[super textDidEndEditing:notification];
 }
 
+- (BOOL)becomeFirstResponder
+{
+	BOOL result = [super becomeFirstResponder];
+	
+	// Customize the Field Editor
+	[[self currentEditor] setRichText:self.richText];
+
+	return result;
+}
+
 #pragma mark - LMTextViewDelegate
 
 - (void)textView:(LMTextView *)textView mouseDownForTokenAtRange:(NSRange)range withBounds:(NSRect)bounds keyPath:(NSArray *)keyPath

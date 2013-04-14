@@ -120,16 +120,6 @@
 	}
 }
 
-- (BOOL)isRichText
-{
-	if (self.editingField) {
-		return [self.editingField isRichText];
-	}
-	else {
-		return [super isRichText];
-	}
-}
-
 #pragma mark - Helpers
 
 - (NSUInteger)charIndexForPoint:(NSPoint)point

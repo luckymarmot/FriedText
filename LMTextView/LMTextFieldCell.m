@@ -51,7 +51,6 @@ LMTextView* _sharedFieldEditor = nil;
 		if (_sharedFieldEditor == nil) {
 			_sharedFieldEditor = [[LMTextView alloc] init];
 			[_sharedFieldEditor setFieldEditor:YES];
-			[_sharedFieldEditor setEditingField:(LMTextField*)aControlView];
 			if ([(LMTextField*)aControlView parser]) {
 				[_sharedFieldEditor setParser:[(LMTextField*)aControlView parser]];
 			}
