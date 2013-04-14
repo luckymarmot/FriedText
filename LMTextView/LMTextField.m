@@ -11,6 +11,8 @@
 
 #import "NSObject+TDBindings.h"
 
+#import "NSMutableAttributedString+CocoaExtensions.h"
+
 NSString* LMTextFieldAttributedStringValueBinding = @"attributedStringValue";
 
 @interface LMTextField ()
@@ -41,8 +43,21 @@ NSString* LMTextFieldAttributedStringValueBinding = @"attributedStringValue";
 	
 	// Customize the Field Editor
 	[[self currentEditor] setRichText:self.richText];
-
+	
 	return result;
+}
+
+- (void)setAttributedStringValue:(NSAttributedString *)obj
+{
+	NSMutableAttributedString* string = [obj mutableCopy];
+	[string addAttribute:NSFontAttributeName value:self.font range:NSMakeRange(0, [string length])];
+	[string addAttribute:NSForegroundColorAttributeName value:self.textColor range:NSMakeRange(0, [string length])];
+	
+	if ([self parser]) {
+		[string highlightSyntaxWithParser:[self parser]];
+	}
+	
+	[super setAttributedStringValue:[string copy]];
 }
 
 #pragma mark - LMTextViewDelegate
