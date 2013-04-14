@@ -9,6 +9,8 @@
 #import "LMTokenAttachmentCell.h"
 #import "NSView+CocoaExtensions.h"
 
+NSString* LMTokenAttachmentCellStringKey = @"string";
+
 @interface LMTokenAttachmentCell ()
 
 @property (nonatomic) BOOL highlighted;
@@ -16,6 +18,34 @@
 @end
 
 @implementation LMTokenAttachmentCell
+
+#pragma mark - Coding
+
+- (id)initWithCoder:(NSCoder *)aDecoder
+{
+	self = [super initWithCoder:aDecoder];
+	if (self) {
+		if ([aDecoder allowsKeyedCoding]) {
+			self.string = [aDecoder decodeObjectForKey:LMTokenAttachmentCellStringKey];
+		}
+		else {
+			self.string = [aDecoder decodeObject];
+		}
+	}
+	return self;
+}
+
+- (void)encodeWithCoder:(NSCoder *)aCoder
+{
+	if ([aCoder allowsKeyedCoding]) {
+		[aCoder encodeObject:self.string forKey:LMTokenAttachmentCellStringKey];
+	}
+	else {
+		[aCoder encodeObject:self.string];
+	}
+}
+
+#pragma mark - Overriding
 
 - (NSSize)cellSize
 {
