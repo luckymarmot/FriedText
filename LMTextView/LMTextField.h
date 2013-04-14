@@ -11,6 +11,8 @@
 #import "LMTextParser.h"
 #import "LMTextView.h"
 
+extern NSString* LMTextFieldAttributedStringValueBinding;
+
 @class LMTextField;
 
 @protocol LMTextFieldDelegate <NSTextFieldDelegate>

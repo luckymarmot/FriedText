@@ -9,19 +9,22 @@
 #import "LMTextField.h"
 #import "LMTextFieldCell.h"
 
-@implementation LMTextField
+#import "NSObject+TDBindings.h"
 
-- (id)initWithCoder:(NSCoder *)aDecoder
-{
-	self = [super initWithCoder:aDecoder];
-	if (self) {
-	}
-	return self;
-}
+NSString* LMTextFieldAttributedStringValueBinding = @"attributedStringValue";
+
+@implementation LMTextField
 
 + (Class)cellClass
 {
 	return [LMTextFieldCell class];
+}
+
+- (void)textDidEndEditing:(NSNotification *)notification
+{
+	[self propagateValue:[[(LMTextView*)[self currentEditor] textStorage] copy] forBinding:LMTextFieldAttributedStringValueBinding];
+	
+	[super textDidEndEditing:notification];
 }
 
 #pragma mark - LMTextViewDelegate
