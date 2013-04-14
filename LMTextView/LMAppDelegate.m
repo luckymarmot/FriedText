@@ -8,11 +8,13 @@
 
 #import "LMAppDelegate.h"
 
+#import "LMAttributedTokenStringValueTransformer.h"
+
 @implementation LMAppDelegate
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {
-	// Insert code here to initialize your application
+	[NSValueTransformer setValueTransformer:[[LMAttributedTokenStringValueTransformer alloc] init] forName:@"LMAttributedTokenStringValueTransformer"];
 }
 
 @end
