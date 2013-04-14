@@ -37,6 +37,8 @@ NSString* LMTokenAttachmentCellStringKey = @"string";
 
 - (void)encodeWithCoder:(NSCoder *)aCoder
 {
+	[super encodeWithCoder:aCoder];
+	
 	if ([aCoder allowsKeyedCoding]) {
 		[aCoder encodeObject:self.string forKey:LMTokenAttachmentCellStringKey];
 	}
