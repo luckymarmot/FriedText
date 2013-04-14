@@ -20,6 +20,8 @@
 
 #import "NSArray+KeyPath.h"
 
+#import "NSMutableAttributedString+CocoaExtensions.h"
+
 #define NUM_TOKENS 100024
 
 @interface LMTextView () {
@@ -243,6 +245,8 @@
 		[layoutManager removeTemporaryAttribute:NSForegroundColorAttributeName forCharacterRange:NSMakeRange(0, [self.textStorage.string length])];
 	}
 	else {
+		[textStorage beginEditing];
+		
 		[textStorage removeAttribute:NSForegroundColorAttributeName range:NSMakeRange(0, [self.textStorage.string length])];
 	}
 	
@@ -269,6 +273,8 @@
 		}
 		else {
 			[textStorage addAttribute:NSForegroundColorAttributeName value:color range:range];
+			
+			[textStorage endEditing];
 		}
 	}];
 }
