@@ -8,8 +8,12 @@
 
 #import <Foundation/Foundation.h>
 
+#import "LMTextParser.h"
+
 @interface NSMutableAttributedString (CocoaExtensions)
 
 - (void)removeAllAttributesExcept:(NSArray*)exceptions;
+
+- (void)highlightSyntaxWithParser:(id<LMTextParser>)parser;
 
 @end
