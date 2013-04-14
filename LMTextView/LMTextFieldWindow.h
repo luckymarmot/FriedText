@@ -11,5 +11,7 @@
 #import "LMTextField.h"
 
 @interface LMTextFieldWindow : NSWindow <LMTextFieldDelegate>
+@property (strong) IBOutlet LMTextField *jsonField;
+@property (strong) IBOutlet NSTextField *serializationTestField;
 
 @end

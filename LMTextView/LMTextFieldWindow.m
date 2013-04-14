@@ -14,7 +14,15 @@
 
 #import "NSArray+KeyPath.h"
 
+#import "LMTextField.h"
+
 @implementation LMTextFieldWindow
+
+- (void)awakeFromNib
+{
+	[self.jsonField bind:LMTextFieldAttributedStringValueBinding toObject:[NSUserDefaults standardUserDefaults] withKeyPath:@"TestBindingsKey" options:@{NSValueTransformerNameBindingOption:@"LMAttributedTokenStringValueTransformer"}];
+	[self.serializationTestField bind:LMTextFieldAttributedStringValueBinding toObject:[NSUserDefaults standardUserDefaults] withKeyPath:@"TestBindingsKey" options:@{NSValueTransformerNameBindingOption:@"LMAttributedTokenStringValueTransformer"}];
+}
 
 #pragma mark - LMTextFieldDelegate
 

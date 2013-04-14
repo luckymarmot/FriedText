@@ -27,6 +27,10 @@
 		AE4E74A2170F1561003BF794 /* jsmn.c in Sources */ = {isa = PBXBuildFile; fileRef = AE4E74A0170F1561003BF794 /* jsmn.c */; };
 		AE4E74AB170F4504003BF794 /* NSArray+KeyPath.m in Sources */ = {isa = PBXBuildFile; fileRef = AE4E74AA170F4504003BF794 /* NSArray+KeyPath.m */; };
 		AE64243E171582E300C14DA5 /* LMLineNumberRuler.m in Sources */ = {isa = PBXBuildFile; fileRef = AE64243D171582E300C14DA5 /* LMLineNumberRuler.m */; };
+		AE818A0B171A91B500968B82 /* LMAttributedTokenStringValueTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = AE818A0A171A91B500968B82 /* LMAttributedTokenStringValueTransformer.m */; };
+		AE818A0C171A91B500968B82 /* LMAttributedTokenStringValueTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = AE818A0A171A91B500968B82 /* LMAttributedTokenStringValueTransformer.m */; };
+		AE818A0F171A9DF600968B82 /* NSObject+TDBindings.m in Sources */ = {isa = PBXBuildFile; fileRef = AE818A0E171A9DF600968B82 /* NSObject+TDBindings.m */; };
+		AE818A10171A9DF600968B82 /* NSObject+TDBindings.m in Sources */ = {isa = PBXBuildFile; fileRef = AE818A0E171A9DF600968B82 /* NSObject+TDBindings.m */; };
 		AED2D2DC1716ABF300C38A87 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = AE04F60D170EEA170032338C /* main.m */; };
 		AED2D2DD1716ABF300C38A87 /* LMAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = AE04F614170EEA170032338C /* LMAppDelegate.m */; };
 		AED2D2DE1716ABF300C38A87 /* LMTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = AE04F61F170EEA8A0032338C /* LMTextView.m */; };
@@ -97,6 +101,10 @@
 		AE4E74AA170F4504003BF794 /* NSArray+KeyPath.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+KeyPath.m"; sourceTree = "<group>"; };
 		AE64243C171582E300C14DA5 /* LMLineNumberRuler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LMLineNumberRuler.h; sourceTree = "<group>"; };
 		AE64243D171582E300C14DA5 /* LMLineNumberRuler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LMLineNumberRuler.m; sourceTree = "<group>"; };
+		AE818A09171A91B500968B82 /* LMAttributedTokenStringValueTransformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LMAttributedTokenStringValueTransformer.h; sourceTree = "<group>"; };
+		AE818A0A171A91B500968B82 /* LMAttributedTokenStringValueTransformer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LMAttributedTokenStringValueTransformer.m; sourceTree = "<group>"; };
+		AE818A0D171A9DF600968B82 /* NSObject+TDBindings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+TDBindings.h"; sourceTree = "<group>"; };
+		AE818A0E171A9DF600968B82 /* NSObject+TDBindings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+TDBindings.m"; sourceTree = "<group>"; };
 		AED2D2F61716ABF300C38A87 /* LMTextView Text Field.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "LMTextView Text Field.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		AED2D2F71716ABF300C38A87 /* LMTextView Text Field-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "LMTextView Text Field-Info.plist"; path = "/Users/michamazaheri/Desktop/Lucky Marmot/LMTextView/LMTextView Text Field-Info.plist"; sourceTree = "<absolute>"; };
 		AED2D2FA1716ACBA00C38A87 /* MainMenu.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = MainMenu.xib; path = Tests/TextView/MainMenu.xib; sourceTree = "<group>"; };
@@ -236,6 +244,8 @@
 				AE0C57F0170FEDAC00FDFBDA /* LMFoldingTextAttachmentCell.m */,
 				AE4AC701171035E200DB8A77 /* LMTokenAttachmentCell.h */,
 				AE4AC702171035E200DB8A77 /* LMTokenAttachmentCell.m */,
+				AE818A09171A91B500968B82 /* LMAttributedTokenStringValueTransformer.h */,
+				AE818A0A171A91B500968B82 /* LMAttributedTokenStringValueTransformer.m */,
 			);
 			name = LMTextView;
 			sourceTree = "<group>";
@@ -255,6 +265,8 @@
 			children = (
 				AE4E7498170EF98E003BF794 /* NSView+CocoaExtensions.h */,
 				AE4E7499170EF98E003BF794 /* NSView+CocoaExtensions.m */,
+				AE818A0D171A9DF600968B82 /* NSObject+TDBindings.h */,
+				AE818A0E171A9DF600968B82 /* NSObject+TDBindings.m */,
 			);
 			name = Categories;
 			sourceTree = "<group>";
@@ -436,6 +448,8 @@
 				AE64243E171582E300C14DA5 /* LMLineNumberRuler.m in Sources */,
 				AED2D3041716AF8500C38A87 /* LMTextField.m in Sources */,
 				AED2D3081716AFA200C38A87 /* LMTextFieldCell.m in Sources */,
+				AE818A0B171A91B500968B82 /* LMAttributedTokenStringValueTransformer.m in Sources */,
+				AE818A0F171A9DF600968B82 /* NSObject+TDBindings.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -460,6 +474,8 @@
 				AED2D3001716AD5F00C38A87 /* LMTextFieldWindow.m in Sources */,
 				AED2D3051716AF8500C38A87 /* LMTextField.m in Sources */,
 				AED2D3091716AFA200C38A87 /* LMTextFieldCell.m in Sources */,
+				AE818A0C171A91B500968B82 /* LMAttributedTokenStringValueTransformer.m in Sources */,
+				AE818A10171A9DF600968B82 /* NSObject+TDBindings.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
