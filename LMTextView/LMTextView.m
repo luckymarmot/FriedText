@@ -78,6 +78,7 @@
 	[_parser setStringBlock:^NSString *{
 		return [textView string];
 	}];
+	[_parser invalidateString];
 	[self didChangeValueForKey:@"parser"];
 }
 
