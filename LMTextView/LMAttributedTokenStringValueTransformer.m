@@ -7,6 +7,7 @@
 //
 
 #import "LMAttributedTokenStringValueTransformer.h"
+#import "NSMutableAttributedString+CocoaExtensions.h"
 
 @implementation LMAttributedTokenStringValueTransformer
 
@@ -27,7 +28,9 @@
 
 - (id)reverseTransformedValue:(id)value
 {
-	return [NSKeyedArchiver archivedDataWithRootObject:value];
+	NSMutableAttributedString* attributedString = [value mutableCopy];
+	[attributedString removeAllAttributesExcept:@[NSAttachmentAttributeName]];
+	return [NSKeyedArchiver archivedDataWithRootObject:attributedString];
 }
 
 @end
