@@ -7,6 +7,7 @@
 //
 
 #import "LMTextView.h"
+#import "LMTextField.h"
 
 #import "LMCompletionView.h"
 #import "LMCompletionTableView.h"
@@ -116,6 +117,16 @@
 	}
 	else {
 		[self highlightSyntax:nil];
+	}
+}
+
+- (BOOL)isRichText
+{
+	if (self.editingField) {
+		return [self.editingField isRichText];
+	}
+	else {
+		return [super isRichText];
 	}
 }
 

@@ -13,12 +13,20 @@
 
 NSString* LMTextFieldAttributedStringValueBinding = @"attributedStringValue";
 
+@interface LMTextField ()
+
+@end
+
 @implementation LMTextField
+
+#pragma mark - Cell Class
 
 + (Class)cellClass
 {
 	return [LMTextFieldCell class];
 }
+
+#pragma mark - Field Editor Events
 
 - (void)textDidEndEditing:(NSNotification *)notification
 {

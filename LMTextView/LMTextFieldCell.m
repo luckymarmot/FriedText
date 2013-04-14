@@ -10,9 +10,40 @@
 #import "LMTextView.h"
 #import "LMTextField.h"
 
+#warning Won't Work with Multiple Windows
 LMTextView* _sharedFieldEditor = nil;
 
+@interface LMTextFieldCell ()
+
+@end
+
 @implementation LMTextFieldCell
+
+#pragma mark - Initializers
+
+- (id)init
+{
+	self = [super init];
+	if (self) {
+	}
+	return self;
+}
+
+- (id)initWithCoder:(NSCoder *)aDecoder
+{
+	self = [super initWithCoder:aDecoder];
+	if (self) {
+	}
+	return self;
+}
+
+#pragma mark - Accessors
+
+- (BOOL)allowsEditingTextAttributes
+{
+	// Forcing this value allows us to keep tokens
+	return YES;
+}
 
 - (NSTextView *)fieldEditorForView:(NSView *)aControlView
 {
@@ -20,6 +51,7 @@ LMTextView* _sharedFieldEditor = nil;
 		if (_sharedFieldEditor == nil) {
 			_sharedFieldEditor = [[LMTextView alloc] init];
 			[_sharedFieldEditor setFieldEditor:YES];
+			[_sharedFieldEditor setEditingField:(LMTextField*)aControlView];
 			if ([(LMTextField*)aControlView parser]) {
 				[_sharedFieldEditor setParser:[(LMTextField*)aControlView parser]];
 			}

@@ -29,4 +29,6 @@ extern NSString* LMTextFieldAttributedStringValueBinding;
 
 @property (strong, nonatomic) IBOutlet id <LMTextParser> parser;
 
+@property (nonatomic, getter = isRichText) BOOL richText;
+
 @end

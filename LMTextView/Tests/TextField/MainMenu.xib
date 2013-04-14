@@ -1403,7 +1403,7 @@
 							<bool key="NSEnabled">YES</bool>
 							<object class="NSTextFieldCell" key="NSCell" id="655183711">
 								<int key="NSCellFlags">-1804599231</int>
-								<int key="NSCellFlags2">1346372608</int>
+								<int key="NSCellFlags2">272630784</int>
 								<string key="NSContents">{"json":"testing","xml":"pending"}</string>
 								<reference key="NSSupport" ref="795549278"/>
 								<string key="NSCellIdentifier">_NS:9</string>
@@ -1508,7 +1508,6 @@
 							<string key="NSFrame">{{301, 347}, {276, 41}}</string>
 							<reference key="NSSuperview" ref="439893737"/>
 							<reference key="NSWindow"/>
-							<reference key="NSNextKeyView"/>
 							<string key="NSReuseIdentifierKey">_NS:1535</string>
 							<bool key="NSEnabled">YES</bool>
 							<object class="NSTextFieldCell" key="NSCell" id="790109573">
