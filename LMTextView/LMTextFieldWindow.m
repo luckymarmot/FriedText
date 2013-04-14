@@ -18,7 +18,7 @@
 
 #pragma mark - LMTextFieldDelegate
 
-- (void)textField:(LMTextField *)textField usingTextView:(LMTextView*)textView mouseDownForTokenAtRange:(NSRange)range withBounds:(NSRect)bounds keyPath:(NSArray *)keyPath
+- (void)textField:(LMTextField *)textField fieldEditor:(LMTextView*)textView mouseDownForTokenAtRange:(NSRange)range withBounds:(NSRect)bounds keyPath:(NSArray *)keyPath
 {
 	LMTokenAttachmentCell* tokenCell = [[LMTokenAttachmentCell alloc] init];
 	tokenCell.string = [keyPath keyPathDescription];
@@ -30,6 +30,13 @@
 		[textView.textStorage replaceCharactersInRange:range withAttributedString:attributedString];
 		[textView didChangeText];
 	}
+}
+
+- (NSArray *)textField:(LMTextField *)textField fieldEditor:(LMTextView *)fieldEditor completions:(NSArray *)words forPartialWordRange:(NSRange)charRange indexOfSelectedItem:(NSInteger *)index
+{
+	NSLog(@"Words: %@ CharRange: %@, Index: %ld", words, NSStringFromRange(charRange), *index);
+	*index = 2;
+	return @[@"Accept", @"Accept-Encoding", @"Accept-Language"];
 }
 
 @end

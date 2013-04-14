@@ -261,6 +261,11 @@
 	if (self.parser) {
 		NSRange range = {NSNotFound, 0};
 		[self.parser keyPathForObjectAtRange:self.selectedRange objectRange:&range];
+		
+		if ([[self string] length] == 0 && range.location == NSNotFound) {
+			range = NSMakeRange(0, 0);
+		}
+		
 		return range;
 	}
 	else {

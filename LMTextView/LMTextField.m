@@ -29,10 +29,21 @@
 - (void)textView:(LMTextView *)textView mouseDownForTokenAtRange:(NSRange)range withBounds:(NSRect)bounds keyPath:(NSArray *)keyPath
 {
 	if (textView == [self currentEditor]) {
-		if ([self.delegate respondsToSelector:@selector(textField:usingTextView:mouseDownForTokenAtRange:withBounds:keyPath:)]) {
-			[(id<LMTextFieldDelegate>)self.delegate textField:self usingTextView:textView mouseDownForTokenAtRange:range withBounds:bounds keyPath:keyPath];
+		if ([self.delegate respondsToSelector:@selector(textField:fieldEditor:mouseDownForTokenAtRange:withBounds:keyPath:)]) {
+			[(id<LMTextFieldDelegate>)self.delegate textField:self fieldEditor:textView mouseDownForTokenAtRange:range withBounds:bounds keyPath:keyPath];
 		}
 	}
+}
+
+- (NSArray *)textView:(NSTextView *)textView completions:(NSArray *)words forPartialWordRange:(NSRange)charRange indexOfSelectedItem:(NSInteger *)index
+{
+	if (textView == [self currentEditor]) {
+		if ([self.delegate respondsToSelector:@selector(textField:fieldEditor:completions:forPartialWordRange:indexOfSelectedItem:)]) {
+			return [(id<LMTextFieldDelegate>)self.delegate textField:self fieldEditor:(LMTextView*)textView completions:words forPartialWordRange:charRange indexOfSelectedItem:index];
+		}
+	}
+
+	return nil;
 }
 
 @end
