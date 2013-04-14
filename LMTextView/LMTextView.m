@@ -44,6 +44,8 @@
 	
 	NSColor* baseColor = [NSColor colorWithCalibratedRed:93.f/255.f green:72.f/255.f blue:55.f/255.f alpha:1.f];
 	[self setTextColor:baseColor];
+	
+	self.useTemporaryAttributesForSyntaxHighlight = YES;
 }
 
 - (id)initWithCoder:(NSCoder *)aDecoder
@@ -235,22 +237,38 @@
 		characterRange = [self.layoutManager characterRangeForGlyphRange:glyphRange actualGlyphRange:NULL];
 	}
 	
-	[layoutManager removeTemporaryAttribute:NSForegroundColorAttributeName forCharacterRange:NSMakeRange(0, [self.textStorage.string length])];
+	NSTextStorage* textStorage = [self textStorage];
+	
+	if (_useTemporaryAttributesForSyntaxHighlight) {
+		[layoutManager removeTemporaryAttribute:NSForegroundColorAttributeName forCharacterRange:NSMakeRange(0, [self.textStorage.string length])];
+	}
+	else {
+		[textStorage removeAttribute:NSForegroundColorAttributeName range:NSMakeRange(0, [self.textStorage.string length])];
+	}
 	
 	[self.parser applyAttributesInRange:characterRange withBlock:^(NSUInteger tokenTypeMask, NSRange range) {
+		NSColor* color = nil;
+		
 		switch (tokenTypeMask & LMTextParserTokenTypeMask) {
 			case LMTextParserTokenTypeBoolean:
-				[layoutManager addTemporaryAttribute:NSForegroundColorAttributeName value:primitiveColor forCharacterRange:range];
+				color = primitiveColor;
 				break;
 			case LMTextParserTokenTypeNumber:
-				[layoutManager addTemporaryAttribute:NSForegroundColorAttributeName value:primitiveColor forCharacterRange:range];
+				color = primitiveColor;
 				break;
 			case LMTextParserTokenTypeString:
-				[layoutManager addTemporaryAttribute:NSForegroundColorAttributeName value:stringColor forCharacterRange:range];
+				color = stringColor;
 				break;
 			case LMTextParserTokenTypeOther:
-				[layoutManager addTemporaryAttribute:NSForegroundColorAttributeName value:primitiveColor forCharacterRange:range];
+				color = primitiveColor;
 				break;
+		}
+		
+		if (_useTemporaryAttributesForSyntaxHighlight) {
+			[layoutManager addTemporaryAttribute:NSForegroundColorAttributeName value:color forCharacterRange:range];
+		}
+		else {
+			[textStorage addAttribute:NSForegroundColorAttributeName value:color range:range];
 		}
 	}];
 }

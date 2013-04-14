@@ -29,4 +29,6 @@
 @property (nonatomic) BOOL optimizeHighlightingOnScrolling;
 @property (nonatomic) BOOL optimizeHighlightingOnEditing;
 
+@property (nonatomic) BOOL useTemporaryAttributesForSyntaxHighlight;
+
 @end
