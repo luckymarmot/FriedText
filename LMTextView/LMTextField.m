@@ -35,6 +35,8 @@ NSString* LMTextFieldAttributedStringValueBinding = @"attributedStringValue";
 	[self propagateValue:[[(LMTextView*)[self currentEditor] textStorage] copy] forBinding:LMTextFieldAttributedStringValueBinding];
 	
 	[super textDidEndEditing:notification];
+	
+	[self setAttributedStringValue:[self attributedStringValue]];
 }
 
 - (BOOL)becomeFirstResponder
