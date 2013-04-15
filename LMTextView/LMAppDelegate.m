@@ -10,11 +10,24 @@
 
 #import "LMAttributedTokenStringValueTransformer.h"
 
+NSMutableArray* _windowControllers = nil;
+
 @implementation LMAppDelegate
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {
 	[NSValueTransformer setValueTransformer:[[LMAttributedTokenStringValueTransformer alloc] init] forName:@"LMAttributedTokenStringValueTransformer"];
+}
+
+- (void)newDocument:(id)sender
+{
+	if (_windowControllers == nil) {
+		_windowControllers = [NSMutableArray array];
+	}
+	
+	NSWindowController* windowController = [[NSWindowController alloc] initWithWindowNibName:@"LMTextFieldWindow"];
+	[windowController showWindow:[windowController window]];
+	[_windowControllers addObject:windowController];
 }
 
 @end
