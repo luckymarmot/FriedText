@@ -9,9 +9,7 @@
 #import "LMTextFieldCell.h"
 #import "LMTextView.h"
 #import "LMTextField.h"
-
-#warning Won't Work with Multiple Windows (even doesn't work with multiple fields)
-LMTextView* _sharedFieldEditor = nil;
+#import "NSWindow+FriedText.h"
 
 @interface LMTextFieldCell ()
 
@@ -48,11 +46,14 @@ LMTextView* _sharedFieldEditor = nil;
 - (NSTextView *)fieldEditorForView:(NSView *)aControlView
 {
 	if ([[aControlView class] isSubclassOfClass:[LMTextField class]]) {
-		if (_sharedFieldEditor == nil) {
-			_sharedFieldEditor = [[LMTextView alloc] init];
-			[_sharedFieldEditor setFieldEditor:YES];
+		// Always keep the same field editors for all LMTextFields within the same NSWindow
+		NSTextView* fieldEditor = [[aControlView window] fieldEditorForKey:NSStringFromClass([LMTextFieldCell class])];
+		if (fieldEditor == nil) {
+			fieldEditor = [[LMTextView alloc] init];
+			[fieldEditor setFieldEditor:YES];
+			[[aControlView window] setFieldEditor:fieldEditor forKey:NSStringFromClass([LMTextFieldCell class])];
 		}
-		return _sharedFieldEditor;
+		return fieldEditor;
 	}
 	return nil;
 }

@@ -34,6 +34,8 @@
 		AE818A13171ABFAB00968B82 /* NSMutableAttributedString+CocoaExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = AE818A12171ABFAB00968B82 /* NSMutableAttributedString+CocoaExtensions.m */; };
 		AE818A14171ABFAB00968B82 /* NSMutableAttributedString+CocoaExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = AE818A12171ABFAB00968B82 /* NSMutableAttributedString+CocoaExtensions.m */; };
 		AEC85321171BEAE400A1EABE /* LMTextFieldWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = AEC85320171BEAE400A1EABE /* LMTextFieldWindow.xib */; };
+		AEC8532A171C22E900A1EABE /* NSWindow+FriedText.m in Sources */ = {isa = PBXBuildFile; fileRef = AEC85329171C22E900A1EABE /* NSWindow+FriedText.m */; };
+		AEC8532B171C22E900A1EABE /* NSWindow+FriedText.m in Sources */ = {isa = PBXBuildFile; fileRef = AEC85329171C22E900A1EABE /* NSWindow+FriedText.m */; };
 		AED2D2DC1716ABF300C38A87 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = AE04F60D170EEA170032338C /* main.m */; };
 		AED2D2DD1716ABF300C38A87 /* LMAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = AE04F614170EEA170032338C /* LMAppDelegate.m */; };
 		AED2D2DE1716ABF300C38A87 /* LMTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = AE04F61F170EEA8A0032338C /* LMTextView.m */; };
@@ -111,6 +113,8 @@
 		AE818A11171ABFAB00968B82 /* NSMutableAttributedString+CocoaExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSMutableAttributedString+CocoaExtensions.h"; sourceTree = "<group>"; };
 		AE818A12171ABFAB00968B82 /* NSMutableAttributedString+CocoaExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSMutableAttributedString+CocoaExtensions.m"; sourceTree = "<group>"; };
 		AEC85320171BEAE400A1EABE /* LMTextFieldWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = LMTextFieldWindow.xib; path = Tests/TextField/LMTextFieldWindow.xib; sourceTree = "<group>"; };
+		AEC85328171C22E900A1EABE /* NSWindow+FriedText.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSWindow+FriedText.h"; sourceTree = "<group>"; };
+		AEC85329171C22E900A1EABE /* NSWindow+FriedText.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSWindow+FriedText.m"; sourceTree = "<group>"; };
 		AED2D2F61716ABF300C38A87 /* LMTextView Text Field.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "LMTextView Text Field.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		AED2D2F71716ABF300C38A87 /* LMTextView Text Field-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "LMTextView Text Field-Info.plist"; path = "/Users/michamazaheri/Desktop/Lucky Marmot/LMTextView/LMTextView Text Field-Info.plist"; sourceTree = "<absolute>"; };
 		AED2D2FA1716ACBA00C38A87 /* MainMenu.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = MainMenu.xib; path = Tests/TextView/MainMenu.xib; sourceTree = "<group>"; };
@@ -275,6 +279,8 @@
 				AE818A0E171A9DF600968B82 /* NSObject+TDBindings.m */,
 				AE818A11171ABFAB00968B82 /* NSMutableAttributedString+CocoaExtensions.h */,
 				AE818A12171ABFAB00968B82 /* NSMutableAttributedString+CocoaExtensions.m */,
+				AEC85328171C22E900A1EABE /* NSWindow+FriedText.h */,
+				AEC85329171C22E900A1EABE /* NSWindow+FriedText.m */,
 			);
 			name = Categories;
 			sourceTree = "<group>";
@@ -461,6 +467,7 @@
 				AE818A0B171A91B500968B82 /* LMAttributedTokenStringValueTransformer.m in Sources */,
 				AE818A0F171A9DF600968B82 /* NSObject+TDBindings.m in Sources */,
 				AE818A13171ABFAB00968B82 /* NSMutableAttributedString+CocoaExtensions.m in Sources */,
+				AEC8532A171C22E900A1EABE /* NSWindow+FriedText.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -488,6 +495,7 @@
 				AE818A0C171A91B500968B82 /* LMAttributedTokenStringValueTransformer.m in Sources */,
 				AE818A10171A9DF600968B82 /* NSObject+TDBindings.m in Sources */,
 				AE818A14171ABFAB00968B82 /* NSMutableAttributedString+CocoaExtensions.m in Sources */,
+				AEC8532B171C22E900A1EABE /* NSWindow+FriedText.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
