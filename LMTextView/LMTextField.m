@@ -46,6 +46,35 @@ NSString* LMTextFieldAttributedStringValueBinding = @"attributedStringValue";
 	[super setAttributedStringValue:[string copy]];
 }
 
+#pragma mark - NSView Overrides
+
+- (NSSize)intrinsicContentSize
+{
+    if (![self.cell wraps]) {
+        return [super intrinsicContentSize];
+    }
+	
+    NSRect frame = [self frame];
+	
+    CGFloat width = frame.size.width;
+	
+    // Make the frame very high, while keeping the width
+    frame.size.height = CGFLOAT_MAX;
+	
+    // Calculate new height within the frame
+    // with practically infinite height.
+    CGFloat height = [self.cell cellSizeForBounds: frame].height;
+	
+	if ([self currentEditor] && [[[self currentEditor] class] isSubclassOfClass:[NSTextView class]]) {
+		
+		// Thanks to: https://github.com/DouglasHeriot/AutoGrowingNSTextField/blob/master/autoGrowingExample/TSTTextGrowth.m
+		NSRect usedRect = [[[(NSTextView*)[self currentEditor] textContainer] layoutManager] usedRectForTextContainer:[(NSTextView*)[self currentEditor] textContainer]];
+		height = usedRect.size.height + 5;
+	}
+	
+	return NSMakeSize(width, height);
+}
+
 #pragma mark - NSResponder Overrides
 
 - (BOOL)becomeFirstResponder
@@ -67,6 +96,13 @@ NSString* LMTextFieldAttributedStringValueBinding = @"attributedStringValue";
 
 #pragma mark - NSTextDelegate
 
+- (void)textDidChange:(NSNotification *)notification
+{
+	[super textDidChange:notification];
+	
+	[self invalidateIntrinsicContentSize];
+}
+
 - (void)textDidEndEditing:(NSNotification *)notification
 {
 	[self propagateValue:[[(LMTextView*)[self currentEditor] textStorage] copy] forBinding:LMTextFieldAttributedStringValueBinding];
@@ -74,6 +110,8 @@ NSString* LMTextFieldAttributedStringValueBinding = @"attributedStringValue";
 	[super textDidEndEditing:notification];
 	
 	[self setAttributedStringValue:[self attributedStringValue]];
+	
+	[self invalidateIntrinsicContentSize];
 }
 
 #pragma mark - LMTextViewDelegate
