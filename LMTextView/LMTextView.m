@@ -22,11 +22,9 @@
 
 #import "NSMutableAttributedString+CocoaExtensions.h"
 
-#define NUM_TOKENS 100024
-
 @interface LMTextView () {
 	NSRect _oldBounds;
-} /*<LMCompletionViewDelegate>*/
+}
 
 @property (strong, nonatomic) NSTimer* timer;
 
@@ -66,6 +64,11 @@
 		[self _setup];
 	}
 	return self;
+}
+
+- (void)dealloc
+{
+	[[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 #pragma mark - Accessors

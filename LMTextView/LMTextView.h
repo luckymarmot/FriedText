@@ -12,6 +12,9 @@
 
 @class LMTextView, LMTextField;
 
+
+#pragma mark - LMTextViewDelegate
+
 @protocol LMTextViewDelegate <NSTextViewDelegate>
 
 @optional
@@ -19,6 +22,9 @@
 - (void)mouseDownOutsideTokenInTextView:(LMTextView*)textView;
 
 @end
+
+
+#pragma mark - LMTextView
 
 @interface LMTextView : NSTextView
 

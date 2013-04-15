@@ -35,6 +35,11 @@
     return self;
 }
 
+- (void)dealloc
+{
+	[[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
 - (void)boundsDidChange:(NSNotification*)notification
 {
 	// When the text view is using non-contiguous layout, it is necessary to redraw the whole NSRulerView to prevent some pixels to be drawn incorrectly, this decrease performance, but disabling non-contiguous layout performance drop is much much worse
@@ -48,16 +53,14 @@
 }
 
 - (void)setClientView:(NSView *)clientView {
-    NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
-    
-    [notificationCenter removeObserver:self name:NSTextStorageDidProcessEditingNotification object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:NSTextStorageDidProcessEditingNotification object:nil];
     
     [super setClientView:clientView];
     
     if ([clientView isKindOfClass:[NSTextView self]]) {
         NSTextStorage *textStorage = [(NSTextView *)clientView textStorage];
         
-        [notificationCenter addObserver:self selector:@selector(clientTextStorageDidProcessEditing:) name:NSTextStorageDidProcessEditingNotification object:textStorage];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(clientTextStorageDidProcessEditing:) name:NSTextStorageDidProcessEditingNotification object:textStorage];
     }
 }
 

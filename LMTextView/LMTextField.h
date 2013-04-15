@@ -15,6 +15,9 @@ extern NSString* LMTextFieldAttributedStringValueBinding;
 
 @class LMTextField;
 
+
+#pragma mark - LMTextFieldDelegate
+
 @protocol LMTextFieldDelegate <NSTextFieldDelegate>
 
 @optional
@@ -24,6 +27,9 @@ extern NSString* LMTextFieldAttributedStringValueBinding;
 - (NSArray *)textField:(LMTextField*)textField fieldEditor:(LMTextView *)fieldEditor completions:(NSArray *)words forPartialWordRange:(NSRange)charRange indexOfSelectedItem:(NSInteger *)index;
 
 @end
+
+
+#pragma mark - LMTextField
 
 @interface LMTextField : NSTextField <LMTextViewDelegate>
 

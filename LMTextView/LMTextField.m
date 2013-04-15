@@ -21,14 +21,48 @@ NSString* LMTextFieldAttributedStringValueBinding = @"attributedStringValue";
 
 @implementation LMTextField
 
-#pragma mark - Cell Class
+#pragma mark - NSControl Overrides
 
 + (Class)cellClass
 {
 	return [LMTextFieldCell class];
 }
 
-#pragma mark - Field Editor Events
+- (void)setAttributedStringValue:(NSAttributedString *)obj
+{
+	NSMutableAttributedString* string = [obj mutableCopy];
+	
+	// If not rich text, remove any attributes
+	if (![self isRichText]) {
+		[string addAttribute:NSFontAttributeName value:self.font range:NSMakeRange(0, [string length])];
+		[string addAttribute:NSForegroundColorAttributeName value:self.textColor range:NSMakeRange(0, [string length])];
+	}
+	
+	// Set syntax highlight attribtues
+	if ([self parser]) {
+		[string highlightSyntaxWithParser:[self parser]];
+	}
+	
+	[super setAttributedStringValue:[string copy]];
+}
+
+#pragma mark - NSResponder Overrides
+
+- (BOOL)becomeFirstResponder
+{
+	BOOL result = [super becomeFirstResponder];
+
+	// Customize the Field Editor
+	[[self currentEditor] setRichText:[self isRichText]];
+	
+	if ([[[self currentEditor] class] isSubclassOfClass:[LMTextView class]]) {
+		[(LMTextView*)[self currentEditor] setParser:[self parser]];
+	}
+	
+	return result;
+}
+
+#pragma mark - NSTextDelegate
 
 - (void)textDidEndEditing:(NSNotification *)notification
 {
@@ -37,29 +71,6 @@ NSString* LMTextFieldAttributedStringValueBinding = @"attributedStringValue";
 	[super textDidEndEditing:notification];
 	
 	[self setAttributedStringValue:[self attributedStringValue]];
-}
-
-- (BOOL)becomeFirstResponder
-{
-	BOOL result = [super becomeFirstResponder];
-	
-	// Customize the Field Editor
-	[[self currentEditor] setRichText:self.richText];
-	
-	return result;
-}
-
-- (void)setAttributedStringValue:(NSAttributedString *)obj
-{
-	NSMutableAttributedString* string = [obj mutableCopy];
-	[string addAttribute:NSFontAttributeName value:self.font range:NSMakeRange(0, [string length])];
-	[string addAttribute:NSForegroundColorAttributeName value:self.textColor range:NSMakeRange(0, [string length])];
-	
-	if ([self parser]) {
-		[string highlightSyntaxWithParser:[self parser]];
-	}
-	
-	[super setAttributedStringValue:[string copy]];
 }
 
 #pragma mark - LMTextViewDelegate

@@ -37,7 +37,7 @@ LMTextView* _sharedFieldEditor = nil;
 	return self;
 }
 
-#pragma mark - Accessors
+#pragma mark - NSCell Overrides
 
 - (BOOL)allowsEditingTextAttributes
 {
@@ -51,12 +51,6 @@ LMTextView* _sharedFieldEditor = nil;
 		if (_sharedFieldEditor == nil) {
 			_sharedFieldEditor = [[LMTextView alloc] init];
 			[_sharedFieldEditor setFieldEditor:YES];
-			if ([(LMTextField*)aControlView parser]) {
-				[_sharedFieldEditor setParser:[(LMTextField*)aControlView parser]];
-			}
-			else {
-				[_sharedFieldEditor setParser:nil];
-			}
 		}
 		return _sharedFieldEditor;
 	}
