@@ -50,6 +50,7 @@ NSString* LMTextFieldAttributedStringValueBinding = @"attributedStringValue";
 
 - (BOOL)becomeFirstResponder
 {
+	// Super: resigns current responder, then binds the text editor with this field, make the text editor first responder
 	BOOL result = [super becomeFirstResponder];
 
 	// Customize the Field Editor
@@ -57,6 +58,8 @@ NSString* LMTextFieldAttributedStringValueBinding = @"attributedStringValue";
 	
 	if ([[[self currentEditor] class] isSubclassOfClass:[LMTextView class]]) {
 		[(LMTextView*)[self currentEditor] setParser:[self parser]];
+		
+		[(LMTextView*)[self currentEditor] highlightSyntax:nil];
 	}
 	
 	return result;

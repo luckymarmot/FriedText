@@ -221,9 +221,10 @@
 
 #pragma mark - Syntax Highlighting
 
-- (void)highlightSyntax:(NSTimer*)timer
+- (void)highlightSyntax:(id)sender
 {
-	if ([timer.userInfo isEqual:@(1)] && NSEqualRects(self.enclosingScrollView.contentView.bounds, _oldBounds)) {
+	if ([[sender class] isSubclassOfClass:[NSTimer class]] &&
+		[[(NSTimer*)sender userInfo] isEqual:@(1)]) {
 		return;
 	}
 	
@@ -254,7 +255,7 @@
 		[textStorage removeAttribute:NSForegroundColorAttributeName range:NSMakeRange(0, [self.textStorage.string length])];
 	}
 	
-	[self.parser applyAttributesInRange:characterRange withBlock:^(NSUInteger tokenTypeMask, NSRange range) {
+	[[self parser] applyAttributesInRange:characterRange withBlock:^(NSUInteger tokenTypeMask, NSRange range) {
 		NSColor* color = nil;
 		
 		switch (tokenTypeMask & LMTextParserTokenTypeMask) {

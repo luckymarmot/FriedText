@@ -37,4 +37,6 @@
 
 @property (nonatomic) BOOL useTemporaryAttributesForSyntaxHighlight;
 
+- (IBAction)highlightSyntax:(id)sender;
+
 @end
