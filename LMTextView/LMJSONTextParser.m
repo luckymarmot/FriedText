@@ -10,6 +10,8 @@
 
 #import "jsmn.h"
 
+#warning Parsing will stop when NUM_TOKENS is exceeded
+
 #define NUM_TOKENS 1048576
 #define MAX_JSON_SIZE 1048576
 
