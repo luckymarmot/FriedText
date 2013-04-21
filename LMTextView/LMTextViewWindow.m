@@ -32,7 +32,6 @@
 {
 	self.textView.delegate = self;
 	self.textView.textStorage.delegate = self;
-	[self.textView setRichText:NO];
 	[self.textView setFont:[NSFont fontWithName:@"Menlo" size:11.f]];
 	[self.textView setContinuousSpellCheckingEnabled:NO];
 	[self.textView setAutomaticSpellingCorrectionEnabled:NO];
@@ -54,11 +53,8 @@
 
 - (void)tokenize:(id)sender
 {
-	LMTokenAttachmentCell* tokenCell = [[LMTokenAttachmentCell alloc] init];
-	tokenCell.string = _tokenPopoverValue;
+	NSTextAttachment* textAttachment = [LMTokenAttachmentCell tokenAttachmentWithString:_tokenPopoverValue];
 	
-	NSTextAttachment* textAttachment = [[NSTextAttachment alloc] init];
-	textAttachment.attachmentCell = tokenCell;
 	NSAttributedString* attributedString = [NSAttributedString attributedStringWithAttachment:textAttachment];
 	if ([self.textView shouldChangeTextInRange:_tokenPopoverRange replacementString:[attributedString string]]) {
 		[self.textView.textStorage replaceCharactersInRange:_tokenPopoverRange withAttributedString:attributedString];
@@ -99,6 +95,34 @@
 
 #pragma mark - NSTextViewDelegate
 
+- (void)textView:(NSTextView *)textView clickedOnCell:(id<NSTextAttachmentCell>)cell inRect:(NSRect)cellFrame atIndex:(NSUInteger)charIndex
+{
+	NSLog(@"Clicked");
+}
+
+- (void)textView:(NSTextView *)textView doubleClickedOnCell:(id<NSTextAttachmentCell>)cell inRect:(NSRect)cellFrame atIndex:(NSUInteger)charIndex
+{
+	NSLog(@"Double Clicked");
+}
+
+//- (NSURL *)textView:(NSTextView *)textView URLForContentsOfTextAttachment:(NSTextAttachment *)textAttachment atIndex:(NSUInteger)charIndex
+//{
+//	return [NSURL fileURLWithPath:@"/Users/michamazaheri/Desktop/iOS Simulator Screen shot Apr 12, 2013 5.48.21 PM.png"];
+//}
+
+//- (NSArray *)textView:(NSTextView *)view writablePasteboardTypesForCell:(id<NSTextAttachmentCell>)cell atIndex:(NSUInteger)charIndex
+//{
+//	NSLog(@"1");
+//	return @[NSPasteboardTypePNG];
+//}
+//
+//- (BOOL)textView:(NSTextView *)view writeCell:(id<NSTextAttachmentCell>)cell atIndex:(NSUInteger)charIndex toPasteboard:(NSPasteboard *)pboard type:(NSString *)type
+//{
+//	NSLog(@"2:%@", type);
+//	[pboard clearContents];
+//	return [pboard setData:[NSData dataWithContentsOfFile:@"/Users/michamazaheri/Desktop/iOS Simulator Screen shot Apr 12, 2013 5.48.21 PM.png"] forType:NSPasteboardTypePNG];
+//}
+
 - (NSArray *)textView:(NSTextView *)textView completions:(NSArray *)words forPartialWordRange:(NSRange)charRange indexOfSelectedItem:(NSInteger *)index
 {
 	NSLog(@"Words: %@ CharRange: %@, Index: %ld", words, NSStringFromRange(charRange), *index);
@@ -114,9 +138,14 @@
 {
 	_tokenPopoverRange = range;
 	_tokenPopoverValue = [keyPath keyPathDescription];
-	[self.tokenPopover showRelativeToRect:bounds ofView:textView preferredEdge:CGRectMaxYEdge];
-	[(NSTextField*)[self.tokenPopover.contentViewController.view viewWithTag:1] setStringValue:[keyPath keyPathDescription]];
-	[(NSTextField*)[self.tokenPopover.contentViewController.view viewWithTag:2] setStringValue:[self.textView.textStorage.string substringWithRange:range]];
+	if (NO) {
+		[self.tokenPopover showRelativeToRect:bounds ofView:textView preferredEdge:CGRectMaxYEdge];
+		[(NSTextField*)[self.tokenPopover.contentViewController.view viewWithTag:1] setStringValue:[keyPath keyPathDescription]];
+		[(NSTextField*)[self.tokenPopover.contentViewController.view viewWithTag:2] setStringValue:[self.textView.textStorage.string substringWithRange:range]];
+	}
+	else {
+		[self tokenize:nil];
+	}
 }
 
 @end

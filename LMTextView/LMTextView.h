@@ -20,6 +20,7 @@
 @optional
 - (void)textView:(LMTextView*)textView mouseDownForTokenAtRange:(NSRange)range withBounds:(NSRect)bounds keyPath:(NSArray*)keyPath;
 - (void)mouseDownOutsideTokenInTextView:(LMTextView*)textView;
+- (id<NSTextAttachmentCell>)textview:(LMTextView*)textView textAttachmentCellForTextAttachment:(NSTextAttachment*)textAttachment;
 
 @end
 
@@ -37,6 +38,10 @@
 
 @property (nonatomic) BOOL useTemporaryAttributesForSyntaxHighlight;
 
+@property (strong, nonatomic, readonly) NSMutableArray* textAttachmentCellClasses;
+
 - (IBAction)highlightSyntax:(id)sender;
+
+- (id<NSTextAttachmentCell>)textAttachmentCellForTextAttachment:(NSTextAttachment*)textAttachment;
 
 @end

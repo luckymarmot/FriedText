@@ -7,9 +7,10 @@
 //
 
 #import <Cocoa/Cocoa.h>
+#import "LMTextAttachmentCell.h"
 
-@interface LMTokenAttachmentCell : NSTextAttachmentCell
+@interface LMTokenAttachmentCell : NSTextAttachmentCell <LMTextAttachmentCell>
 
-@property (strong, nonatomic) NSString* string;
++ (NSTextAttachment*)tokenAttachmentWithString:(NSString*)string;
 
 @end

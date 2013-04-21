@@ -9,8 +9,6 @@
 #import "LMTokenAttachmentCell.h"
 #import "NSView+CocoaExtensions.h"
 
-NSString* LMTokenAttachmentCellStringKey = @"string";
-
 @interface LMTokenAttachmentCell ()
 
 @property (nonatomic) BOOL highlighted;
@@ -19,39 +17,40 @@ NSString* LMTokenAttachmentCellStringKey = @"string";
 
 @implementation LMTokenAttachmentCell
 
-#pragma mark - Coding
-
-- (id)initWithCoder:(NSCoder *)aDecoder
+- (NSString *)stringValue
 {
-	self = [super initWithCoder:aDecoder];
-	if (self) {
-		if ([aDecoder allowsKeyedCoding]) {
-			self.string = [aDecoder decodeObjectForKey:LMTokenAttachmentCellStringKey];
-		}
-		else {
-			self.string = [aDecoder decodeObject];
-		}
-	}
-	return self;
+	return [[NSString alloc] initWithData:self.attachment.fileWrapper.regularFileContents encoding:NSUTF8StringEncoding];
 }
 
-- (void)encodeWithCoder:(NSCoder *)aCoder
++ (NSTextAttachment *)tokenAttachmentWithString:(NSString *)string
 {
-	[super encodeWithCoder:aCoder];
+	LMTokenAttachmentCell* tokenCell = [[LMTokenAttachmentCell alloc] init];
 	
-	if ([aCoder allowsKeyedCoding]) {
-		[aCoder encodeObject:self.string forKey:LMTokenAttachmentCellStringKey];
-	}
-	else {
-		[aCoder encodeObject:self.string];
-	}
+	NSTextAttachment* textAttachment = [[NSTextAttachment alloc] init];
+	textAttachment.attachmentCell = tokenCell;
+	NSFileWrapper* wrapper = [[NSFileWrapper alloc] initRegularFileWithContents:[string dataUsingEncoding:NSUTF8StringEncoding]];
+	wrapper.preferredFilename = @"Token.ftc";
+	textAttachment.fileWrapper = wrapper;
+
+	return textAttachment;
 }
 
-#pragma mark - Overriding
+#pragma mark - LMTextAttachmentCell Protocol
+
++ (id)textAttachmentCellWithTextAttachment:(NSTextAttachment *)textAttachment
+{
+	if ([textAttachment.fileWrapper.preferredFilename isEqualToString:@"Token.ftc"]) {
+		return [[self alloc] init];
+	}
+	
+	return nil;
+}
+
+#pragma mark - NSTextAttachmentCell Overrides
 
 - (NSSize)cellSize
 {
-	return NSMakeSize([self.string sizeWithAttributes:@{NSFontAttributeName:[NSFont fontWithName:@"Menlo" size:11.f]}].width + 13.f, 13.f);
+	return NSMakeSize([[self stringValue] sizeWithAttributes:@{NSFontAttributeName:[NSFont fontWithName:@"Menlo" size:11.f]}].width + 13.f, 13.f);
 }
 
 - (NSPoint)cellBaselineOffset
@@ -83,12 +82,12 @@ NSString* LMTokenAttachmentCellStringKey = @"string";
 	[roundedRectanglePath setLineWidth: 1];
 	[roundedRectanglePath stroke];
 	
-	CGSize size = [self.string sizeWithAttributes:@{NSFontAttributeName:[NSFont fontWithName:@"Menlo" size:11.f]}];
+	CGSize size = [[self stringValue] sizeWithAttributes:@{NSFontAttributeName:[NSFont fontWithName:@"Menlo" size:11.f]}];
 	CGRect textFrame = CGRectMake(cellFrame.origin.x + (cellFrame.size.width - size.width)/2,
 								  cellFrame.origin.y-4.f,
 								  size.width,
 								  size.height);
-	[self.string drawInRect:textFrame withAttributes:@{NSFontAttributeName:[NSFont fontWithName:@"Menlo" size:11.f]}];
+	[[self stringValue] drawInRect:textFrame withAttributes:@{NSFontAttributeName:[NSFont fontWithName:@"Menlo" size:11.f]}];
 }
 
 - (void)highlight:(BOOL)flag withFrame:(NSRect)cellFrame inView:(NSView *)controlView
@@ -97,25 +96,25 @@ NSString* LMTokenAttachmentCellStringKey = @"string";
 	[controlView setNeedsDisplayInRect:cellFrame];
 }
 
-- (BOOL)wantsToTrackMouse
-{
-	return YES;
-}
+//- (BOOL)wantsToTrackMouse
+//{
+//	return YES;
+//}
+//
+//- (BOOL)wantsToTrackMouseForEvent:(NSEvent *)theEvent inRect:(NSRect)cellFrame ofView:(NSView *)controlView atCharacterIndex:(NSUInteger)charIndex
+//{
+//	return YES;
+//}
 
-- (BOOL)wantsToTrackMouseForEvent:(NSEvent *)theEvent inRect:(NSRect)cellFrame ofView:(NSView *)controlView atCharacterIndex:(NSUInteger)charIndex
-{
-	return YES;
-}
-
-- (BOOL)trackMouse:(NSEvent *)theEvent inRect:(NSRect)cellFrame ofView:(NSView *)controlView untilMouseUp:(BOOL)flag
-{
-	return [self trackMouse:theEvent inRect:cellFrame ofView:controlView atCharacterIndex:NSNotFound untilMouseUp:flag];
-}
-
-- (BOOL)trackMouse:(NSEvent *)theEvent inRect:(NSRect)cellFrame ofView:(NSView *)controlView atCharacterIndex:(NSUInteger)charIndex untilMouseUp:(BOOL)flag
-{
-	NSLog(@"Mouse Pressed on Text Attachment");
-	return YES;
-}
+//- (BOOL)trackMouse:(NSEvent *)theEvent inRect:(NSRect)cellFrame ofView:(NSView *)controlView untilMouseUp:(BOOL)flag
+//{
+//	return [self trackMouse:theEvent inRect:cellFrame ofView:controlView atCharacterIndex:NSNotFound untilMouseUp:flag];
+//}
+//
+//- (BOOL)trackMouse:(NSEvent *)theEvent inRect:(NSRect)cellFrame ofView:(NSView *)controlView atCharacterIndex:(NSUInteger)charIndex untilMouseUp:(BOOL)flag
+//{
+//	NSLog(@"Mouse Pressed on Text Attachment");
+//	return YES;
+//}
 
 @end

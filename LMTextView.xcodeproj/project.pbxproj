@@ -96,6 +96,7 @@
 		AE0C57E6170FBF4700FDFBDA /* LMJSONTextParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LMJSONTextParser.m; sourceTree = "<group>"; };
 		AE0C57EF170FEDAC00FDFBDA /* LMFoldingTextAttachmentCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LMFoldingTextAttachmentCell.h; sourceTree = "<group>"; };
 		AE0C57F0170FEDAC00FDFBDA /* LMFoldingTextAttachmentCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LMFoldingTextAttachmentCell.m; sourceTree = "<group>"; };
+		AE338C8F1723B9CE00982044 /* LMTextAttachmentCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LMTextAttachmentCell.h; sourceTree = "<group>"; };
 		AE4AC701171035E200DB8A77 /* LMTokenAttachmentCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LMTokenAttachmentCell.h; sourceTree = "<group>"; };
 		AE4AC702171035E200DB8A77 /* LMTokenAttachmentCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LMTokenAttachmentCell.m; sourceTree = "<group>"; };
 		AE4E7498170EF98E003BF794 /* NSView+CocoaExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSView+CocoaExtensions.h"; sourceTree = "<group>"; };
@@ -197,6 +198,7 @@
 				AE64243B171581FD00C14DA5 /* Line Numbers Ruler */,
 				AE04F643170EEDCC0032338C /* LMTextView */,
 				AED2D3011716AF6600C38A87 /* LMTextField */,
+				AEC8532C171C4C8200A1EABE /* Text Attachments */,
 				AE0C57E8170FECB600FDFBDA /* LMTextParser */,
 				AE04F641170EEDC10032338C /* Completion */,
 				AE4E74A8170F41D0003BF794 /* KeyPath */,
@@ -250,12 +252,6 @@
 				AE04F61F170EEA8A0032338C /* LMTextView.m */,
 				AE04F620170EEA8A0032338C /* LMTextScrollView.h */,
 				AE04F621170EEA8A0032338C /* LMTextScrollView.m */,
-				AE0C57EF170FEDAC00FDFBDA /* LMFoldingTextAttachmentCell.h */,
-				AE0C57F0170FEDAC00FDFBDA /* LMFoldingTextAttachmentCell.m */,
-				AE4AC701171035E200DB8A77 /* LMTokenAttachmentCell.h */,
-				AE4AC702171035E200DB8A77 /* LMTokenAttachmentCell.m */,
-				AE818A09171A91B500968B82 /* LMAttributedTokenStringValueTransformer.h */,
-				AE818A0A171A91B500968B82 /* LMAttributedTokenStringValueTransformer.m */,
 			);
 			name = LMTextView;
 			sourceTree = "<group>";
@@ -318,6 +314,20 @@
 				AE64243D171582E300C14DA5 /* LMLineNumberRuler.m */,
 			);
 			name = "Line Numbers Ruler";
+			sourceTree = "<group>";
+		};
+		AEC8532C171C4C8200A1EABE /* Text Attachments */ = {
+			isa = PBXGroup;
+			children = (
+				AE338C8F1723B9CE00982044 /* LMTextAttachmentCell.h */,
+				AE0C57EF170FEDAC00FDFBDA /* LMFoldingTextAttachmentCell.h */,
+				AE0C57F0170FEDAC00FDFBDA /* LMFoldingTextAttachmentCell.m */,
+				AE4AC701171035E200DB8A77 /* LMTokenAttachmentCell.h */,
+				AE4AC702171035E200DB8A77 /* LMTokenAttachmentCell.m */,
+				AE818A09171A91B500968B82 /* LMAttributedTokenStringValueTransformer.h */,
+				AE818A0A171A91B500968B82 /* LMAttributedTokenStringValueTransformer.m */,
+			);
+			name = "Text Attachments";
 			sourceTree = "<group>";
 		};
 		AED2D2F81716AC4400C38A87 /* Test Applications */ = {

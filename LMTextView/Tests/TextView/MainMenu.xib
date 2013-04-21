@@ -1366,7 +1366,7 @@
 											<string key="NSFrameSize">{669, 470}</string>
 											<reference key="NSSuperview" ref="835452115"/>
 											<reference key="NSWindow"/>
-											<reference key="NSNextKeyView" ref="257918493"/>
+											<reference key="NSNextKeyView" ref="212360128"/>
 											<string key="NSReuseIdentifierKey">_NS:13</string>
 											<object class="NSTextContainer" key="NSTextContainer" id="1026374570">
 												<object class="NSLayoutManager" key="NSLayoutManager">
@@ -1387,7 +1387,7 @@
 												<int key="NSTCFlags">1</int>
 											</object>
 											<object class="NSTextViewSharedData" key="NSSharedData">
-												<int key="NSFlags">67121091</int>
+												<int key="NSFlags">67178447</int>
 												<int key="NSTextCheckingTypes">0</int>
 												<nil key="NSMarkedAttributes"/>
 												<object class="NSColor" key="NSBackgroundColor" id="767438035">
@@ -1427,8 +1427,14 @@
 													<integer value="1" key="NSUnderline"/>
 												</dictionary>
 												<nil key="NSDefaultParagraphStyle"/>
-												<nil key="NSTextFinder"/>
-												<int key="NSPreferredTextFinderStyle">1</int>
+												<object class="NSTextFinder" key="NSTextFinder">
+													<reference key="NSTextFinderClient" ref="64296420"/>
+													<reference key="NSFindBarContainer" ref="504487044"/>
+													<int key="NSTextFinderStyle">2</int>
+													<bool key="NSIncrementalSearchingEnabled">NO</bool>
+													<bool key="NSIncrementalSearchingShouldDimContentView">YES</bool>
+												</object>
+												<int key="NSPreferredTextFinderStyle">2</int>
 											</object>
 											<int key="NSTVFlags">6</int>
 											<string key="NSMaxSize">{1087, 10000000}</string>
@@ -1469,7 +1475,6 @@
 									<string key="NSFrame">{{654, 1}, {16, 470}}</string>
 									<reference key="NSSuperview" ref="504487044"/>
 									<reference key="NSWindow"/>
-									<reference key="NSNextKeyView"/>
 									<string key="NSReuseIdentifierKey">_NS:83</string>
 									<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
 									<reference key="NSTarget" ref="504487044"/>
@@ -1495,7 +1500,7 @@
 							<string key="NSFrame">{{20, 20}, {671, 472}}</string>
 							<reference key="NSSuperview" ref="439893737"/>
 							<reference key="NSWindow"/>
-							<reference key="NSNextKeyView" ref="212360128"/>
+							<reference key="NSNextKeyView" ref="835452115"/>
 							<string key="NSReuseIdentifierKey">_NS:9</string>
 							<int key="NSsFlags">133138</int>
 							<reference key="NSVScroller" ref="257918493"/>
@@ -1608,7 +1613,6 @@
 						<string key="NSFrame">{{116, 14}, {82, 28}}</string>
 						<reference key="NSSuperview" ref="4454245"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSButtonCell" key="NSCell" id="51461613">
@@ -4289,6 +4293,7 @@
 				<string key="538.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="539.CustomClassName">LMTextView</string>
 				<string key="539.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<boolean value="NO" key="539.usesInspectorBar"/>
 				<string key="554.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="556.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="557.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -4415,6 +4420,17 @@
 				<object class="IBPartialClassDescription">
 					<string key="className">LMTextView</string>
 					<string key="superclassName">NSTextView</string>
+					<object class="NSMutableDictionary" key="actions">
+						<string key="NS.key.0">highlightSyntax:</string>
+						<string key="NS.object.0">id</string>
+					</object>
+					<object class="NSMutableDictionary" key="actionInfosByName">
+						<string key="NS.key.0">highlightSyntax:</string>
+						<object class="IBActionInfo" key="NS.object.0">
+							<string key="name">highlightSyntax:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+					</object>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBProjectSource</string>
 						<string key="minorKey">./Classes/LMTextView.h</string>

@@ -30,11 +30,8 @@
 
 - (void)textField:(LMTextField *)textField fieldEditor:(LMTextView*)textView mouseDownForTokenAtRange:(NSRange)range withBounds:(NSRect)bounds keyPath:(NSArray *)keyPath
 {
-	LMTokenAttachmentCell* tokenCell = [[LMTokenAttachmentCell alloc] init];
-	tokenCell.string = [keyPath keyPathDescription];
+	NSTextAttachment* textAttachment = [LMTokenAttachmentCell tokenAttachmentWithString:[keyPath keyPathDescription]];
 	
-	NSTextAttachment* textAttachment = [[NSTextAttachment alloc] init];
-	textAttachment.attachmentCell = tokenCell;
 	NSAttributedString* attributedString = [NSAttributedString attributedStringWithAttachment:textAttachment];
 	if ([textView shouldChangeTextInRange:range replacementString:[attributedString string]]) {
 		[textView.textStorage replaceCharactersInRange:range withAttributedString:attributedString];

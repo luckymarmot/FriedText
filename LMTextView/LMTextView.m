@@ -22,11 +22,18 @@
 
 #import "NSMutableAttributedString+CocoaExtensions.h"
 
+#import "LMTokenAttachmentCell.h"
+#import "LMTextAttachmentCell.h"
+
+#warning Make a smart system to force users to allow rich text if using tokens, while blocking rich text input if needed
+
 @interface LMTextView () {
 	NSRect _oldBounds;
 }
 
 @property (strong, nonatomic) NSTimer* timer;
+
+@property (strong, nonatomic, readwrite) NSMutableArray* textAttachmentCellClasses;
 
 @end
 
@@ -85,6 +92,17 @@
 	[self didChangeValueForKey:@"parser"];
 }
 
+- (NSMutableArray *)textAttachmentCellClasses
+{
+	if (_textAttachmentCellClasses == nil) {
+		_textAttachmentCellClasses = [NSMutableArray arrayWithObjects:
+									  [NSTextAttachmentCell class],
+									  [LMTokenAttachmentCell class],
+									  nil];
+	}
+	return _textAttachmentCellClasses;
+}
+
 #pragma mark - Observers / View Events
 
 - (BOOL)becomeFirstResponder
@@ -126,6 +144,37 @@
 	else {
 		[self highlightSyntax:nil];
 	}
+}
+
+#pragma mark - Pasteboard
+
+- (BOOL)readSelectionFromPasteboard:(NSPasteboard *)pboard type:(NSString *)type
+{
+	NSData* data = [pboard dataForType:type];
+	if (!data) {
+		return NO;
+	}
+	
+	NSMutableAttributedString* attributedString = [[NSMutableAttributedString alloc] initWithData:data options:nil documentAttributes:nil error:NULL];
+	if (!attributedString) {
+		return NO;
+	}
+	
+	[attributedString enumerateAttribute:NSAttachmentAttributeName inRange:NSMakeRange(0, [attributedString length]) options:0 usingBlock:^(id value, NSRange range, BOOL *stop) {
+		if (value) {
+			NSTextAttachment* textAttachment = value;
+			textAttachment.attachmentCell = [self textAttachmentCellForTextAttachment:textAttachment];
+		}
+	}];
+	
+	if ([self shouldChangeTextInRange:[self selectedRange] replacementString:[attributedString string]]) {
+		[[self textStorage] replaceCharactersInRange:[self selectedRange] withAttributedString:attributedString];
+		[self didChangeText];
+		
+		return YES;
+	}
+	
+	return NO;
 }
 
 #pragma mark - Helpers
@@ -282,6 +331,28 @@
 			[textStorage endEditing];
 		}
 	}];
+}
+
+#pragma mark - Text Attachments
+
+- (id<NSTextAttachmentCell>)textAttachmentCellForTextAttachment:(NSTextAttachment *)textAttachment
+{
+	__block id<NSTextAttachmentCell> textAttachmentCell = nil;
+	
+	if (self.delegate && [self.delegate respondsToSelector:@selector(textview:textAttachmentCellForTextAttachment:)]) {
+		textAttachmentCell = [(id<LMTextViewDelegate>)self.delegate textview:self textAttachmentCellForTextAttachment:textAttachment];
+	}
+	
+	if (textAttachmentCell == nil) {
+		[[self textAttachmentCellClasses] enumerateObjectsWithOptions:NSEnumerationReverse usingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+			if ([obj respondsToSelector:@selector(textAttachmentCellWithTextAttachment:)]) {
+				textAttachmentCell = [(Class<LMTextAttachmentCell>)obj textAttachmentCellWithTextAttachment:textAttachment];
+			}
+			*stop = !!textAttachmentCell;
+		}];
+	}
+	
+	return textAttachmentCell;
 }
 
 #pragma mark - Completion
