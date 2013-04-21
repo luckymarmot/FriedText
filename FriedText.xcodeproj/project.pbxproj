@@ -8,6 +8,25 @@
 
 /* Begin PBXBuildFile section */
 		AE04F602170EEA170032338C /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AE04F601170EEA170032338C /* Cocoa.framework */; };
+		AE13E6B91723E7DC0038174F /* LMTextScrollView.h in Headers */ = {isa = PBXBuildFile; fileRef = AE461A011723D7D800A86F35 /* LMTextScrollView.h */; };
+		AE13E6BA1723E7DC0038174F /* LMTextView.h in Headers */ = {isa = PBXBuildFile; fileRef = AE461A031723D7D800A86F35 /* LMTextView.h */; };
+		AE13E6BB1723E7DC0038174F /* LMTextField.h in Headers */ = {isa = PBXBuildFile; fileRef = AE9225EF1723D7FC00D73B16 /* LMTextField.h */; };
+		AE13E6BC1723E7DC0038174F /* LMTextFieldCell.h in Headers */ = {isa = PBXBuildFile; fileRef = AE9225F11723D7FC00D73B16 /* LMTextFieldCell.h */; };
+		AE13E6BD1723E7DC0038174F /* LMFoldingTextAttachmentCell.h in Headers */ = {isa = PBXBuildFile; fileRef = AE9225F71723D80F00D73B16 /* LMFoldingTextAttachmentCell.h */; };
+		AE13E6BE1723E7DC0038174F /* LMTextAttachmentCell.h in Headers */ = {isa = PBXBuildFile; fileRef = AE9225F91723D80F00D73B16 /* LMTextAttachmentCell.h */; };
+		AE13E6BF1723E7DC0038174F /* LMTokenAttachmentCell.h in Headers */ = {isa = PBXBuildFile; fileRef = AE9225FA1723D80F00D73B16 /* LMTokenAttachmentCell.h */; };
+		AE13E6C01723E7DC0038174F /* LMAttributedTokenStringValueTransformer.h in Headers */ = {isa = PBXBuildFile; fileRef = AE92262B1723D88D00D73B16 /* LMAttributedTokenStringValueTransformer.h */; };
+		AE13E6C11723E7DC0038174F /* LMLineNumberRuler.h in Headers */ = {isa = PBXBuildFile; fileRef = AE9226051723D81800D73B16 /* LMLineNumberRuler.h */; };
+		AE13E6C21723E7DC0038174F /* LMTextParser.h in Headers */ = {isa = PBXBuildFile; fileRef = AE9226091723D81F00D73B16 /* LMTextParser.h */; };
+		AE13E6C31723E7DC0038174F /* LMJSONTextParser.h in Headers */ = {isa = PBXBuildFile; fileRef = AE25030F1723CA4A00E46A2F /* LMJSONTextParser.h */; };
+		AE13E6C41723E7DC0038174F /* LMCompletionTableCellView.h in Headers */ = {isa = PBXBuildFile; fileRef = AE92260B1723D82800D73B16 /* LMCompletionTableCellView.h */; };
+		AE13E6C51723E7DC0038174F /* LMCompletionTableView.h in Headers */ = {isa = PBXBuildFile; fileRef = AE92260D1723D82800D73B16 /* LMCompletionTableView.h */; };
+		AE13E6C61723E7DC0038174F /* LMCompletionView.h in Headers */ = {isa = PBXBuildFile; fileRef = AE92260F1723D82800D73B16 /* LMCompletionView.h */; };
+		AE13E6C71723E7DC0038174F /* NSArray+KeyPath.h in Headers */ = {isa = PBXBuildFile; fileRef = AE9226171723D83800D73B16 /* NSArray+KeyPath.h */; };
+		AE13E6C81723E7DC0038174F /* NSMutableAttributedString+CocoaExtensions.h in Headers */ = {isa = PBXBuildFile; fileRef = AE9226191723D83800D73B16 /* NSMutableAttributedString+CocoaExtensions.h */; };
+		AE13E6C91723E7DC0038174F /* NSObject+TDBindings.h in Headers */ = {isa = PBXBuildFile; fileRef = AE92261B1723D83800D73B16 /* NSObject+TDBindings.h */; };
+		AE13E6CA1723E7DC0038174F /* NSView+CocoaExtensions.h in Headers */ = {isa = PBXBuildFile; fileRef = AE92261D1723D83800D73B16 /* NSView+CocoaExtensions.h */; };
+		AE13E6CB1723E7DC0038174F /* NSWindow+FriedText.h in Headers */ = {isa = PBXBuildFile; fileRef = AE92261F1723D83800D73B16 /* NSWindow+FriedText.h */; };
 		AE2503041723C9B700E46A2F /* LMAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = AE2503031723C9B700E46A2F /* LMAppDelegate.m */; };
 		AE2503051723C9B700E46A2F /* LMAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = AE2503031723C9B700E46A2F /* LMAppDelegate.m */; };
 		AE2503081723C9C300E46A2F /* jsmn.c in Sources */ = {isa = PBXBuildFile; fileRef = AE2503061723C9C300E46A2F /* jsmn.c */; };
@@ -386,6 +405,25 @@
 			buildActionMask = 2147483647;
 			files = (
 				AE338CA51723C38F00982044 /* FriedText.h in Headers */,
+				AE13E6B91723E7DC0038174F /* LMTextScrollView.h in Headers */,
+				AE13E6BA1723E7DC0038174F /* LMTextView.h in Headers */,
+				AE13E6BB1723E7DC0038174F /* LMTextField.h in Headers */,
+				AE13E6BC1723E7DC0038174F /* LMTextFieldCell.h in Headers */,
+				AE13E6BD1723E7DC0038174F /* LMFoldingTextAttachmentCell.h in Headers */,
+				AE13E6BE1723E7DC0038174F /* LMTextAttachmentCell.h in Headers */,
+				AE13E6BF1723E7DC0038174F /* LMTokenAttachmentCell.h in Headers */,
+				AE13E6C01723E7DC0038174F /* LMAttributedTokenStringValueTransformer.h in Headers */,
+				AE13E6C11723E7DC0038174F /* LMLineNumberRuler.h in Headers */,
+				AE13E6C21723E7DC0038174F /* LMTextParser.h in Headers */,
+				AE13E6C31723E7DC0038174F /* LMJSONTextParser.h in Headers */,
+				AE13E6C41723E7DC0038174F /* LMCompletionTableCellView.h in Headers */,
+				AE13E6C51723E7DC0038174F /* LMCompletionTableView.h in Headers */,
+				AE13E6C61723E7DC0038174F /* LMCompletionView.h in Headers */,
+				AE13E6C71723E7DC0038174F /* NSArray+KeyPath.h in Headers */,
+				AE13E6C81723E7DC0038174F /* NSMutableAttributedString+CocoaExtensions.h in Headers */,
+				AE13E6C91723E7DC0038174F /* NSObject+TDBindings.h in Headers */,
+				AE13E6CA1723E7DC0038174F /* NSView+CocoaExtensions.h in Headers */,
+				AE13E6CB1723E7DC0038174F /* NSWindow+FriedText.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
