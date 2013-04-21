@@ -12,64 +12,61 @@
 		AE04F60E170EEA170032338C /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = AE04F60D170EEA170032338C /* main.m */; };
 		AE04F612170EEA170032338C /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = AE04F610170EEA170032338C /* Credits.rtf */; };
 		AE04F615170EEA170032338C /* LMAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = AE04F614170EEA170032338C /* LMAppDelegate.m */; };
-		AE04F622170EEA8A0032338C /* LMTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = AE04F61F170EEA8A0032338C /* LMTextView.m */; };
-		AE04F623170EEA8A0032338C /* LMTextScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = AE04F621170EEA8A0032338C /* LMTextScrollView.m */; };
-		AE04F633170EEAEF0032338C /* LMCompletionTableCellView.m in Sources */ = {isa = PBXBuildFile; fileRef = AE04F62B170EEAEF0032338C /* LMCompletionTableCellView.m */; };
-		AE04F634170EEAEF0032338C /* LMCompletionTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = AE04F62D170EEAEF0032338C /* LMCompletionTableView.m */; };
-		AE04F635170EEAEF0032338C /* LMCompletionView.m in Sources */ = {isa = PBXBuildFile; fileRef = AE04F62F170EEAEF0032338C /* LMCompletionView.m */; };
-		AE04F638170EEB110032338C /* Quartz.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AE04F636170EEB110032338C /* Quartz.framework */; };
-		AE04F639170EEB110032338C /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AE04F637170EEB110032338C /* QuartzCore.framework */; };
 		AE04F640170EEDB90032338C /* LMTextViewWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = AE04F63F170EEDB90032338C /* LMTextViewWindow.m */; };
-		AE0C57E7170FBF4700FDFBDA /* LMJSONTextParser.m in Sources */ = {isa = PBXBuildFile; fileRef = AE0C57E6170FBF4700FDFBDA /* LMJSONTextParser.m */; };
-		AE0C57F1170FEDAC00FDFBDA /* LMFoldingTextAttachmentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AE0C57F0170FEDAC00FDFBDA /* LMFoldingTextAttachmentCell.m */; };
-		AE4AC703171035E200DB8A77 /* LMTokenAttachmentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AE4AC702171035E200DB8A77 /* LMTokenAttachmentCell.m */; };
-		AE4E749A170EF98F003BF794 /* NSView+CocoaExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = AE4E7499170EF98E003BF794 /* NSView+CocoaExtensions.m */; };
-		AE4E74A2170F1561003BF794 /* jsmn.c in Sources */ = {isa = PBXBuildFile; fileRef = AE4E74A0170F1561003BF794 /* jsmn.c */; };
-		AE4E74AB170F4504003BF794 /* NSArray+KeyPath.m in Sources */ = {isa = PBXBuildFile; fileRef = AE4E74AA170F4504003BF794 /* NSArray+KeyPath.m */; };
-		AE64243E171582E300C14DA5 /* LMLineNumberRuler.m in Sources */ = {isa = PBXBuildFile; fileRef = AE64243D171582E300C14DA5 /* LMLineNumberRuler.m */; };
-		AE818A0B171A91B500968B82 /* LMAttributedTokenStringValueTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = AE818A0A171A91B500968B82 /* LMAttributedTokenStringValueTransformer.m */; };
-		AE818A0C171A91B500968B82 /* LMAttributedTokenStringValueTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = AE818A0A171A91B500968B82 /* LMAttributedTokenStringValueTransformer.m */; };
-		AE818A0F171A9DF600968B82 /* NSObject+TDBindings.m in Sources */ = {isa = PBXBuildFile; fileRef = AE818A0E171A9DF600968B82 /* NSObject+TDBindings.m */; };
-		AE818A10171A9DF600968B82 /* NSObject+TDBindings.m in Sources */ = {isa = PBXBuildFile; fileRef = AE818A0E171A9DF600968B82 /* NSObject+TDBindings.m */; };
-		AE818A13171ABFAB00968B82 /* NSMutableAttributedString+CocoaExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = AE818A12171ABFAB00968B82 /* NSMutableAttributedString+CocoaExtensions.m */; };
-		AE818A14171ABFAB00968B82 /* NSMutableAttributedString+CocoaExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = AE818A12171ABFAB00968B82 /* NSMutableAttributedString+CocoaExtensions.m */; };
+		AE338C961723C2C900982044 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AE04F601170EEA170032338C /* Cocoa.framework */; };
+		AE338C9C1723C2C900982044 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = AE338C9A1723C2C900982044 /* InfoPlist.strings */; };
+		AE338CA51723C38F00982044 /* FriedText.h in Headers */ = {isa = PBXBuildFile; fileRef = AE338CA41723C38F00982044 /* FriedText.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		AE338CA61723C51700982044 /* LMLineNumberRuler.m in Sources */ = {isa = PBXBuildFile; fileRef = AE64243D171582E300C14DA5 /* LMLineNumberRuler.m */; };
+		AE338CA71723C51700982044 /* LMTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = AE04F61F170EEA8A0032338C /* LMTextView.m */; };
+		AE338CA81723C51700982044 /* LMTextScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = AE04F621170EEA8A0032338C /* LMTextScrollView.m */; };
+		AE338CA91723C51700982044 /* LMTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = AED2D3031716AF8500C38A87 /* LMTextField.m */; };
+		AE338CAA1723C51700982044 /* LMTextFieldCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AED2D3071716AFA200C38A87 /* LMTextFieldCell.m */; };
+		AE338CAB1723C51700982044 /* LMFoldingTextAttachmentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AE0C57F0170FEDAC00FDFBDA /* LMFoldingTextAttachmentCell.m */; };
+		AE338CAC1723C51700982044 /* LMTokenAttachmentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AE4AC702171035E200DB8A77 /* LMTokenAttachmentCell.m */; };
+		AE338CAD1723C51700982044 /* LMAttributedTokenStringValueTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = AE818A0A171A91B500968B82 /* LMAttributedTokenStringValueTransformer.m */; };
+		AE338CAE1723C51700982044 /* LMJSONTextParser.m in Sources */ = {isa = PBXBuildFile; fileRef = AE0C57E6170FBF4700FDFBDA /* LMJSONTextParser.m */; };
+		AE338CAF1723C51700982044 /* LMCompletionTableCellView.m in Sources */ = {isa = PBXBuildFile; fileRef = AE04F62B170EEAEF0032338C /* LMCompletionTableCellView.m */; };
+		AE338CB01723C51700982044 /* LMCompletionTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = AE04F62D170EEAEF0032338C /* LMCompletionTableView.m */; };
+		AE338CB11723C51700982044 /* LMCompletionView.m in Sources */ = {isa = PBXBuildFile; fileRef = AE04F62F170EEAEF0032338C /* LMCompletionView.m */; };
+		AE338CB21723C51700982044 /* NSArray+KeyPath.m in Sources */ = {isa = PBXBuildFile; fileRef = AE4E74AA170F4504003BF794 /* NSArray+KeyPath.m */; };
+		AE338CB31723C51700982044 /* NSView+CocoaExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = AE4E7499170EF98E003BF794 /* NSView+CocoaExtensions.m */; };
+		AE338CB41723C51700982044 /* NSObject+TDBindings.m in Sources */ = {isa = PBXBuildFile; fileRef = AE818A0E171A9DF600968B82 /* NSObject+TDBindings.m */; };
+		AE338CB51723C51700982044 /* NSMutableAttributedString+CocoaExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = AE818A12171ABFAB00968B82 /* NSMutableAttributedString+CocoaExtensions.m */; };
+		AE338CB61723C51700982044 /* NSWindow+FriedText.m in Sources */ = {isa = PBXBuildFile; fileRef = AEC85329171C22E900A1EABE /* NSWindow+FriedText.m */; };
+		AE338CB71723C52D00982044 /* FriedText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AE338C951723C2C900982044 /* FriedText.framework */; };
+		AE338CB81723C53200982044 /* FriedText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AE338C951723C2C900982044 /* FriedText.framework */; };
+		AE338CBD1723C58C00982044 /* jsmn.c in Sources */ = {isa = PBXBuildFile; fileRef = AE4E74A0170F1561003BF794 /* jsmn.c */; };
 		AEC85321171BEAE400A1EABE /* LMTextFieldWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = AEC85320171BEAE400A1EABE /* LMTextFieldWindow.xib */; };
-		AEC8532A171C22E900A1EABE /* NSWindow+FriedText.m in Sources */ = {isa = PBXBuildFile; fileRef = AEC85329171C22E900A1EABE /* NSWindow+FriedText.m */; };
-		AEC8532B171C22E900A1EABE /* NSWindow+FriedText.m in Sources */ = {isa = PBXBuildFile; fileRef = AEC85329171C22E900A1EABE /* NSWindow+FriedText.m */; };
 		AED2D2DC1716ABF300C38A87 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = AE04F60D170EEA170032338C /* main.m */; };
 		AED2D2DD1716ABF300C38A87 /* LMAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = AE04F614170EEA170032338C /* LMAppDelegate.m */; };
-		AED2D2DE1716ABF300C38A87 /* LMTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = AE04F61F170EEA8A0032338C /* LMTextView.m */; };
-		AED2D2DF1716ABF300C38A87 /* LMTextScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = AE04F621170EEA8A0032338C /* LMTextScrollView.m */; };
-		AED2D2E01716ABF300C38A87 /* LMCompletionTableCellView.m in Sources */ = {isa = PBXBuildFile; fileRef = AE04F62B170EEAEF0032338C /* LMCompletionTableCellView.m */; };
-		AED2D2E11716ABF300C38A87 /* LMCompletionTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = AE04F62D170EEAEF0032338C /* LMCompletionTableView.m */; };
-		AED2D2E21716ABF300C38A87 /* LMCompletionView.m in Sources */ = {isa = PBXBuildFile; fileRef = AE04F62F170EEAEF0032338C /* LMCompletionView.m */; };
-		AED2D2E41716ABF300C38A87 /* NSView+CocoaExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = AE4E7499170EF98E003BF794 /* NSView+CocoaExtensions.m */; };
-		AED2D2E51716ABF300C38A87 /* jsmn.c in Sources */ = {isa = PBXBuildFile; fileRef = AE4E74A0170F1561003BF794 /* jsmn.c */; };
-		AED2D2E61716ABF300C38A87 /* NSArray+KeyPath.m in Sources */ = {isa = PBXBuildFile; fileRef = AE4E74AA170F4504003BF794 /* NSArray+KeyPath.m */; };
-		AED2D2E71716ABF300C38A87 /* LMJSONTextParser.m in Sources */ = {isa = PBXBuildFile; fileRef = AE0C57E6170FBF4700FDFBDA /* LMJSONTextParser.m */; };
-		AED2D2E81716ABF300C38A87 /* LMFoldingTextAttachmentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AE0C57F0170FEDAC00FDFBDA /* LMFoldingTextAttachmentCell.m */; };
-		AED2D2E91716ABF300C38A87 /* LMTokenAttachmentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AE4AC702171035E200DB8A77 /* LMTokenAttachmentCell.m */; };
-		AED2D2EA1716ABF300C38A87 /* LMLineNumberRuler.m in Sources */ = {isa = PBXBuildFile; fileRef = AE64243D171582E300C14DA5 /* LMLineNumberRuler.m */; };
-		AED2D2EC1716ABF300C38A87 /* Quartz.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AE04F636170EEB110032338C /* Quartz.framework */; };
-		AED2D2ED1716ABF300C38A87 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AE04F637170EEB110032338C /* QuartzCore.framework */; };
 		AED2D2EE1716ABF300C38A87 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AE04F601170EEA170032338C /* Cocoa.framework */; };
 		AED2D2F01716ABF300C38A87 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = AE04F60A170EEA170032338C /* InfoPlist.strings */; };
 		AED2D2F11716ABF300C38A87 /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = AE04F610170EEA170032338C /* Credits.rtf */; };
 		AED2D2FB1716ACBA00C38A87 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = AED2D2FA1716ACBA00C38A87 /* MainMenu.xib */; };
 		AED2D2FD1716ACC200C38A87 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = AED2D2FC1716ACC200C38A87 /* MainMenu.xib */; };
 		AED2D3001716AD5F00C38A87 /* LMTextFieldWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = AED2D2FF1716AD5F00C38A87 /* LMTextFieldWindow.m */; };
-		AED2D3041716AF8500C38A87 /* LMTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = AED2D3031716AF8500C38A87 /* LMTextField.m */; };
-		AED2D3051716AF8500C38A87 /* LMTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = AED2D3031716AF8500C38A87 /* LMTextField.m */; };
-		AED2D3081716AFA200C38A87 /* LMTextFieldCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AED2D3071716AFA200C38A87 /* LMTextFieldCell.m */; };
-		AED2D3091716AFA200C38A87 /* LMTextFieldCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AED2D3071716AFA200C38A87 /* LMTextFieldCell.m */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		AE338CB91723C55900982044 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = AE04F5F6170EEA170032338C /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = AE338C941723C2C900982044;
+			remoteInfo = FriedText;
+		};
+		AE338CBB1723C56200982044 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = AE04F5F6170EEA170032338C /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = AE338C941723C2C900982044;
+			remoteInfo = FriedText;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		AE04F5FE170EEA170032338C /* LMTextView Text View.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "LMTextView Text View.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		AE04F601170EEA170032338C /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
-		AE04F604170EEA170032338C /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
-		AE04F605170EEA170032338C /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
-		AE04F606170EEA170032338C /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		AE04F609170EEA170032338C /* LMTextView Text View-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "LMTextView Text View-Info.plist"; sourceTree = "<group>"; };
 		AE04F60B170EEA170032338C /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		AE04F60D170EEA170032338C /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -87,8 +84,6 @@
 		AE04F62D170EEAEF0032338C /* LMCompletionTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LMCompletionTableView.m; sourceTree = "<group>"; };
 		AE04F62E170EEAEF0032338C /* LMCompletionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LMCompletionView.h; sourceTree = "<group>"; };
 		AE04F62F170EEAEF0032338C /* LMCompletionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LMCompletionView.m; sourceTree = "<group>"; };
-		AE04F636170EEB110032338C /* Quartz.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quartz.framework; path = System/Library/Frameworks/Quartz.framework; sourceTree = SDKROOT; };
-		AE04F637170EEB110032338C /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		AE04F63E170EEDB90032338C /* LMTextViewWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LMTextViewWindow.h; sourceTree = "<group>"; };
 		AE04F63F170EEDB90032338C /* LMTextViewWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LMTextViewWindow.m; sourceTree = "<group>"; };
 		AE0C57E4170FBE5900FDFBDA /* LMTextParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LMTextParser.h; sourceTree = "<group>"; };
@@ -97,6 +92,11 @@
 		AE0C57EF170FEDAC00FDFBDA /* LMFoldingTextAttachmentCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LMFoldingTextAttachmentCell.h; sourceTree = "<group>"; };
 		AE0C57F0170FEDAC00FDFBDA /* LMFoldingTextAttachmentCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LMFoldingTextAttachmentCell.m; sourceTree = "<group>"; };
 		AE338C8F1723B9CE00982044 /* LMTextAttachmentCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LMTextAttachmentCell.h; sourceTree = "<group>"; };
+		AE338C951723C2C900982044 /* FriedText.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = FriedText.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		AE338C991723C2C900982044 /* FriedText-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "FriedText-Info.plist"; sourceTree = "<group>"; };
+		AE338C9B1723C2C900982044 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		AE338C9D1723C2C900982044 /* FriedText-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "FriedText-Prefix.pch"; sourceTree = "<group>"; };
+		AE338CA41723C38F00982044 /* FriedText.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FriedText.h; sourceTree = "<group>"; };
 		AE4AC701171035E200DB8A77 /* LMTokenAttachmentCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LMTokenAttachmentCell.h; sourceTree = "<group>"; };
 		AE4AC702171035E200DB8A77 /* LMTokenAttachmentCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LMTokenAttachmentCell.m; sourceTree = "<group>"; };
 		AE4E7498170EF98E003BF794 /* NSView+CocoaExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSView+CocoaExtensions.h"; sourceTree = "<group>"; };
@@ -133,9 +133,16 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AE04F638170EEB110032338C /* Quartz.framework in Frameworks */,
-				AE04F639170EEB110032338C /* QuartzCore.framework in Frameworks */,
 				AE04F602170EEA170032338C /* Cocoa.framework in Frameworks */,
+				AE338CB81723C53200982044 /* FriedText.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		AE338C911723C2C900982044 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AE338C961723C2C900982044 /* Cocoa.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -143,9 +150,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AED2D2EC1716ABF300C38A87 /* Quartz.framework in Frameworks */,
-				AED2D2ED1716ABF300C38A87 /* QuartzCore.framework in Frameworks */,
 				AED2D2EE1716ABF300C38A87 /* Cocoa.framework in Frameworks */,
+				AE338CB71723C52D00982044 /* FriedText.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -155,7 +161,8 @@
 		AE04F5F5170EEA170032338C = {
 			isa = PBXGroup;
 			children = (
-				AE04F607170EEA170032338C /* LMTextView */,
+				AE338C971723C2C900982044 /* FriedText */,
+				AED2D2F81716AC4400C38A87 /* Tests */,
 				AE04F600170EEA170032338C /* Frameworks */,
 				AE04F5FF170EEA170032338C /* Products */,
 			);
@@ -166,6 +173,7 @@
 			children = (
 				AE04F5FE170EEA170032338C /* LMTextView Text View.app */,
 				AED2D2F61716ABF300C38A87 /* LMTextView Text Field.app */,
+				AE338C951723C2C900982044 /* FriedText.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -173,40 +181,9 @@
 		AE04F600170EEA170032338C /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				AE04F636170EEB110032338C /* Quartz.framework */,
-				AE04F637170EEB110032338C /* QuartzCore.framework */,
 				AE04F601170EEA170032338C /* Cocoa.framework */,
-				AE04F603170EEA170032338C /* Other Frameworks */,
 			);
 			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		AE04F603170EEA170032338C /* Other Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				AE04F604170EEA170032338C /* AppKit.framework */,
-				AE04F605170EEA170032338C /* CoreData.framework */,
-				AE04F606170EEA170032338C /* Foundation.framework */,
-			);
-			name = "Other Frameworks";
-			sourceTree = "<group>";
-		};
-		AE04F607170EEA170032338C /* LMTextView */ = {
-			isa = PBXGroup;
-			children = (
-				AED2D2F81716AC4400C38A87 /* Test Applications */,
-				AE64243B171581FD00C14DA5 /* Line Numbers Ruler */,
-				AE04F643170EEDCC0032338C /* LMTextView */,
-				AED2D3011716AF6600C38A87 /* LMTextField */,
-				AEC8532C171C4C8200A1EABE /* Text Attachments */,
-				AE0C57E8170FECB600FDFBDA /* LMTextParser */,
-				AE04F641170EEDC10032338C /* Completion */,
-				AE4E74A8170F41D0003BF794 /* KeyPath */,
-				AE4E749B170EF991003BF794 /* Categories */,
-				AE4E74A3170F1565003BF794 /* Dependencies */,
-				AE04F608170EEA170032338C /* Supporting Files */,
-			);
-			path = LMTextView;
 			sourceTree = "<group>";
 		};
 		AE04F608170EEA170032338C /* Supporting Files */ = {
@@ -233,6 +210,7 @@
 				AE04F62F170EEAEF0032338C /* LMCompletionView.m */,
 			);
 			name = Completion;
+			path = ../LMTextView;
 			sourceTree = "<group>";
 		};
 		AE04F642170EEDC80032338C /* Text View App */ = {
@@ -254,6 +232,7 @@
 				AE04F621170EEA8A0032338C /* LMTextScrollView.m */,
 			);
 			name = LMTextView;
+			path = ../LMTextView;
 			sourceTree = "<group>";
 		};
 		AE0C57E8170FECB600FDFBDA /* LMTextParser */ = {
@@ -264,6 +243,35 @@
 				AE0C57E6170FBF4700FDFBDA /* LMJSONTextParser.m */,
 			);
 			name = LMTextParser;
+			path = ../LMTextView;
+			sourceTree = "<group>";
+		};
+		AE338C971723C2C900982044 /* FriedText */ = {
+			isa = PBXGroup;
+			children = (
+				AE338CA41723C38F00982044 /* FriedText.h */,
+				AE64243B171581FD00C14DA5 /* Line Numbers Ruler */,
+				AE04F643170EEDCC0032338C /* LMTextView */,
+				AED2D3011716AF6600C38A87 /* LMTextField */,
+				AEC8532C171C4C8200A1EABE /* Text Attachments */,
+				AE0C57E8170FECB600FDFBDA /* LMTextParser */,
+				AE04F641170EEDC10032338C /* Completion */,
+				AE4E74A8170F41D0003BF794 /* KeyPath */,
+				AE4E749B170EF991003BF794 /* Categories */,
+				AE4E74A3170F1565003BF794 /* Dependencies */,
+				AE338C981723C2C900982044 /* Supporting Files */,
+			);
+			path = FriedText;
+			sourceTree = "<group>";
+		};
+		AE338C981723C2C900982044 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				AE338C991723C2C900982044 /* FriedText-Info.plist */,
+				AE338C9A1723C2C900982044 /* InfoPlist.strings */,
+				AE338C9D1723C2C900982044 /* FriedText-Prefix.pch */,
+			);
+			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
 		AE4E749B170EF991003BF794 /* Categories */ = {
@@ -279,6 +287,7 @@
 				AEC85329171C22E900A1EABE /* NSWindow+FriedText.m */,
 			);
 			name = Categories;
+			path = ../LMTextView;
 			sourceTree = "<group>";
 		};
 		AE4E74A3170F1565003BF794 /* Dependencies */ = {
@@ -287,6 +296,7 @@
 				AE4E74A4170F156A003BF794 /* JSMN */,
 			);
 			name = Dependencies;
+			path = ../LMTextView;
 			sourceTree = "<group>";
 		};
 		AE4E74A4170F156A003BF794 /* JSMN */ = {
@@ -305,6 +315,7 @@
 				AE4E74AA170F4504003BF794 /* NSArray+KeyPath.m */,
 			);
 			name = KeyPath;
+			path = ../LMTextView;
 			sourceTree = "<group>";
 		};
 		AE64243B171581FD00C14DA5 /* Line Numbers Ruler */ = {
@@ -314,6 +325,7 @@
 				AE64243D171582E300C14DA5 /* LMLineNumberRuler.m */,
 			);
 			name = "Line Numbers Ruler";
+			path = ../LMTextView;
 			sourceTree = "<group>";
 		};
 		AEC8532C171C4C8200A1EABE /* Text Attachments */ = {
@@ -328,17 +340,20 @@
 				AE818A0A171A91B500968B82 /* LMAttributedTokenStringValueTransformer.m */,
 			);
 			name = "Text Attachments";
+			path = ../LMTextView;
 			sourceTree = "<group>";
 		};
-		AED2D2F81716AC4400C38A87 /* Test Applications */ = {
+		AED2D2F81716AC4400C38A87 /* Tests */ = {
 			isa = PBXGroup;
 			children = (
 				AE04F613170EEA170032338C /* LMAppDelegate.h */,
 				AE04F614170EEA170032338C /* LMAppDelegate.m */,
 				AE04F642170EEDC80032338C /* Text View App */,
 				AED2D2F91716AC5400C38A87 /* Text Field App */,
+				AE04F608170EEA170032338C /* Supporting Files */,
 			);
-			name = "Test Applications";
+			name = Tests;
+			path = LMTextView;
 			sourceTree = "<group>";
 		};
 		AED2D2F91716AC5400C38A87 /* Text Field App */ = {
@@ -361,9 +376,21 @@
 				AED2D3071716AFA200C38A87 /* LMTextFieldCell.m */,
 			);
 			name = LMTextField;
+			path = ../LMTextView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		AE338C921723C2C900982044 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AE338CA51723C38F00982044 /* FriedText.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
 		AE04F5FD170EEA170032338C /* LMTextView Text View */ = {
@@ -377,11 +404,30 @@
 			buildRules = (
 			);
 			dependencies = (
+				AE338CBA1723C55900982044 /* PBXTargetDependency */,
 			);
 			name = "LMTextView Text View";
 			productName = LMTextView;
 			productReference = AE04F5FE170EEA170032338C /* LMTextView Text View.app */;
 			productType = "com.apple.product-type.application";
+		};
+		AE338C941723C2C900982044 /* FriedText */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = AE338CA11723C2C900982044 /* Build configuration list for PBXNativeTarget "FriedText" */;
+			buildPhases = (
+				AE338C901723C2C900982044 /* Sources */,
+				AE338C911723C2C900982044 /* Frameworks */,
+				AE338C921723C2C900982044 /* Headers */,
+				AE338C931723C2C900982044 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = FriedText;
+			productName = FriedText;
+			productReference = AE338C951723C2C900982044 /* FriedText.framework */;
+			productType = "com.apple.product-type.framework";
 		};
 		AED2D2DA1716ABF300C38A87 /* LMTextView Text Field */ = {
 			isa = PBXNativeTarget;
@@ -394,6 +440,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				AE338CBC1723C56200982044 /* PBXTargetDependency */,
 			);
 			name = "LMTextView Text Field";
 			productName = LMTextView;
@@ -424,6 +471,7 @@
 			targets = (
 				AE04F5FD170EEA170032338C /* LMTextView Text View */,
 				AED2D2DA1716ABF300C38A87 /* LMTextView Text Field */,
+				AE338C941723C2C900982044 /* FriedText */,
 			);
 		};
 /* End PBXProject section */
@@ -436,6 +484,14 @@
 				AE04F60C170EEA170032338C /* InfoPlist.strings in Resources */,
 				AE04F612170EEA170032338C /* Credits.rtf in Resources */,
 				AED2D2FB1716ACBA00C38A87 /* MainMenu.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		AE338C931723C2C900982044 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AE338C9C1723C2C900982044 /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -459,25 +515,32 @@
 			files = (
 				AE04F60E170EEA170032338C /* main.m in Sources */,
 				AE04F615170EEA170032338C /* LMAppDelegate.m in Sources */,
-				AE04F622170EEA8A0032338C /* LMTextView.m in Sources */,
-				AE04F623170EEA8A0032338C /* LMTextScrollView.m in Sources */,
-				AE04F633170EEAEF0032338C /* LMCompletionTableCellView.m in Sources */,
-				AE04F634170EEAEF0032338C /* LMCompletionTableView.m in Sources */,
-				AE04F635170EEAEF0032338C /* LMCompletionView.m in Sources */,
 				AE04F640170EEDB90032338C /* LMTextViewWindow.m in Sources */,
-				AE4E749A170EF98F003BF794 /* NSView+CocoaExtensions.m in Sources */,
-				AE4E74A2170F1561003BF794 /* jsmn.c in Sources */,
-				AE4E74AB170F4504003BF794 /* NSArray+KeyPath.m in Sources */,
-				AE0C57E7170FBF4700FDFBDA /* LMJSONTextParser.m in Sources */,
-				AE0C57F1170FEDAC00FDFBDA /* LMFoldingTextAttachmentCell.m in Sources */,
-				AE4AC703171035E200DB8A77 /* LMTokenAttachmentCell.m in Sources */,
-				AE64243E171582E300C14DA5 /* LMLineNumberRuler.m in Sources */,
-				AED2D3041716AF8500C38A87 /* LMTextField.m in Sources */,
-				AED2D3081716AFA200C38A87 /* LMTextFieldCell.m in Sources */,
-				AE818A0B171A91B500968B82 /* LMAttributedTokenStringValueTransformer.m in Sources */,
-				AE818A0F171A9DF600968B82 /* NSObject+TDBindings.m in Sources */,
-				AE818A13171ABFAB00968B82 /* NSMutableAttributedString+CocoaExtensions.m in Sources */,
-				AEC8532A171C22E900A1EABE /* NSWindow+FriedText.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		AE338C901723C2C900982044 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AE338CA61723C51700982044 /* LMLineNumberRuler.m in Sources */,
+				AE338CA71723C51700982044 /* LMTextView.m in Sources */,
+				AE338CA81723C51700982044 /* LMTextScrollView.m in Sources */,
+				AE338CA91723C51700982044 /* LMTextField.m in Sources */,
+				AE338CAA1723C51700982044 /* LMTextFieldCell.m in Sources */,
+				AE338CAB1723C51700982044 /* LMFoldingTextAttachmentCell.m in Sources */,
+				AE338CAC1723C51700982044 /* LMTokenAttachmentCell.m in Sources */,
+				AE338CAD1723C51700982044 /* LMAttributedTokenStringValueTransformer.m in Sources */,
+				AE338CAE1723C51700982044 /* LMJSONTextParser.m in Sources */,
+				AE338CAF1723C51700982044 /* LMCompletionTableCellView.m in Sources */,
+				AE338CB01723C51700982044 /* LMCompletionTableView.m in Sources */,
+				AE338CB11723C51700982044 /* LMCompletionView.m in Sources */,
+				AE338CB21723C51700982044 /* NSArray+KeyPath.m in Sources */,
+				AE338CB31723C51700982044 /* NSView+CocoaExtensions.m in Sources */,
+				AE338CB41723C51700982044 /* NSObject+TDBindings.m in Sources */,
+				AE338CB51723C51700982044 /* NSMutableAttributedString+CocoaExtensions.m in Sources */,
+				AE338CBD1723C58C00982044 /* jsmn.c in Sources */,
+				AE338CB61723C51700982044 /* NSWindow+FriedText.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -487,29 +550,24 @@
 			files = (
 				AED2D2DC1716ABF300C38A87 /* main.m in Sources */,
 				AED2D2DD1716ABF300C38A87 /* LMAppDelegate.m in Sources */,
-				AED2D2DE1716ABF300C38A87 /* LMTextView.m in Sources */,
-				AED2D2DF1716ABF300C38A87 /* LMTextScrollView.m in Sources */,
-				AED2D2E01716ABF300C38A87 /* LMCompletionTableCellView.m in Sources */,
-				AED2D2E11716ABF300C38A87 /* LMCompletionTableView.m in Sources */,
-				AED2D2E21716ABF300C38A87 /* LMCompletionView.m in Sources */,
-				AED2D2E41716ABF300C38A87 /* NSView+CocoaExtensions.m in Sources */,
-				AED2D2E51716ABF300C38A87 /* jsmn.c in Sources */,
-				AED2D2E61716ABF300C38A87 /* NSArray+KeyPath.m in Sources */,
-				AED2D2E71716ABF300C38A87 /* LMJSONTextParser.m in Sources */,
-				AED2D2E81716ABF300C38A87 /* LMFoldingTextAttachmentCell.m in Sources */,
-				AED2D2E91716ABF300C38A87 /* LMTokenAttachmentCell.m in Sources */,
-				AED2D2EA1716ABF300C38A87 /* LMLineNumberRuler.m in Sources */,
 				AED2D3001716AD5F00C38A87 /* LMTextFieldWindow.m in Sources */,
-				AED2D3051716AF8500C38A87 /* LMTextField.m in Sources */,
-				AED2D3091716AFA200C38A87 /* LMTextFieldCell.m in Sources */,
-				AE818A0C171A91B500968B82 /* LMAttributedTokenStringValueTransformer.m in Sources */,
-				AE818A10171A9DF600968B82 /* NSObject+TDBindings.m in Sources */,
-				AE818A14171ABFAB00968B82 /* NSMutableAttributedString+CocoaExtensions.m in Sources */,
-				AEC8532B171C22E900A1EABE /* NSWindow+FriedText.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		AE338CBA1723C55900982044 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = AE338C941723C2C900982044 /* FriedText */;
+			targetProxy = AE338CB91723C55900982044 /* PBXContainerItemProxy */;
+		};
+		AE338CBC1723C56200982044 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = AE338C941723C2C900982044 /* FriedText */;
+			targetProxy = AE338CBB1723C56200982044 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		AE04F60A170EEA170032338C /* InfoPlist.strings */ = {
@@ -526,6 +584,14 @@
 				AE04F611170EEA170032338C /* en */,
 			);
 			name = Credits.rtf;
+			sourceTree = "<group>";
+		};
+		AE338C9A1723C2C900982044 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				AE338C9B1723C2C900982044 /* en */,
+			);
+			name = InfoPlist.strings;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -614,6 +680,36 @@
 			};
 			name = Release;
 		};
+		AE338CA21723C2C900982044 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				FRAMEWORK_VERSION = A;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "FriedText/FriedText-Prefix.pch";
+				INFOPLIST_FILE = "FriedText/FriedText-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = framework;
+			};
+			name = Debug;
+		};
+		AE338CA31723C2C900982044 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				FRAMEWORK_VERSION = A;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "FriedText/FriedText-Prefix.pch";
+				INFOPLIST_FILE = "FriedText/FriedText-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = framework;
+			};
+			name = Release;
+		};
 		AED2D2F41716ABF300C38A87 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -658,6 +754,14 @@
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
+		};
+		AE338CA11723C2C900982044 /* Build configuration list for PBXNativeTarget "FriedText" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AE338CA21723C2C900982044 /* Debug */,
+				AE338CA31723C2C900982044 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
 		};
 		AED2D2F31716ABF300C38A87 /* Build configuration list for PBXNativeTarget "LMTextView Text Field" */ = {
 			isa = XCConfigurationList;

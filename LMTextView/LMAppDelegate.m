@@ -8,8 +8,6 @@
 
 #import "LMAppDelegate.h"
 
-#import "LMAttributedTokenStringValueTransformer.h"
-
 NSMutableArray* _windowControllers = nil;
 
 @implementation LMAppDelegate

@@ -8,17 +8,6 @@
 
 #import "LMTextViewWindow.h"
 
-#import "LMTextView.h"
-#import "LMTextScrollView.h"
-
-#import "LMJSONTextParser.h"
-
-#import "NSArray+KeyPath.h"
-
-#import "LMTokenAttachmentCell.h"
-#import "LMFoldingTextAttachmentCell.h"
-#import "LMLineNumberRuler.h"
-
 @interface LMTextViewWindow () <NSTextStorageDelegate, LMTextViewDelegate> {
 	NSRange _tokenPopoverRange;
 	NSString* _tokenPopoverValue;

@@ -7,8 +7,7 @@
 //
 
 #import <Cocoa/Cocoa.h>
-
-@class LMTextView, LMTextScrollView;
+#import <FriedText/FriedText.h>
 
 @interface LMTextViewWindow : NSWindow
 

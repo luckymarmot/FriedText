@@ -8,14 +8,6 @@
 
 #import "LMTextFieldWindow.h"
 
-#import "LMTextView.h"
-
-#import "LMTokenAttachmentCell.h"
-
-#import "NSArray+KeyPath.h"
-
-#import "LMTextField.h"
-
 @implementation LMTextFieldWindow
 
 - (void)awakeFromNib
