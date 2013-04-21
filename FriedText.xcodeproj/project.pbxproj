@@ -15,8 +15,6 @@
 		AE2503171723CAD600E46A2F /* LMTextFieldWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = AE2503141723CAD600E46A2F /* LMTextFieldWindow.m */; };
 		AE2503181723CAD600E46A2F /* LMTextFieldWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = AE2503151723CAD600E46A2F /* LMTextFieldWindow.xib */; };
 		AE2503191723CAD600E46A2F /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = AE2503161723CAD600E46A2F /* MainMenu.xib */; };
-		AE25031B1723CAE500E46A2F /* LMTextView Text Field-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = AE25031A1723CAE500E46A2F /* LMTextView Text Field-Info.plist */; };
-		AE2503211723CAEF00E46A2F /* LMTextView Text View-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = AE25031C1723CAEF00E46A2F /* LMTextView Text View-Info.plist */; };
 		AE2503221723CAEF00E46A2F /* LMTextViewWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = AE25031F1723CAEF00E46A2F /* LMTextViewWindow.m */; };
 		AE2503231723CAEF00E46A2F /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = AE2503201723CAEF00E46A2F /* MainMenu.xib */; };
 		AE2503261723CB2D00E46A2F /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = AE2503251723CB2D00E46A2F /* main.m */; };
@@ -30,39 +28,21 @@
 		AE338CA51723C38F00982044 /* FriedText.h in Headers */ = {isa = PBXBuildFile; fileRef = AE338CA41723C38F00982044 /* FriedText.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		AE338CB71723C52D00982044 /* FriedText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AE338C951723C2C900982044 /* FriedText.framework */; };
 		AE338CB81723C53200982044 /* FriedText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AE338C951723C2C900982044 /* FriedText.framework */; };
-		AE461A051723D7D800A86F35 /* LMTextScrollView.h in Headers */ = {isa = PBXBuildFile; fileRef = AE461A011723D7D800A86F35 /* LMTextScrollView.h */; };
 		AE461A061723D7D800A86F35 /* LMTextScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = AE461A021723D7D800A86F35 /* LMTextScrollView.m */; };
-		AE461A071723D7D800A86F35 /* LMTextView.h in Headers */ = {isa = PBXBuildFile; fileRef = AE461A031723D7D800A86F35 /* LMTextView.h */; };
 		AE461A081723D7D800A86F35 /* LMTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = AE461A041723D7D800A86F35 /* LMTextView.m */; };
-		AE9225F31723D7FC00D73B16 /* LMTextField.h in Headers */ = {isa = PBXBuildFile; fileRef = AE9225EF1723D7FC00D73B16 /* LMTextField.h */; };
 		AE9225F41723D7FC00D73B16 /* LMTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = AE9225F01723D7FC00D73B16 /* LMTextField.m */; };
-		AE9225F51723D7FC00D73B16 /* LMTextFieldCell.h in Headers */ = {isa = PBXBuildFile; fileRef = AE9225F11723D7FC00D73B16 /* LMTextFieldCell.h */; };
 		AE9225F61723D7FC00D73B16 /* LMTextFieldCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AE9225F21723D7FC00D73B16 /* LMTextFieldCell.m */; };
-		AE9225FE1723D80F00D73B16 /* LMFoldingTextAttachmentCell.h in Headers */ = {isa = PBXBuildFile; fileRef = AE9225F71723D80F00D73B16 /* LMFoldingTextAttachmentCell.h */; };
 		AE9225FF1723D80F00D73B16 /* LMFoldingTextAttachmentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AE9225F81723D80F00D73B16 /* LMFoldingTextAttachmentCell.m */; };
-		AE9226001723D80F00D73B16 /* LMTextAttachmentCell.h in Headers */ = {isa = PBXBuildFile; fileRef = AE9225F91723D80F00D73B16 /* LMTextAttachmentCell.h */; };
-		AE9226011723D80F00D73B16 /* LMTokenAttachmentCell.h in Headers */ = {isa = PBXBuildFile; fileRef = AE9225FA1723D80F00D73B16 /* LMTokenAttachmentCell.h */; };
 		AE9226021723D80F00D73B16 /* LMTokenAttachmentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AE9225FB1723D80F00D73B16 /* LMTokenAttachmentCell.m */; };
-		AE9226071723D81800D73B16 /* LMLineNumberRuler.h in Headers */ = {isa = PBXBuildFile; fileRef = AE9226051723D81800D73B16 /* LMLineNumberRuler.h */; };
 		AE9226081723D81800D73B16 /* LMLineNumberRuler.m in Sources */ = {isa = PBXBuildFile; fileRef = AE9226061723D81800D73B16 /* LMLineNumberRuler.m */; };
-		AE92260A1723D81F00D73B16 /* LMTextParser.h in Headers */ = {isa = PBXBuildFile; fileRef = AE9226091723D81F00D73B16 /* LMTextParser.h */; };
-		AE9226111723D82800D73B16 /* LMCompletionTableCellView.h in Headers */ = {isa = PBXBuildFile; fileRef = AE92260B1723D82800D73B16 /* LMCompletionTableCellView.h */; };
 		AE9226121723D82800D73B16 /* LMCompletionTableCellView.m in Sources */ = {isa = PBXBuildFile; fileRef = AE92260C1723D82800D73B16 /* LMCompletionTableCellView.m */; };
-		AE9226131723D82800D73B16 /* LMCompletionTableView.h in Headers */ = {isa = PBXBuildFile; fileRef = AE92260D1723D82800D73B16 /* LMCompletionTableView.h */; };
 		AE9226141723D82800D73B16 /* LMCompletionTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = AE92260E1723D82800D73B16 /* LMCompletionTableView.m */; };
-		AE9226151723D82800D73B16 /* LMCompletionView.h in Headers */ = {isa = PBXBuildFile; fileRef = AE92260F1723D82800D73B16 /* LMCompletionView.h */; };
 		AE9226161723D82800D73B16 /* LMCompletionView.m in Sources */ = {isa = PBXBuildFile; fileRef = AE9226101723D82800D73B16 /* LMCompletionView.m */; };
-		AE9226211723D83800D73B16 /* NSArray+KeyPath.h in Headers */ = {isa = PBXBuildFile; fileRef = AE9226171723D83800D73B16 /* NSArray+KeyPath.h */; };
 		AE9226221723D83800D73B16 /* NSArray+KeyPath.m in Sources */ = {isa = PBXBuildFile; fileRef = AE9226181723D83800D73B16 /* NSArray+KeyPath.m */; };
-		AE9226231723D83800D73B16 /* NSMutableAttributedString+CocoaExtensions.h in Headers */ = {isa = PBXBuildFile; fileRef = AE9226191723D83800D73B16 /* NSMutableAttributedString+CocoaExtensions.h */; };
 		AE9226241723D83800D73B16 /* NSMutableAttributedString+CocoaExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = AE92261A1723D83800D73B16 /* NSMutableAttributedString+CocoaExtensions.m */; };
-		AE9226251723D83800D73B16 /* NSObject+TDBindings.h in Headers */ = {isa = PBXBuildFile; fileRef = AE92261B1723D83800D73B16 /* NSObject+TDBindings.h */; };
 		AE9226261723D83800D73B16 /* NSObject+TDBindings.m in Sources */ = {isa = PBXBuildFile; fileRef = AE92261C1723D83800D73B16 /* NSObject+TDBindings.m */; };
-		AE9226271723D83800D73B16 /* NSView+CocoaExtensions.h in Headers */ = {isa = PBXBuildFile; fileRef = AE92261D1723D83800D73B16 /* NSView+CocoaExtensions.h */; };
 		AE9226281723D83800D73B16 /* NSView+CocoaExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = AE92261E1723D83800D73B16 /* NSView+CocoaExtensions.m */; };
-		AE9226291723D83800D73B16 /* NSWindow+FriedText.h in Headers */ = {isa = PBXBuildFile; fileRef = AE92261F1723D83800D73B16 /* NSWindow+FriedText.h */; };
 		AE92262A1723D83800D73B16 /* NSWindow+FriedText.m in Sources */ = {isa = PBXBuildFile; fileRef = AE9226201723D83800D73B16 /* NSWindow+FriedText.m */; };
-		AE92262D1723D88D00D73B16 /* LMAttributedTokenStringValueTransformer.h in Headers */ = {isa = PBXBuildFile; fileRef = AE92262B1723D88D00D73B16 /* LMAttributedTokenStringValueTransformer.h */; };
 		AE92262E1723D88D00D73B16 /* LMAttributedTokenStringValueTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = AE92262C1723D88D00D73B16 /* LMAttributedTokenStringValueTransformer.m */; };
 		AED2D2EE1716ABF300C38A87 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AE04F601170EEA170032338C /* Cocoa.framework */; };
 /* End PBXBuildFile section */
@@ -406,24 +386,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				AE338CA51723C38F00982044 /* FriedText.h in Headers */,
-				AE461A051723D7D800A86F35 /* LMTextScrollView.h in Headers */,
-				AE461A071723D7D800A86F35 /* LMTextView.h in Headers */,
-				AE9225F31723D7FC00D73B16 /* LMTextField.h in Headers */,
-				AE9225F51723D7FC00D73B16 /* LMTextFieldCell.h in Headers */,
-				AE9225FE1723D80F00D73B16 /* LMFoldingTextAttachmentCell.h in Headers */,
-				AE9226001723D80F00D73B16 /* LMTextAttachmentCell.h in Headers */,
-				AE9226011723D80F00D73B16 /* LMTokenAttachmentCell.h in Headers */,
-				AE9226071723D81800D73B16 /* LMLineNumberRuler.h in Headers */,
-				AE92260A1723D81F00D73B16 /* LMTextParser.h in Headers */,
-				AE9226111723D82800D73B16 /* LMCompletionTableCellView.h in Headers */,
-				AE9226131723D82800D73B16 /* LMCompletionTableView.h in Headers */,
-				AE9226151723D82800D73B16 /* LMCompletionView.h in Headers */,
-				AE9226211723D83800D73B16 /* NSArray+KeyPath.h in Headers */,
-				AE9226231723D83800D73B16 /* NSMutableAttributedString+CocoaExtensions.h in Headers */,
-				AE9226251723D83800D73B16 /* NSObject+TDBindings.h in Headers */,
-				AE9226271723D83800D73B16 /* NSView+CocoaExtensions.h in Headers */,
-				AE9226291723D83800D73B16 /* NSWindow+FriedText.h in Headers */,
-				AE92262D1723D88D00D73B16 /* LMAttributedTokenStringValueTransformer.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -518,7 +480,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AE2503211723CAEF00E46A2F /* LMTextView Text View-Info.plist in Resources */,
 				AE2503231723CAEF00E46A2F /* MainMenu.xib in Resources */,
 				AE25032C1723CB6000E46A2F /* Credits.rtf in Resources */,
 				AE25032E1723CB6000E46A2F /* InfoPlist.strings in Resources */,
@@ -539,7 +500,6 @@
 			files = (
 				AE2503181723CAD600E46A2F /* LMTextFieldWindow.xib in Resources */,
 				AE2503191723CAD600E46A2F /* MainMenu.xib in Resources */,
-				AE25031B1723CAE500E46A2F /* LMTextView Text Field-Info.plist in Resources */,
 				AE25032D1723CB6000E46A2F /* Credits.rtf in Resources */,
 				AE25032F1723CB6000E46A2F /* InfoPlist.strings in Resources */,
 			);
