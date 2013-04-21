@@ -98,20 +98,28 @@ NSString* LMTextFieldAttributedStringValueBinding = @"attributedStringValue";
 
 - (void)textDidChange:(NSNotification *)notification
 {
-	[super textDidChange:notification];
-	
-	[self invalidateIntrinsicContentSize];
+	if (notification.object == [self currentEditor]) {
+		[super textDidChange:notification];
+		
+		[self invalidateIntrinsicContentSize];
+		
+		if ([self.delegate respondsToSelector:@selector(textField:textDidChangeWithFieldEditor:)]) {
+			[(id<LMTextFieldDelegate>)self.delegate textField:self textDidChangeWithFieldEditor:(LMTextView*)[self currentEditor]];
+		}
+	}
 }
 
 - (void)textDidEndEditing:(NSNotification *)notification
 {
-	[self propagateValue:[[(LMTextView*)[self currentEditor] textStorage] copy] forBinding:LMTextFieldAttributedStringValueBinding];
-	
-	[super textDidEndEditing:notification];
-	
-	[self setAttributedStringValue:[self attributedStringValue]];
-	
-	[self invalidateIntrinsicContentSize];
+	if (notification.object == [self currentEditor]) {
+		[self propagateValue:[[(LMTextView*)[self currentEditor] textStorage] copy] forBinding:LMTextFieldAttributedStringValueBinding];
+		
+		[super textDidEndEditing:notification];
+		
+		[self setAttributedStringValue:[self attributedStringValue]];
+		
+		[self invalidateIntrinsicContentSize];
+	}
 }
 
 #pragma mark - LMTextViewDelegate

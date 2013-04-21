@@ -26,6 +26,8 @@ extern NSString* LMTextFieldAttributedStringValueBinding;
 
 - (NSArray *)textField:(LMTextField*)textField fieldEditor:(LMTextView *)fieldEditor completions:(NSArray *)words forPartialWordRange:(NSRange)charRange indexOfSelectedItem:(NSInteger *)index;
 
+- (void)textField:(LMTextField *)textField textDidChangeWithFieldEditor:(LMTextView *)fieldEditor;
+
 @end
 
 
