@@ -1,0 +1,818 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		AE04F602170EEA170032338C /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AE04F601170EEA170032338C /* Cocoa.framework */; };
+		AE2503041723C9B700E46A2F /* LMAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = AE2503031723C9B700E46A2F /* LMAppDelegate.m */; };
+		AE2503051723C9B700E46A2F /* LMAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = AE2503031723C9B700E46A2F /* LMAppDelegate.m */; };
+		AE2503081723C9C300E46A2F /* jsmn.c in Sources */ = {isa = PBXBuildFile; fileRef = AE2503061723C9C300E46A2F /* jsmn.c */; };
+		AE2503121723CA4A00E46A2F /* LMJSONTextParser.m in Sources */ = {isa = PBXBuildFile; fileRef = AE2503101723CA4A00E46A2F /* LMJSONTextParser.m */; };
+		AE2503171723CAD600E46A2F /* LMTextFieldWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = AE2503141723CAD600E46A2F /* LMTextFieldWindow.m */; };
+		AE2503181723CAD600E46A2F /* LMTextFieldWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = AE2503151723CAD600E46A2F /* LMTextFieldWindow.xib */; };
+		AE2503191723CAD600E46A2F /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = AE2503161723CAD600E46A2F /* MainMenu.xib */; };
+		AE25031B1723CAE500E46A2F /* LMTextView Text Field-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = AE25031A1723CAE500E46A2F /* LMTextView Text Field-Info.plist */; };
+		AE2503211723CAEF00E46A2F /* LMTextView Text View-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = AE25031C1723CAEF00E46A2F /* LMTextView Text View-Info.plist */; };
+		AE2503221723CAEF00E46A2F /* LMTextViewWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = AE25031F1723CAEF00E46A2F /* LMTextViewWindow.m */; };
+		AE2503231723CAEF00E46A2F /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = AE2503201723CAEF00E46A2F /* MainMenu.xib */; };
+		AE2503261723CB2D00E46A2F /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = AE2503251723CB2D00E46A2F /* main.m */; };
+		AE2503271723CB2D00E46A2F /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = AE2503251723CB2D00E46A2F /* main.m */; };
+		AE25032C1723CB6000E46A2F /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = AE2503281723CB6000E46A2F /* Credits.rtf */; };
+		AE25032D1723CB6000E46A2F /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = AE2503281723CB6000E46A2F /* Credits.rtf */; };
+		AE25032E1723CB6000E46A2F /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = AE25032A1723CB6000E46A2F /* InfoPlist.strings */; };
+		AE25032F1723CB6000E46A2F /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = AE25032A1723CB6000E46A2F /* InfoPlist.strings */; };
+		AE338C961723C2C900982044 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AE04F601170EEA170032338C /* Cocoa.framework */; };
+		AE338C9C1723C2C900982044 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = AE338C9A1723C2C900982044 /* InfoPlist.strings */; };
+		AE338CA51723C38F00982044 /* FriedText.h in Headers */ = {isa = PBXBuildFile; fileRef = AE338CA41723C38F00982044 /* FriedText.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		AE338CB71723C52D00982044 /* FriedText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AE338C951723C2C900982044 /* FriedText.framework */; };
+		AE338CB81723C53200982044 /* FriedText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AE338C951723C2C900982044 /* FriedText.framework */; };
+		AE461A051723D7D800A86F35 /* LMTextScrollView.h in Headers */ = {isa = PBXBuildFile; fileRef = AE461A011723D7D800A86F35 /* LMTextScrollView.h */; };
+		AE461A061723D7D800A86F35 /* LMTextScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = AE461A021723D7D800A86F35 /* LMTextScrollView.m */; };
+		AE461A071723D7D800A86F35 /* LMTextView.h in Headers */ = {isa = PBXBuildFile; fileRef = AE461A031723D7D800A86F35 /* LMTextView.h */; };
+		AE461A081723D7D800A86F35 /* LMTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = AE461A041723D7D800A86F35 /* LMTextView.m */; };
+		AE9225F31723D7FC00D73B16 /* LMTextField.h in Headers */ = {isa = PBXBuildFile; fileRef = AE9225EF1723D7FC00D73B16 /* LMTextField.h */; };
+		AE9225F41723D7FC00D73B16 /* LMTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = AE9225F01723D7FC00D73B16 /* LMTextField.m */; };
+		AE9225F51723D7FC00D73B16 /* LMTextFieldCell.h in Headers */ = {isa = PBXBuildFile; fileRef = AE9225F11723D7FC00D73B16 /* LMTextFieldCell.h */; };
+		AE9225F61723D7FC00D73B16 /* LMTextFieldCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AE9225F21723D7FC00D73B16 /* LMTextFieldCell.m */; };
+		AE9225FE1723D80F00D73B16 /* LMFoldingTextAttachmentCell.h in Headers */ = {isa = PBXBuildFile; fileRef = AE9225F71723D80F00D73B16 /* LMFoldingTextAttachmentCell.h */; };
+		AE9225FF1723D80F00D73B16 /* LMFoldingTextAttachmentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AE9225F81723D80F00D73B16 /* LMFoldingTextAttachmentCell.m */; };
+		AE9226001723D80F00D73B16 /* LMTextAttachmentCell.h in Headers */ = {isa = PBXBuildFile; fileRef = AE9225F91723D80F00D73B16 /* LMTextAttachmentCell.h */; };
+		AE9226011723D80F00D73B16 /* LMTokenAttachmentCell.h in Headers */ = {isa = PBXBuildFile; fileRef = AE9225FA1723D80F00D73B16 /* LMTokenAttachmentCell.h */; };
+		AE9226021723D80F00D73B16 /* LMTokenAttachmentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AE9225FB1723D80F00D73B16 /* LMTokenAttachmentCell.m */; };
+		AE9226071723D81800D73B16 /* LMLineNumberRuler.h in Headers */ = {isa = PBXBuildFile; fileRef = AE9226051723D81800D73B16 /* LMLineNumberRuler.h */; };
+		AE9226081723D81800D73B16 /* LMLineNumberRuler.m in Sources */ = {isa = PBXBuildFile; fileRef = AE9226061723D81800D73B16 /* LMLineNumberRuler.m */; };
+		AE92260A1723D81F00D73B16 /* LMTextParser.h in Headers */ = {isa = PBXBuildFile; fileRef = AE9226091723D81F00D73B16 /* LMTextParser.h */; };
+		AE9226111723D82800D73B16 /* LMCompletionTableCellView.h in Headers */ = {isa = PBXBuildFile; fileRef = AE92260B1723D82800D73B16 /* LMCompletionTableCellView.h */; };
+		AE9226121723D82800D73B16 /* LMCompletionTableCellView.m in Sources */ = {isa = PBXBuildFile; fileRef = AE92260C1723D82800D73B16 /* LMCompletionTableCellView.m */; };
+		AE9226131723D82800D73B16 /* LMCompletionTableView.h in Headers */ = {isa = PBXBuildFile; fileRef = AE92260D1723D82800D73B16 /* LMCompletionTableView.h */; };
+		AE9226141723D82800D73B16 /* LMCompletionTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = AE92260E1723D82800D73B16 /* LMCompletionTableView.m */; };
+		AE9226151723D82800D73B16 /* LMCompletionView.h in Headers */ = {isa = PBXBuildFile; fileRef = AE92260F1723D82800D73B16 /* LMCompletionView.h */; };
+		AE9226161723D82800D73B16 /* LMCompletionView.m in Sources */ = {isa = PBXBuildFile; fileRef = AE9226101723D82800D73B16 /* LMCompletionView.m */; };
+		AE9226211723D83800D73B16 /* NSArray+KeyPath.h in Headers */ = {isa = PBXBuildFile; fileRef = AE9226171723D83800D73B16 /* NSArray+KeyPath.h */; };
+		AE9226221723D83800D73B16 /* NSArray+KeyPath.m in Sources */ = {isa = PBXBuildFile; fileRef = AE9226181723D83800D73B16 /* NSArray+KeyPath.m */; };
+		AE9226231723D83800D73B16 /* NSMutableAttributedString+CocoaExtensions.h in Headers */ = {isa = PBXBuildFile; fileRef = AE9226191723D83800D73B16 /* NSMutableAttributedString+CocoaExtensions.h */; };
+		AE9226241723D83800D73B16 /* NSMutableAttributedString+CocoaExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = AE92261A1723D83800D73B16 /* NSMutableAttributedString+CocoaExtensions.m */; };
+		AE9226251723D83800D73B16 /* NSObject+TDBindings.h in Headers */ = {isa = PBXBuildFile; fileRef = AE92261B1723D83800D73B16 /* NSObject+TDBindings.h */; };
+		AE9226261723D83800D73B16 /* NSObject+TDBindings.m in Sources */ = {isa = PBXBuildFile; fileRef = AE92261C1723D83800D73B16 /* NSObject+TDBindings.m */; };
+		AE9226271723D83800D73B16 /* NSView+CocoaExtensions.h in Headers */ = {isa = PBXBuildFile; fileRef = AE92261D1723D83800D73B16 /* NSView+CocoaExtensions.h */; };
+		AE9226281723D83800D73B16 /* NSView+CocoaExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = AE92261E1723D83800D73B16 /* NSView+CocoaExtensions.m */; };
+		AE9226291723D83800D73B16 /* NSWindow+FriedText.h in Headers */ = {isa = PBXBuildFile; fileRef = AE92261F1723D83800D73B16 /* NSWindow+FriedText.h */; };
+		AE92262A1723D83800D73B16 /* NSWindow+FriedText.m in Sources */ = {isa = PBXBuildFile; fileRef = AE9226201723D83800D73B16 /* NSWindow+FriedText.m */; };
+		AE92262D1723D88D00D73B16 /* LMAttributedTokenStringValueTransformer.h in Headers */ = {isa = PBXBuildFile; fileRef = AE92262B1723D88D00D73B16 /* LMAttributedTokenStringValueTransformer.h */; };
+		AE92262E1723D88D00D73B16 /* LMAttributedTokenStringValueTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = AE92262C1723D88D00D73B16 /* LMAttributedTokenStringValueTransformer.m */; };
+		AED2D2EE1716ABF300C38A87 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AE04F601170EEA170032338C /* Cocoa.framework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		AE338CB91723C55900982044 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = AE04F5F6170EEA170032338C /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = AE338C941723C2C900982044;
+			remoteInfo = FriedText;
+		};
+		AE338CBB1723C56200982044 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = AE04F5F6170EEA170032338C /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = AE338C941723C2C900982044;
+			remoteInfo = FriedText;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		AE04F5FE170EEA170032338C /* LMTextView Text View.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "LMTextView Text View.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		AE04F601170EEA170032338C /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
+		AE2503021723C9B700E46A2F /* LMAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LMAppDelegate.h; path = Tests/LMAppDelegate.h; sourceTree = SOURCE_ROOT; };
+		AE2503031723C9B700E46A2F /* LMAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LMAppDelegate.m; path = Tests/LMAppDelegate.m; sourceTree = SOURCE_ROOT; };
+		AE2503061723C9C300E46A2F /* jsmn.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = jsmn.c; path = FriedText/Dependencies/jsmn/jsmn.c; sourceTree = SOURCE_ROOT; };
+		AE2503071723C9C300E46A2F /* jsmn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = jsmn.h; path = FriedText/Dependencies/jsmn/jsmn.h; sourceTree = SOURCE_ROOT; };
+		AE25030F1723CA4A00E46A2F /* LMJSONTextParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LMJSONTextParser.h; path = FriedText/LMJSONTextParser.h; sourceTree = SOURCE_ROOT; };
+		AE2503101723CA4A00E46A2F /* LMJSONTextParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LMJSONTextParser.m; path = FriedText/LMJSONTextParser.m; sourceTree = SOURCE_ROOT; };
+		AE2503131723CAD600E46A2F /* LMTextFieldWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LMTextFieldWindow.h; path = Tests/TextField/LMTextFieldWindow.h; sourceTree = SOURCE_ROOT; };
+		AE2503141723CAD600E46A2F /* LMTextFieldWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LMTextFieldWindow.m; path = Tests/TextField/LMTextFieldWindow.m; sourceTree = SOURCE_ROOT; };
+		AE2503151723CAD600E46A2F /* LMTextFieldWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = LMTextFieldWindow.xib; path = Tests/TextField/LMTextFieldWindow.xib; sourceTree = SOURCE_ROOT; };
+		AE2503161723CAD600E46A2F /* MainMenu.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = MainMenu.xib; path = Tests/TextField/MainMenu.xib; sourceTree = SOURCE_ROOT; };
+		AE25031A1723CAE500E46A2F /* LMTextView Text Field-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "LMTextView Text Field-Info.plist"; path = "Tests/TextField/LMTextView Text Field-Info.plist"; sourceTree = SOURCE_ROOT; };
+		AE25031C1723CAEF00E46A2F /* LMTextView Text View-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "LMTextView Text View-Info.plist"; path = "Tests/TextView/LMTextView Text View-Info.plist"; sourceTree = SOURCE_ROOT; };
+		AE25031E1723CAEF00E46A2F /* LMTextViewWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LMTextViewWindow.h; path = Tests/TextView/LMTextViewWindow.h; sourceTree = SOURCE_ROOT; };
+		AE25031F1723CAEF00E46A2F /* LMTextViewWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LMTextViewWindow.m; path = Tests/TextView/LMTextViewWindow.m; sourceTree = SOURCE_ROOT; };
+		AE2503201723CAEF00E46A2F /* MainMenu.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = MainMenu.xib; path = Tests/TextView/MainMenu.xib; sourceTree = SOURCE_ROOT; };
+		AE2503241723CB1F00E46A2F /* Tests-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "Tests-Prefix.pch"; path = "Tests/Tests-Prefix.pch"; sourceTree = SOURCE_ROOT; };
+		AE2503251723CB2D00E46A2F /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = Tests/main.m; sourceTree = SOURCE_ROOT; };
+		AE2503291723CB6000E46A2F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = en; path = Tests/en.lproj/Credits.rtf; sourceTree = SOURCE_ROOT; };
+		AE25032B1723CB6000E46A2F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = Tests/en.lproj/InfoPlist.strings; sourceTree = SOURCE_ROOT; };
+		AE338C951723C2C900982044 /* FriedText.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = FriedText.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		AE338C991723C2C900982044 /* FriedText-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "FriedText-Info.plist"; sourceTree = "<group>"; };
+		AE338C9B1723C2C900982044 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		AE338C9D1723C2C900982044 /* FriedText-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "FriedText-Prefix.pch"; sourceTree = "<group>"; };
+		AE338CA41723C38F00982044 /* FriedText.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FriedText.h; sourceTree = "<group>"; };
+		AE461A011723D7D800A86F35 /* LMTextScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LMTextScrollView.h; path = FriedText/LMTextScrollView.h; sourceTree = SOURCE_ROOT; };
+		AE461A021723D7D800A86F35 /* LMTextScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LMTextScrollView.m; path = FriedText/LMTextScrollView.m; sourceTree = SOURCE_ROOT; };
+		AE461A031723D7D800A86F35 /* LMTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LMTextView.h; path = FriedText/LMTextView.h; sourceTree = SOURCE_ROOT; };
+		AE461A041723D7D800A86F35 /* LMTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LMTextView.m; path = FriedText/LMTextView.m; sourceTree = SOURCE_ROOT; };
+		AE9225EF1723D7FC00D73B16 /* LMTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LMTextField.h; path = FriedText/LMTextField.h; sourceTree = SOURCE_ROOT; };
+		AE9225F01723D7FC00D73B16 /* LMTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LMTextField.m; path = FriedText/LMTextField.m; sourceTree = SOURCE_ROOT; };
+		AE9225F11723D7FC00D73B16 /* LMTextFieldCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LMTextFieldCell.h; path = FriedText/LMTextFieldCell.h; sourceTree = SOURCE_ROOT; };
+		AE9225F21723D7FC00D73B16 /* LMTextFieldCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LMTextFieldCell.m; path = FriedText/LMTextFieldCell.m; sourceTree = SOURCE_ROOT; };
+		AE9225F71723D80F00D73B16 /* LMFoldingTextAttachmentCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LMFoldingTextAttachmentCell.h; path = FriedText/LMFoldingTextAttachmentCell.h; sourceTree = SOURCE_ROOT; };
+		AE9225F81723D80F00D73B16 /* LMFoldingTextAttachmentCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LMFoldingTextAttachmentCell.m; path = FriedText/LMFoldingTextAttachmentCell.m; sourceTree = SOURCE_ROOT; };
+		AE9225F91723D80F00D73B16 /* LMTextAttachmentCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LMTextAttachmentCell.h; path = FriedText/LMTextAttachmentCell.h; sourceTree = SOURCE_ROOT; };
+		AE9225FA1723D80F00D73B16 /* LMTokenAttachmentCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LMTokenAttachmentCell.h; path = FriedText/LMTokenAttachmentCell.h; sourceTree = SOURCE_ROOT; };
+		AE9225FB1723D80F00D73B16 /* LMTokenAttachmentCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LMTokenAttachmentCell.m; path = FriedText/LMTokenAttachmentCell.m; sourceTree = SOURCE_ROOT; };
+		AE9226051723D81800D73B16 /* LMLineNumberRuler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LMLineNumberRuler.h; path = FriedText/LMLineNumberRuler.h; sourceTree = SOURCE_ROOT; };
+		AE9226061723D81800D73B16 /* LMLineNumberRuler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LMLineNumberRuler.m; path = FriedText/LMLineNumberRuler.m; sourceTree = SOURCE_ROOT; };
+		AE9226091723D81F00D73B16 /* LMTextParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LMTextParser.h; path = FriedText/LMTextParser.h; sourceTree = SOURCE_ROOT; };
+		AE92260B1723D82800D73B16 /* LMCompletionTableCellView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LMCompletionTableCellView.h; path = FriedText/LMCompletionTableCellView.h; sourceTree = SOURCE_ROOT; };
+		AE92260C1723D82800D73B16 /* LMCompletionTableCellView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LMCompletionTableCellView.m; path = FriedText/LMCompletionTableCellView.m; sourceTree = SOURCE_ROOT; };
+		AE92260D1723D82800D73B16 /* LMCompletionTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LMCompletionTableView.h; path = FriedText/LMCompletionTableView.h; sourceTree = SOURCE_ROOT; };
+		AE92260E1723D82800D73B16 /* LMCompletionTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LMCompletionTableView.m; path = FriedText/LMCompletionTableView.m; sourceTree = SOURCE_ROOT; };
+		AE92260F1723D82800D73B16 /* LMCompletionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LMCompletionView.h; path = FriedText/LMCompletionView.h; sourceTree = SOURCE_ROOT; };
+		AE9226101723D82800D73B16 /* LMCompletionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LMCompletionView.m; path = FriedText/LMCompletionView.m; sourceTree = SOURCE_ROOT; };
+		AE9226171723D83800D73B16 /* NSArray+KeyPath.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSArray+KeyPath.h"; path = "FriedText/NSArray+KeyPath.h"; sourceTree = SOURCE_ROOT; };
+		AE9226181723D83800D73B16 /* NSArray+KeyPath.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSArray+KeyPath.m"; path = "FriedText/NSArray+KeyPath.m"; sourceTree = SOURCE_ROOT; };
+		AE9226191723D83800D73B16 /* NSMutableAttributedString+CocoaExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSMutableAttributedString+CocoaExtensions.h"; path = "FriedText/NSMutableAttributedString+CocoaExtensions.h"; sourceTree = SOURCE_ROOT; };
+		AE92261A1723D83800D73B16 /* NSMutableAttributedString+CocoaExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSMutableAttributedString+CocoaExtensions.m"; path = "FriedText/NSMutableAttributedString+CocoaExtensions.m"; sourceTree = SOURCE_ROOT; };
+		AE92261B1723D83800D73B16 /* NSObject+TDBindings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSObject+TDBindings.h"; path = "FriedText/NSObject+TDBindings.h"; sourceTree = SOURCE_ROOT; };
+		AE92261C1723D83800D73B16 /* NSObject+TDBindings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSObject+TDBindings.m"; path = "FriedText/NSObject+TDBindings.m"; sourceTree = SOURCE_ROOT; };
+		AE92261D1723D83800D73B16 /* NSView+CocoaExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSView+CocoaExtensions.h"; path = "FriedText/NSView+CocoaExtensions.h"; sourceTree = SOURCE_ROOT; };
+		AE92261E1723D83800D73B16 /* NSView+CocoaExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSView+CocoaExtensions.m"; path = "FriedText/NSView+CocoaExtensions.m"; sourceTree = SOURCE_ROOT; };
+		AE92261F1723D83800D73B16 /* NSWindow+FriedText.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSWindow+FriedText.h"; path = "FriedText/NSWindow+FriedText.h"; sourceTree = SOURCE_ROOT; };
+		AE9226201723D83800D73B16 /* NSWindow+FriedText.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSWindow+FriedText.m"; path = "FriedText/NSWindow+FriedText.m"; sourceTree = SOURCE_ROOT; };
+		AE92262B1723D88D00D73B16 /* LMAttributedTokenStringValueTransformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LMAttributedTokenStringValueTransformer.h; path = FriedText/LMAttributedTokenStringValueTransformer.h; sourceTree = SOURCE_ROOT; };
+		AE92262C1723D88D00D73B16 /* LMAttributedTokenStringValueTransformer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LMAttributedTokenStringValueTransformer.m; path = FriedText/LMAttributedTokenStringValueTransformer.m; sourceTree = SOURCE_ROOT; };
+		AED2D2F61716ABF300C38A87 /* LMTextView Text Field.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "LMTextView Text Field.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		AE04F5FB170EEA170032338C /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AE04F602170EEA170032338C /* Cocoa.framework in Frameworks */,
+				AE338CB81723C53200982044 /* FriedText.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		AE338C911723C2C900982044 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AE338C961723C2C900982044 /* Cocoa.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		AED2D2EB1716ABF300C38A87 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AED2D2EE1716ABF300C38A87 /* Cocoa.framework in Frameworks */,
+				AE338CB71723C52D00982044 /* FriedText.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		AE04F5F5170EEA170032338C = {
+			isa = PBXGroup;
+			children = (
+				AE338C971723C2C900982044 /* FriedText */,
+				AED2D2F81716AC4400C38A87 /* Tests */,
+				AE04F600170EEA170032338C /* Frameworks */,
+				AE04F5FF170EEA170032338C /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		AE04F5FF170EEA170032338C /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				AE04F5FE170EEA170032338C /* LMTextView Text View.app */,
+				AED2D2F61716ABF300C38A87 /* LMTextView Text Field.app */,
+				AE338C951723C2C900982044 /* FriedText.framework */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		AE04F600170EEA170032338C /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				AE04F601170EEA170032338C /* Cocoa.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		AE04F608170EEA170032338C /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				AE2503241723CB1F00E46A2F /* Tests-Prefix.pch */,
+				AE2503251723CB2D00E46A2F /* main.m */,
+				AE2503281723CB6000E46A2F /* Credits.rtf */,
+				AE25032A1723CB6000E46A2F /* InfoPlist.strings */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		AE04F641170EEDC10032338C /* Completion */ = {
+			isa = PBXGroup;
+			children = (
+				AE92260B1723D82800D73B16 /* LMCompletionTableCellView.h */,
+				AE92260C1723D82800D73B16 /* LMCompletionTableCellView.m */,
+				AE92260D1723D82800D73B16 /* LMCompletionTableView.h */,
+				AE92260E1723D82800D73B16 /* LMCompletionTableView.m */,
+				AE92260F1723D82800D73B16 /* LMCompletionView.h */,
+				AE9226101723D82800D73B16 /* LMCompletionView.m */,
+			);
+			name = Completion;
+			path = ../LMTextView;
+			sourceTree = "<group>";
+		};
+		AE04F642170EEDC80032338C /* Text View App */ = {
+			isa = PBXGroup;
+			children = (
+				AE25031C1723CAEF00E46A2F /* LMTextView Text View-Info.plist */,
+				AE25031E1723CAEF00E46A2F /* LMTextViewWindow.h */,
+				AE25031F1723CAEF00E46A2F /* LMTextViewWindow.m */,
+				AE2503201723CAEF00E46A2F /* MainMenu.xib */,
+			);
+			name = "Text View App";
+			sourceTree = "<group>";
+		};
+		AE04F643170EEDCC0032338C /* LMTextView */ = {
+			isa = PBXGroup;
+			children = (
+				AE461A011723D7D800A86F35 /* LMTextScrollView.h */,
+				AE461A021723D7D800A86F35 /* LMTextScrollView.m */,
+				AE461A031723D7D800A86F35 /* LMTextView.h */,
+				AE461A041723D7D800A86F35 /* LMTextView.m */,
+			);
+			name = LMTextView;
+			path = ../LMTextView;
+			sourceTree = "<group>";
+		};
+		AE0C57E8170FECB600FDFBDA /* LMTextParser */ = {
+			isa = PBXGroup;
+			children = (
+				AE9226091723D81F00D73B16 /* LMTextParser.h */,
+				AE25030E1723CA3800E46A2F /* Parsers */,
+			);
+			name = LMTextParser;
+			path = ../LMTextView;
+			sourceTree = "<group>";
+		};
+		AE25030E1723CA3800E46A2F /* Parsers */ = {
+			isa = PBXGroup;
+			children = (
+				AE25030F1723CA4A00E46A2F /* LMJSONTextParser.h */,
+				AE2503101723CA4A00E46A2F /* LMJSONTextParser.m */,
+			);
+			name = Parsers;
+			sourceTree = "<group>";
+		};
+		AE338C971723C2C900982044 /* FriedText */ = {
+			isa = PBXGroup;
+			children = (
+				AE338CA41723C38F00982044 /* FriedText.h */,
+				AE04F643170EEDCC0032338C /* LMTextView */,
+				AED2D3011716AF6600C38A87 /* LMTextField */,
+				AEC8532C171C4C8200A1EABE /* Text Attachments */,
+				AE64243B171581FD00C14DA5 /* Line Numbers Ruler */,
+				AE0C57E8170FECB600FDFBDA /* LMTextParser */,
+				AE04F641170EEDC10032338C /* Completion */,
+				AE4E749B170EF991003BF794 /* Categories */,
+				AE4E74A3170F1565003BF794 /* Dependencies */,
+				AE338C981723C2C900982044 /* Supporting Files */,
+			);
+			path = FriedText;
+			sourceTree = "<group>";
+		};
+		AE338C981723C2C900982044 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				AE338C991723C2C900982044 /* FriedText-Info.plist */,
+				AE338C9A1723C2C900982044 /* InfoPlist.strings */,
+				AE338C9D1723C2C900982044 /* FriedText-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		AE4E749B170EF991003BF794 /* Categories */ = {
+			isa = PBXGroup;
+			children = (
+				AE9226171723D83800D73B16 /* NSArray+KeyPath.h */,
+				AE9226181723D83800D73B16 /* NSArray+KeyPath.m */,
+				AE9226191723D83800D73B16 /* NSMutableAttributedString+CocoaExtensions.h */,
+				AE92261A1723D83800D73B16 /* NSMutableAttributedString+CocoaExtensions.m */,
+				AE92261B1723D83800D73B16 /* NSObject+TDBindings.h */,
+				AE92261C1723D83800D73B16 /* NSObject+TDBindings.m */,
+				AE92261D1723D83800D73B16 /* NSView+CocoaExtensions.h */,
+				AE92261E1723D83800D73B16 /* NSView+CocoaExtensions.m */,
+				AE92261F1723D83800D73B16 /* NSWindow+FriedText.h */,
+				AE9226201723D83800D73B16 /* NSWindow+FriedText.m */,
+			);
+			name = Categories;
+			path = ../LMTextView;
+			sourceTree = "<group>";
+		};
+		AE4E74A3170F1565003BF794 /* Dependencies */ = {
+			isa = PBXGroup;
+			children = (
+				AE4E74A4170F156A003BF794 /* JSMN */,
+			);
+			name = Dependencies;
+			path = ../LMTextView;
+			sourceTree = "<group>";
+		};
+		AE4E74A4170F156A003BF794 /* JSMN */ = {
+			isa = PBXGroup;
+			children = (
+				AE2503061723C9C300E46A2F /* jsmn.c */,
+				AE2503071723C9C300E46A2F /* jsmn.h */,
+			);
+			name = JSMN;
+			sourceTree = "<group>";
+		};
+		AE64243B171581FD00C14DA5 /* Line Numbers Ruler */ = {
+			isa = PBXGroup;
+			children = (
+				AE9226051723D81800D73B16 /* LMLineNumberRuler.h */,
+				AE9226061723D81800D73B16 /* LMLineNumberRuler.m */,
+			);
+			name = "Line Numbers Ruler";
+			path = ../LMTextView;
+			sourceTree = "<group>";
+		};
+		AEC8532C171C4C8200A1EABE /* Text Attachments */ = {
+			isa = PBXGroup;
+			children = (
+				AE9225F71723D80F00D73B16 /* LMFoldingTextAttachmentCell.h */,
+				AE9225F81723D80F00D73B16 /* LMFoldingTextAttachmentCell.m */,
+				AE9225F91723D80F00D73B16 /* LMTextAttachmentCell.h */,
+				AE9225FA1723D80F00D73B16 /* LMTokenAttachmentCell.h */,
+				AE9225FB1723D80F00D73B16 /* LMTokenAttachmentCell.m */,
+				AE92262B1723D88D00D73B16 /* LMAttributedTokenStringValueTransformer.h */,
+				AE92262C1723D88D00D73B16 /* LMAttributedTokenStringValueTransformer.m */,
+			);
+			name = "Text Attachments";
+			path = ../LMTextView;
+			sourceTree = "<group>";
+		};
+		AED2D2F81716AC4400C38A87 /* Tests */ = {
+			isa = PBXGroup;
+			children = (
+				AE2503021723C9B700E46A2F /* LMAppDelegate.h */,
+				AE2503031723C9B700E46A2F /* LMAppDelegate.m */,
+				AE04F642170EEDC80032338C /* Text View App */,
+				AED2D2F91716AC5400C38A87 /* Text Field App */,
+				AE04F608170EEA170032338C /* Supporting Files */,
+			);
+			name = Tests;
+			path = LMTextView;
+			sourceTree = "<group>";
+		};
+		AED2D2F91716AC5400C38A87 /* Text Field App */ = {
+			isa = PBXGroup;
+			children = (
+				AE25031A1723CAE500E46A2F /* LMTextView Text Field-Info.plist */,
+				AE2503131723CAD600E46A2F /* LMTextFieldWindow.h */,
+				AE2503141723CAD600E46A2F /* LMTextFieldWindow.m */,
+				AE2503151723CAD600E46A2F /* LMTextFieldWindow.xib */,
+				AE2503161723CAD600E46A2F /* MainMenu.xib */,
+			);
+			name = "Text Field App";
+			sourceTree = "<group>";
+		};
+		AED2D3011716AF6600C38A87 /* LMTextField */ = {
+			isa = PBXGroup;
+			children = (
+				AE9225EF1723D7FC00D73B16 /* LMTextField.h */,
+				AE9225F01723D7FC00D73B16 /* LMTextField.m */,
+				AE9225F11723D7FC00D73B16 /* LMTextFieldCell.h */,
+				AE9225F21723D7FC00D73B16 /* LMTextFieldCell.m */,
+			);
+			name = LMTextField;
+			path = ../LMTextView;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		AE338C921723C2C900982044 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AE338CA51723C38F00982044 /* FriedText.h in Headers */,
+				AE461A051723D7D800A86F35 /* LMTextScrollView.h in Headers */,
+				AE461A071723D7D800A86F35 /* LMTextView.h in Headers */,
+				AE9225F31723D7FC00D73B16 /* LMTextField.h in Headers */,
+				AE9225F51723D7FC00D73B16 /* LMTextFieldCell.h in Headers */,
+				AE9225FE1723D80F00D73B16 /* LMFoldingTextAttachmentCell.h in Headers */,
+				AE9226001723D80F00D73B16 /* LMTextAttachmentCell.h in Headers */,
+				AE9226011723D80F00D73B16 /* LMTokenAttachmentCell.h in Headers */,
+				AE9226071723D81800D73B16 /* LMLineNumberRuler.h in Headers */,
+				AE92260A1723D81F00D73B16 /* LMTextParser.h in Headers */,
+				AE9226111723D82800D73B16 /* LMCompletionTableCellView.h in Headers */,
+				AE9226131723D82800D73B16 /* LMCompletionTableView.h in Headers */,
+				AE9226151723D82800D73B16 /* LMCompletionView.h in Headers */,
+				AE9226211723D83800D73B16 /* NSArray+KeyPath.h in Headers */,
+				AE9226231723D83800D73B16 /* NSMutableAttributedString+CocoaExtensions.h in Headers */,
+				AE9226251723D83800D73B16 /* NSObject+TDBindings.h in Headers */,
+				AE9226271723D83800D73B16 /* NSView+CocoaExtensions.h in Headers */,
+				AE9226291723D83800D73B16 /* NSWindow+FriedText.h in Headers */,
+				AE92262D1723D88D00D73B16 /* LMAttributedTokenStringValueTransformer.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		AE04F5FD170EEA170032338C /* LMTextView Text View */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = AE04F61B170EEA170032338C /* Build configuration list for PBXNativeTarget "LMTextView Text View" */;
+			buildPhases = (
+				AE04F5FA170EEA170032338C /* Sources */,
+				AE04F5FB170EEA170032338C /* Frameworks */,
+				AE04F5FC170EEA170032338C /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				AE338CBA1723C55900982044 /* PBXTargetDependency */,
+			);
+			name = "LMTextView Text View";
+			productName = LMTextView;
+			productReference = AE04F5FE170EEA170032338C /* LMTextView Text View.app */;
+			productType = "com.apple.product-type.application";
+		};
+		AE338C941723C2C900982044 /* FriedText */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = AE338CA11723C2C900982044 /* Build configuration list for PBXNativeTarget "FriedText" */;
+			buildPhases = (
+				AE338C901723C2C900982044 /* Sources */,
+				AE338C911723C2C900982044 /* Frameworks */,
+				AE338C921723C2C900982044 /* Headers */,
+				AE338C931723C2C900982044 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = FriedText;
+			productName = FriedText;
+			productReference = AE338C951723C2C900982044 /* FriedText.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		AED2D2DA1716ABF300C38A87 /* LMTextView Text Field */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = AED2D2F31716ABF300C38A87 /* Build configuration list for PBXNativeTarget "LMTextView Text Field" */;
+			buildPhases = (
+				AED2D2DB1716ABF300C38A87 /* Sources */,
+				AED2D2EB1716ABF300C38A87 /* Frameworks */,
+				AED2D2EF1716ABF300C38A87 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				AE338CBC1723C56200982044 /* PBXTargetDependency */,
+			);
+			name = "LMTextView Text Field";
+			productName = LMTextView;
+			productReference = AED2D2F61716ABF300C38A87 /* LMTextView Text Field.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		AE04F5F6170EEA170032338C /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				CLASSPREFIX = LM;
+				LastUpgradeCheck = 0460;
+				ORGANIZATIONNAME = "Lucky Marmot";
+			};
+			buildConfigurationList = AE04F5F9170EEA170032338C /* Build configuration list for PBXProject "FriedText" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = AE04F5F5170EEA170032338C;
+			productRefGroup = AE04F5FF170EEA170032338C /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				AE04F5FD170EEA170032338C /* LMTextView Text View */,
+				AED2D2DA1716ABF300C38A87 /* LMTextView Text Field */,
+				AE338C941723C2C900982044 /* FriedText */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		AE04F5FC170EEA170032338C /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AE2503211723CAEF00E46A2F /* LMTextView Text View-Info.plist in Resources */,
+				AE2503231723CAEF00E46A2F /* MainMenu.xib in Resources */,
+				AE25032C1723CB6000E46A2F /* Credits.rtf in Resources */,
+				AE25032E1723CB6000E46A2F /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		AE338C931723C2C900982044 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AE338C9C1723C2C900982044 /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		AED2D2EF1716ABF300C38A87 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AE2503181723CAD600E46A2F /* LMTextFieldWindow.xib in Resources */,
+				AE2503191723CAD600E46A2F /* MainMenu.xib in Resources */,
+				AE25031B1723CAE500E46A2F /* LMTextView Text Field-Info.plist in Resources */,
+				AE25032D1723CB6000E46A2F /* Credits.rtf in Resources */,
+				AE25032F1723CB6000E46A2F /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		AE04F5FA170EEA170032338C /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AE2503041723C9B700E46A2F /* LMAppDelegate.m in Sources */,
+				AE2503221723CAEF00E46A2F /* LMTextViewWindow.m in Sources */,
+				AE2503261723CB2D00E46A2F /* main.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		AE338C901723C2C900982044 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AE2503081723C9C300E46A2F /* jsmn.c in Sources */,
+				AE2503121723CA4A00E46A2F /* LMJSONTextParser.m in Sources */,
+				AE461A061723D7D800A86F35 /* LMTextScrollView.m in Sources */,
+				AE461A081723D7D800A86F35 /* LMTextView.m in Sources */,
+				AE9225F41723D7FC00D73B16 /* LMTextField.m in Sources */,
+				AE9225F61723D7FC00D73B16 /* LMTextFieldCell.m in Sources */,
+				AE9225FF1723D80F00D73B16 /* LMFoldingTextAttachmentCell.m in Sources */,
+				AE9226021723D80F00D73B16 /* LMTokenAttachmentCell.m in Sources */,
+				AE9226081723D81800D73B16 /* LMLineNumberRuler.m in Sources */,
+				AE9226121723D82800D73B16 /* LMCompletionTableCellView.m in Sources */,
+				AE9226141723D82800D73B16 /* LMCompletionTableView.m in Sources */,
+				AE9226161723D82800D73B16 /* LMCompletionView.m in Sources */,
+				AE9226221723D83800D73B16 /* NSArray+KeyPath.m in Sources */,
+				AE9226241723D83800D73B16 /* NSMutableAttributedString+CocoaExtensions.m in Sources */,
+				AE9226261723D83800D73B16 /* NSObject+TDBindings.m in Sources */,
+				AE9226281723D83800D73B16 /* NSView+CocoaExtensions.m in Sources */,
+				AE92262A1723D83800D73B16 /* NSWindow+FriedText.m in Sources */,
+				AE92262E1723D88D00D73B16 /* LMAttributedTokenStringValueTransformer.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		AED2D2DB1716ABF300C38A87 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AE2503051723C9B700E46A2F /* LMAppDelegate.m in Sources */,
+				AE2503171723CAD600E46A2F /* LMTextFieldWindow.m in Sources */,
+				AE2503271723CB2D00E46A2F /* main.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		AE338CBA1723C55900982044 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = AE338C941723C2C900982044 /* FriedText */;
+			targetProxy = AE338CB91723C55900982044 /* PBXContainerItemProxy */;
+		};
+		AE338CBC1723C56200982044 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = AE338C941723C2C900982044 /* FriedText */;
+			targetProxy = AE338CBB1723C56200982044 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		AE2503281723CB6000E46A2F /* Credits.rtf */ = {
+			isa = PBXVariantGroup;
+			children = (
+				AE2503291723CB6000E46A2F /* en */,
+			);
+			name = Credits.rtf;
+			sourceTree = "<group>";
+		};
+		AE25032A1723CB6000E46A2F /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				AE25032B1723CB6000E46A2F /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		AE338C9A1723C2C900982044 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				AE338C9B1723C2C900982044 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		AE04F619170EEA170032338C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		AE04F61A170EEA170032338C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		AE04F61C170EEA170032338C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Tests/Tests-Prefix.pch";
+				INFOPLIST_FILE = "Tests/TextView/LMTextView Text View-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		AE04F61D170EEA170032338C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Tests/Tests-Prefix.pch";
+				INFOPLIST_FILE = "Tests/TextView/LMTextView Text View-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+		AE338CA21723C2C900982044 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				FRAMEWORK_VERSION = A;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "FriedText/FriedText-Prefix.pch";
+				INFOPLIST_FILE = "FriedText/FriedText-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = framework;
+			};
+			name = Debug;
+		};
+		AE338CA31723C2C900982044 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				FRAMEWORK_VERSION = A;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "FriedText/FriedText-Prefix.pch";
+				INFOPLIST_FILE = "FriedText/FriedText-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = framework;
+			};
+			name = Release;
+		};
+		AED2D2F41716ABF300C38A87 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Tests/Tests-Prefix.pch";
+				INFOPLIST_FILE = "Tests/TextField/LMTextView Text Field-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		AED2D2F51716ABF300C38A87 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Tests/Tests-Prefix.pch";
+				INFOPLIST_FILE = "Tests/TextField/LMTextView Text Field-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		AE04F5F9170EEA170032338C /* Build configuration list for PBXProject "FriedText" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AE04F619170EEA170032338C /* Debug */,
+				AE04F61A170EEA170032338C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		AE04F61B170EEA170032338C /* Build configuration list for PBXNativeTarget "LMTextView Text View" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AE04F61C170EEA170032338C /* Debug */,
+				AE04F61D170EEA170032338C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		AE338CA11723C2C900982044 /* Build configuration list for PBXNativeTarget "FriedText" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AE338CA21723C2C900982044 /* Debug */,
+				AE338CA31723C2C900982044 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		AED2D2F31716ABF300C38A87 /* Build configuration list for PBXNativeTarget "LMTextView Text Field" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AED2D2F41716ABF300C38A87 /* Debug */,
+				AED2D2F51716ABF300C38A87 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = AE04F5F6170EEA170032338C /* Project object */;
+}

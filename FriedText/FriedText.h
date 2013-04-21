@@ -19,10 +19,10 @@
 #import "LMTokenAttachmentCell.h"
 #import "LMAttributedTokenStringValueTransformer.h"
 #import "LMTextParser.h"
-#import "LMJSONTextParser.h"
 #import "LMCompletionTableCellView.h"
 #import "LMCompletionTableView.h"
 #import "LMCompletionView.h"
 #import "NSArray+KeyPath.h"
+#import "LMJSONTextParser.h"
 
 #endif
