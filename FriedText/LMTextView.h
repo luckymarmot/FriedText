@@ -21,9 +21,9 @@
 - (void)textView:(LMTextView*)textView mouseDownForTokenAtRange:(NSRange)range withBounds:(NSRect)bounds keyPath:(NSArray*)keyPath;
 - (void)mouseDownOutsideTokenInTextView:(LMTextView*)textView;
 - (id<NSTextAttachmentCell>)textview:(LMTextView*)textView textAttachmentCellForTextAttachment:(NSTextAttachment*)textAttachment;
+- (NSDictionary*)textView:(LMTextView*)textView attributesForTextWithParser:(id<LMTextParser>) parser tokenMask:(NSUInteger)parserTokenMask atRange:(NSRange)range;
 
 @end
-
 
 #pragma mark - LMTextView
 

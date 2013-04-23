@@ -304,33 +304,46 @@
 		[textStorage removeAttribute:NSForegroundColorAttributeName range:NSMakeRange(0, [self.textStorage.string length])];
 	}
 	
+	BOOL usingDelegate = [self.delegate respondsToSelector:@selector(textView:attributesForTextWithParser:tokenMask:atRange:)];
+	
 	[[self parser] applyAttributesInRange:characterRange withBlock:^(NSUInteger tokenTypeMask, NSRange range) {
-		NSColor* color = nil;
 		
-		switch (tokenTypeMask & LMTextParserTokenTypeMask) {
-			case LMTextParserTokenTypeBoolean:
-				color = primitiveColor;
-				break;
-			case LMTextParserTokenTypeNumber:
-				color = primitiveColor;
-				break;
-			case LMTextParserTokenTypeString:
-				color = stringColor;
-				break;
-			case LMTextParserTokenTypeOther:
-				color = primitiveColor;
-				break;
-		}
-		
-		if (_useTemporaryAttributesForSyntaxHighlight) {
-			[layoutManager addTemporaryAttribute:NSForegroundColorAttributeName value:color forCharacterRange:range];
+		NSDictionary* attributes = nil;
+		if (usingDelegate) {
+			attributes = [(id<LMTextViewDelegate>)self.delegate textView:self attributesForTextWithParser:[self parser] tokenMask:tokenTypeMask atRange:range];
 		}
 		else {
-			[textStorage addAttribute:NSForegroundColorAttributeName value:color range:range];
-			
-			[textStorage endEditing];
+			NSColor* color = nil;
+			switch (tokenTypeMask & LMTextParserTokenTypeMask) {
+				case LMTextParserTokenTypeBoolean:
+					color = primitiveColor;
+					break;
+				case LMTextParserTokenTypeNumber:
+					color = primitiveColor;
+					break;
+				case LMTextParserTokenTypeString:
+					color = stringColor;
+					break;
+				case LMTextParserTokenTypeOther:
+					color = primitiveColor;
+					break;
+			}
+			attributes = @{NSForegroundColorAttributeName:color};
+		}
+		
+		if (attributes) {
+			if (_useTemporaryAttributesForSyntaxHighlight) {
+				[layoutManager addTemporaryAttributes:attributes forCharacterRange:range];
+			}
+			else {
+				[textStorage addAttributes:attributes range:range];
+			}
 		}
 	}];
+	
+	if (!_useTemporaryAttributesForSyntaxHighlight) {
+		[textStorage endEditing];
+	}
 }
 
 #pragma mark - Text Attachments
