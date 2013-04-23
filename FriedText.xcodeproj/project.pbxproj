@@ -47,6 +47,7 @@
 		AE338CA51723C38F00982044 /* FriedText.h in Headers */ = {isa = PBXBuildFile; fileRef = AE338CA41723C38F00982044 /* FriedText.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		AE338CB71723C52D00982044 /* FriedText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AE338C951723C2C900982044 /* FriedText.framework */; };
 		AE338CB81723C53200982044 /* FriedText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AE338C951723C2C900982044 /* FriedText.framework */; };
+		AE43957917262615009120D2 /* LMFriedTextDefaultColors.h in Headers */ = {isa = PBXBuildFile; fileRef = AE43957817262615009120D2 /* LMFriedTextDefaultColors.h */; };
 		AE461A061723D7D800A86F35 /* LMTextScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = AE461A021723D7D800A86F35 /* LMTextScrollView.m */; };
 		AE461A081723D7D800A86F35 /* LMTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = AE461A041723D7D800A86F35 /* LMTextView.m */; };
 		AE9225F41723D7FC00D73B16 /* LMTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = AE9225F01723D7FC00D73B16 /* LMTextField.m */; };
@@ -110,6 +111,7 @@
 		AE338C9B1723C2C900982044 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		AE338C9D1723C2C900982044 /* FriedText-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "FriedText-Prefix.pch"; sourceTree = "<group>"; };
 		AE338CA41723C38F00982044 /* FriedText.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FriedText.h; sourceTree = "<group>"; };
+		AE43957817262615009120D2 /* LMFriedTextDefaultColors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LMFriedTextDefaultColors.h; sourceTree = "<group>"; };
 		AE461A011723D7D800A86F35 /* LMTextScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LMTextScrollView.h; path = FriedText/LMTextScrollView.h; sourceTree = SOURCE_ROOT; };
 		AE461A021723D7D800A86F35 /* LMTextScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LMTextScrollView.m; path = FriedText/LMTextScrollView.m; sourceTree = SOURCE_ROOT; };
 		AE461A031723D7D800A86F35 /* LMTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LMTextView.h; path = FriedText/LMTextView.h; sourceTree = SOURCE_ROOT; };
@@ -276,6 +278,7 @@
 			isa = PBXGroup;
 			children = (
 				AE338CA41723C38F00982044 /* FriedText.h */,
+				AE43957817262615009120D2 /* LMFriedTextDefaultColors.h */,
 				AE04F643170EEDCC0032338C /* LMTextView */,
 				AED2D3011716AF6600C38A87 /* LMTextField */,
 				AEC8532C171C4C8200A1EABE /* Text Attachments */,
@@ -424,6 +427,7 @@
 				AE13E6C91723E7DC0038174F /* NSObject+TDBindings.h in Headers */,
 				AE13E6CA1723E7DC0038174F /* NSView+CocoaExtensions.h in Headers */,
 				AE13E6CB1723E7DC0038174F /* NSWindow+FriedText.h in Headers */,
+				AE43957917262615009120D2 /* LMFriedTextDefaultColors.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

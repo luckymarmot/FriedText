@@ -28,7 +28,7 @@ extern NSString* LMTextFieldAttributedStringValueBinding;
 
 - (void)textField:(LMTextField *)textField textDidChangeWithFieldEditor:(LMTextView *)fieldEditor;
 
-- (NSDictionary*)textField:(LMTextField *)textField fieldEditor:(LMTextView*)fieldEditor attributesForTextWithParser:(id<LMTextParser>) parser tokenMask:(NSUInteger)parserTokenMask atRange:(NSRange)range;
+- (NSDictionary*)textField:(LMTextField *)textField fieldEditor:(LMTextView*)fieldEditor attributesForTextWithParser:(id<LMTextParser>)parser tokenMask:(NSUInteger)parserTokenMask atRange:(NSRange)range;
 
 @end
 

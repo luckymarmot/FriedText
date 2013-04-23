@@ -14,6 +14,6 @@
 
 - (void)removeAllAttributesExcept:(NSArray*)exceptions;
 
-- (void)highlightSyntaxWithParser:(id<LMTextParser>)parser;
+- (void)highlightSyntaxWithParser:(id<LMTextParser>)parser attributesBlock:(NSDictionary*(^)(NSUInteger parserTokenMask, NSRange range))attributesBlock;
 
 @end

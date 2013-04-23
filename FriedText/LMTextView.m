@@ -25,6 +25,8 @@
 #import "LMTokenAttachmentCell.h"
 #import "LMTextAttachmentCell.h"
 
+#import "LMFriedTextDefaultColors.h"
+
 #warning Make a smart system to force users to allow rich text if using tokens, while blocking rich text input if needed
 
 @interface LMTextView () {
@@ -281,9 +283,6 @@
 	
 	NSLayoutManager *layoutManager = [self layoutManager];
 	
-	NSColor* primitiveColor = [NSColor colorWithCalibratedRed:160.f/255.f green:208.f/255.f blue:202.f/255.f alpha:1.f];
-	NSColor* stringColor = [NSColor colorWithCalibratedRed:33.f/255.f green:82.f/255.f blue:116.f/255.f alpha:1.f];
-	
 	NSRange characterRange;
 	if ([self isFieldEditor]) {
 		characterRange = NSMakeRange(0, [self.textStorage.string length]);
@@ -317,16 +316,16 @@
 			NSColor* color = nil;
 			switch (tokenTypeMask & LMTextParserTokenTypeMask) {
 				case LMTextParserTokenTypeBoolean:
-					color = primitiveColor;
+					color = LMFriedTextDefaultColorPrimitive;
 					break;
 				case LMTextParserTokenTypeNumber:
-					color = primitiveColor;
+					color = LMFriedTextDefaultColorPrimitive;
 					break;
 				case LMTextParserTokenTypeString:
-					color = stringColor;
+					color = LMFriedTextDefaultColorString;
 					break;
 				case LMTextParserTokenTypeOther:
-					color = primitiveColor;
+					color = LMFriedTextDefaultColorPrimitive;
 					break;
 			}
 			attributes = @{NSForegroundColorAttributeName:color};

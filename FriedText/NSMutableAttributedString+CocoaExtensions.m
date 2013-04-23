@@ -8,6 +8,7 @@
 
 #import "NSMutableAttributedString+CocoaExtensions.h"
 #import "LMTextParser.h"
+#import "LMFriedTextDefaultColors.h"
 
 @implementation NSMutableAttributedString (CocoaExtensions)
 
@@ -22,7 +23,7 @@
 	}];
 }
 
-- (void)highlightSyntaxWithParser:(id<LMTextParser>)parser
+- (void)highlightSyntaxWithParser:(id<LMTextParser>)parser attributesBlock:(NSDictionary *(^)(NSUInteger, NSRange))attributesBlock
 {
 	[parser setStringBlock:^NSString *{
 		return [self string];
@@ -33,29 +34,34 @@
 	
 	[self removeAttribute:NSForegroundColorAttributeName range:NSMakeRange(0, [self.string length])];
 	
-	NSColor* primitiveColor = [NSColor colorWithCalibratedRed:160.f/255.f green:208.f/255.f blue:202.f/255.f alpha:1.f];
-	NSColor* stringColor = [NSColor colorWithCalibratedRed:33.f/255.f green:82.f/255.f blue:116.f/255.f alpha:1.f];
-	
 	[parser applyAttributesInRange:NSMakeRange(0, [self length]) withBlock:^(NSUInteger tokenTypeMask, NSRange range) {
-		NSColor* color = nil;
 		
-		switch (tokenTypeMask & LMTextParserTokenTypeMask) {
-			case LMTextParserTokenTypeBoolean:
-				color = primitiveColor;
-				break;
-			case LMTextParserTokenTypeNumber:
-				color = primitiveColor;
-				break;
-			case LMTextParserTokenTypeString:
-				color = stringColor;
-				break;
-			case LMTextParserTokenTypeOther:
-				color = primitiveColor;
-				break;
+		NSDictionary* attributes = nil;
+		if (attributesBlock) {
+			attributes = attributesBlock(tokenTypeMask, range);
+		}
+		
+		if (attributes == nil) {
+			NSColor* color = nil;
+			switch (tokenTypeMask & LMTextParserTokenTypeMask) {
+				case LMTextParserTokenTypeBoolean:
+					color = LMFriedTextDefaultColorPrimitive;
+					break;
+				case LMTextParserTokenTypeNumber:
+					color = LMFriedTextDefaultColorPrimitive;
+					break;
+				case LMTextParserTokenTypeString:
+					color = LMFriedTextDefaultColorString;
+					break;
+				case LMTextParserTokenTypeOther:
+					color = LMFriedTextDefaultColorPrimitive;
+					break;
+			}
+			attributes = @{NSForegroundColorAttributeName: color};
 		}
 		
 		
-		[self addAttribute:NSForegroundColorAttributeName value:color range:range];
+		[self addAttributes:attributes range:range];
 	}];
 	
 	[self endEditing];
