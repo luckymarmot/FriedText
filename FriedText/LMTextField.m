@@ -23,11 +23,7 @@ NSString* LMTextFieldAttributedStringValueBinding = @"attributedStringValue";
 
 - (void)_setup
 {
-#warning Find a more elegant way to execute this code after the text is set by a Cocoa binding
-	dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.01 * NSEC_PER_SEC));
-	dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-		[self setAttributedStringValue:[self attributedStringValue]];
-	});
+	// Nothing to do (so far)
 }
 
 - (id)init

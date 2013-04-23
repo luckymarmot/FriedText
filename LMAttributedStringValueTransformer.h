@@ -8,6 +8,13 @@
 
 #import <Foundation/Foundation.h>
 
+#import "LMTextParser.h"
+
 @interface LMAttributedStringValueTransformer : NSValueTransformer
+
+- (id)initWithTextParser:(id<LMTextParser>)parser attributesBlock:(NSDictionary *(^)(NSUInteger, NSRange))attributesBlock;
+
+@property (strong, nonatomic) id <LMTextParser> parser;
+@property (strong, nonatomic) NSDictionary * (^attributesBlock)(NSUInteger, NSRange);
 
 @end

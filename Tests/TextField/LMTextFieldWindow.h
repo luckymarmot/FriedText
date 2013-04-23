@@ -13,5 +13,7 @@
 @property (strong) IBOutlet LMTextField *jsonField;
 @property (strong) IBOutlet LMTextField *jsonField2;
 @property (strong) IBOutlet NSTextField *serializationTestField;
+@property (strong) IBOutlet LMTextField *stringField;
+@property (weak) IBOutlet LMJSONTextParser *textParser;
 
 @end

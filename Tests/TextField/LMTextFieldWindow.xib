@@ -55,7 +55,6 @@
 							<int key="NSvFlags">268</int>
 							<string key="NSFrame">{{21, 241}, {273, 22}}</string>
 							<reference key="NSSuperview" ref="439893737"/>
-							<reference key="NSWindow"/>
 							<reference key="NSNextKeyView" ref="418341576"/>
 							<string key="NSReuseIdentifierKey">_NS:9</string>
 							<bool key="NSEnabled">YES</bool>
@@ -97,7 +96,6 @@
 							<int key="NSvFlags">268</int>
 							<string key="NSFrame">{{301, 241}, {390, 22}}</string>
 							<reference key="NSSuperview" ref="439893737"/>
-							<reference key="NSWindow"/>
 							<reference key="NSNextKeyView" ref="126166236"/>
 							<string key="NSReuseIdentifierKey">_NS:9</string>
 							<bool key="NSEnabled">YES</bool>
@@ -119,7 +117,6 @@
 							<int key="NSvFlags">268</int>
 							<string key="NSFrame">{{20, 197}, {671, 22}}</string>
 							<reference key="NSSuperview" ref="439893737"/>
-							<reference key="NSWindow"/>
 							<reference key="NSNextKeyView" ref="723662010"/>
 							<string key="NSReuseIdentifierKey">_NS:9</string>
 							<bool key="NSEnabled">YES</bool>
@@ -141,7 +138,6 @@
 							<int key="NSvFlags">268</int>
 							<string key="NSFrame">{{20, 153}, {671, 22}}</string>
 							<reference key="NSSuperview" ref="439893737"/>
-							<reference key="NSWindow"/>
 							<reference key="NSNextKeyView" ref="761728464"/>
 							<string key="NSReuseIdentifierKey">_NS:9</string>
 							<bool key="NSEnabled">YES</bool>
@@ -163,7 +159,6 @@
 							<int key="NSvFlags">268</int>
 							<string key="NSFrame">{{20, 109}, {671, 22}}</string>
 							<reference key="NSSuperview" ref="439893737"/>
-							<reference key="NSWindow"/>
 							<reference key="NSNextKeyView" ref="380837274"/>
 							<string key="NSReuseIdentifierKey">_NS:9</string>
 							<bool key="NSEnabled">YES</bool>
@@ -185,7 +180,6 @@
 							<int key="NSvFlags">268</int>
 							<string key="NSFrame">{{21, 64}, {273, 22}}</string>
 							<reference key="NSSuperview" ref="439893737"/>
-							<reference key="NSWindow"/>
 							<reference key="NSNextKeyView" ref="101097418"/>
 							<string key="NSReuseIdentifierKey">_NS:9</string>
 							<bool key="NSEnabled">YES</bool>
@@ -207,8 +201,6 @@
 							<int key="NSvFlags">268</int>
 							<string key="NSFrame">{{301, 20}, {390, 22}}</string>
 							<reference key="NSSuperview" ref="439893737"/>
-							<reference key="NSWindow"/>
-							<reference key="NSNextKeyView"/>
 							<string key="NSReuseIdentifierKey">_NS:9</string>
 							<bool key="NSEnabled">YES</bool>
 							<object class="NSTextFieldCell" key="NSCell" id="147695028">
@@ -229,7 +221,6 @@
 							<int key="NSvFlags">268</int>
 							<string key="NSFrame">{{298, 64}, {396, 22}}</string>
 							<reference key="NSSuperview" ref="439893737"/>
-							<reference key="NSWindow"/>
 							<reference key="NSNextKeyView" ref="925089501"/>
 							<string key="NSReuseIdentifierKey">_NS:1535</string>
 							<string key="NSHuggingPriority">{250, 750}</string>
@@ -265,7 +256,6 @@
 							<int key="NSvFlags">268</int>
 							<string key="NSFrame">{{20, 20}, {273, 22}}</string>
 							<reference key="NSSuperview" ref="439893737"/>
-							<reference key="NSWindow"/>
 							<reference key="NSNextKeyView" ref="187597143"/>
 							<string key="NSReuseIdentifierKey">_NS:9</string>
 							<bool key="NSEnabled">YES</bool>
@@ -287,7 +277,6 @@
 							<int key="NSvFlags">268</int>
 							<string key="NSFrame">{{18, 260}, {147, 17}}</string>
 							<reference key="NSSuperview" ref="439893737"/>
-							<reference key="NSWindow"/>
 							<reference key="NSNextKeyView" ref="990892006"/>
 							<string key="NSReuseIdentifierKey">_NS:1535</string>
 							<bool key="NSEnabled">YES</bool>
@@ -312,7 +301,6 @@
 							<int key="NSvFlags">268</int>
 							<string key="NSFrame">{{17, 216}, {283, 17}}</string>
 							<reference key="NSSuperview" ref="439893737"/>
-							<reference key="NSWindow"/>
 							<reference key="NSNextKeyView" ref="456265345"/>
 							<string key="NSReuseIdentifierKey">_NS:1535</string>
 							<bool key="NSEnabled">YES</bool>
@@ -333,7 +321,6 @@
 							<int key="NSvFlags">268</int>
 							<string key="NSFrame">{{17, 82}, {283, 17}}</string>
 							<reference key="NSSuperview" ref="439893737"/>
-							<reference key="NSWindow"/>
 							<reference key="NSNextKeyView" ref="198582049"/>
 							<string key="NSReuseIdentifierKey">_NS:1535</string>
 							<bool key="NSEnabled">YES</bool>
@@ -354,7 +341,6 @@
 							<int key="NSvFlags">268</int>
 							<string key="NSFrame">{{298, 39}, {303, 17}}</string>
 							<reference key="NSSuperview" ref="439893737"/>
-							<reference key="NSWindow"/>
 							<reference key="NSNextKeyView" ref="729610651"/>
 							<string key="NSReuseIdentifierKey">_NS:1535</string>
 							<bool key="NSEnabled">YES</bool>
@@ -375,7 +361,6 @@
 							<int key="NSvFlags">268</int>
 							<string key="NSFrame">{{18, 39}, {283, 17}}</string>
 							<reference key="NSSuperview" ref="439893737"/>
-							<reference key="NSWindow"/>
 							<reference key="NSNextKeyView" ref="1018238631"/>
 							<string key="NSReuseIdentifierKey">_NS:1535</string>
 							<bool key="NSEnabled">YES</bool>
@@ -396,7 +381,6 @@
 							<int key="NSvFlags">268</int>
 							<string key="NSFrame">{{18, 128}, {250, 17}}</string>
 							<reference key="NSSuperview" ref="439893737"/>
-							<reference key="NSWindow"/>
 							<reference key="NSNextKeyView" ref="20777581"/>
 							<string key="NSReuseIdentifierKey">_NS:1535</string>
 							<bool key="NSEnabled">YES</bool>
@@ -417,7 +401,6 @@
 							<int key="NSvFlags">268</int>
 							<string key="NSFrame">{{17, 172}, {250, 17}}</string>
 							<reference key="NSSuperview" ref="439893737"/>
-							<reference key="NSWindow"/>
 							<reference key="NSNextKeyView" ref="427125607"/>
 							<string key="NSReuseIdentifierKey">_NS:1535</string>
 							<bool key="NSEnabled">YES</bool>
@@ -438,7 +421,6 @@
 							<int key="NSvFlags">268</int>
 							<string key="NSFrame">{{298, 82}, {303, 17}}</string>
 							<reference key="NSSuperview" ref="439893737"/>
-							<reference key="NSWindow"/>
 							<reference key="NSNextKeyView" ref="435353841"/>
 							<string key="NSReuseIdentifierKey">_NS:1535</string>
 							<bool key="NSEnabled">YES</bool>
@@ -459,7 +441,6 @@
 							<int key="NSvFlags">268</int>
 							<string key="NSFrame">{{298, 260}, {303, 17}}</string>
 							<reference key="NSSuperview" ref="439893737"/>
-							<reference key="NSWindow"/>
 							<reference key="NSNextKeyView" ref="782253647"/>
 							<string key="NSReuseIdentifierKey">_NS:1535</string>
 							<bool key="NSEnabled">YES</bool>
@@ -478,7 +459,6 @@
 					</array>
 					<string key="NSFrameSize">{711, 297}</string>
 					<reference key="NSSuperview"/>
-					<reference key="NSWindow"/>
 					<reference key="NSNextKeyView" ref="1012239488"/>
 				</object>
 				<string key="NSScreenRect">{{0, 0}, {1920, 1058}}</string>
@@ -537,6 +517,22 @@
 						<reference key="destination" ref="20777581"/>
 					</object>
 					<int key="connectionID">778</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">stringField</string>
+						<reference key="source" ref="972006081"/>
+						<reference key="destination" ref="729610651"/>
+					</object>
+					<int key="connectionID">1146</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">textParser</string>
+						<reference key="source" ref="972006081"/>
+						<reference key="destination" ref="775486024"/>
+					</object>
+					<int key="connectionID">1147</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBOutletConnection" key="connection">
@@ -665,26 +661,6 @@
 						<reference key="destination" ref="990892006"/>
 					</object>
 					<int key="connectionID">1080</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBBindingConnection" key="connection">
-						<string key="label">value: values.TextFieldStringUserDefault</string>
-						<reference key="source" ref="729610651"/>
-						<reference key="destination" ref="5040329"/>
-						<object class="NSNibBindingConnector" key="connector">
-							<reference key="NSSource" ref="729610651"/>
-							<reference key="NSDestination" ref="5040329"/>
-							<string key="NSLabel">value: values.TextFieldStringUserDefault</string>
-							<string key="NSBinding">value</string>
-							<string key="NSKeyPath">values.TextFieldStringUserDefault</string>
-							<object class="NSDictionary" key="NSOptions">
-								<string key="NS.key.0">NSValueTransformerName</string>
-								<string key="NS.object.0">LMAttributedStringValueTransformer</string>
-							</object>
-							<int key="NSNibBindingConnectorVersion">2</int>
-						</object>
-					</object>
-					<int key="connectionID">1083</int>
 				</object>
 			</array>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -2616,74 +2592,9 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">1144</int>
+			<int key="maxID">1147</int>
 		</object>
-		<object class="IBClassDescriber" key="IBDocument.Classes">
-			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
-				<object class="IBPartialClassDescription">
-					<string key="className">LMJSONTextParser</string>
-					<string key="superclassName">NSObject</string>
-					<object class="IBClassDescriptionSource" key="sourceIdentifier">
-						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">./Classes/LMJSONTextParser.h</string>
-					</object>
-				</object>
-				<object class="IBPartialClassDescription">
-					<string key="className">LMTextField</string>
-					<string key="superclassName">NSTextField</string>
-					<object class="NSMutableDictionary" key="outlets">
-						<string key="NS.key.0">parser</string>
-						<string key="NS.object.0">id</string>
-					</object>
-					<object class="NSMutableDictionary" key="toOneOutletInfosByName">
-						<string key="NS.key.0">parser</string>
-						<object class="IBToOneOutletInfo" key="NS.object.0">
-							<string key="name">parser</string>
-							<string key="candidateClassName">id</string>
-						</object>
-					</object>
-					<object class="IBClassDescriptionSource" key="sourceIdentifier">
-						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">./Classes/LMTextField.h</string>
-					</object>
-				</object>
-				<object class="IBPartialClassDescription">
-					<string key="className">LMTextFieldCell</string>
-					<string key="superclassName">NSTextFieldCell</string>
-					<object class="IBClassDescriptionSource" key="sourceIdentifier">
-						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">./Classes/LMTextFieldCell.h</string>
-					</object>
-				</object>
-				<object class="IBPartialClassDescription">
-					<string key="className">LMTextFieldWindow</string>
-					<string key="superclassName">NSWindow</string>
-					<dictionary class="NSMutableDictionary" key="outlets">
-						<string key="jsonField">LMTextField</string>
-						<string key="jsonField2">LMTextField</string>
-						<string key="serializationTestField">NSTextField</string>
-					</dictionary>
-					<dictionary class="NSMutableDictionary" key="toOneOutletInfosByName">
-						<object class="IBToOneOutletInfo" key="jsonField">
-							<string key="name">jsonField</string>
-							<string key="candidateClassName">LMTextField</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="jsonField2">
-							<string key="name">jsonField2</string>
-							<string key="candidateClassName">LMTextField</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="serializationTestField">
-							<string key="name">serializationTestField</string>
-							<string key="candidateClassName">NSTextField</string>
-						</object>
-					</dictionary>
-					<object class="IBClassDescriptionSource" key="sourceIdentifier">
-						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">./Classes/LMTextFieldWindow.h</string>
-					</object>
-				</object>
-			</array>
-		</object>
+		<object class="IBClassDescriber" key="IBDocument.Classes"/>
 		<int key="IBDocument.localizationMode">0</int>
 		<string key="IBDocument.TargetRuntimeIdentifier">IBCocoaFramework</string>
 		<bool key="IBDocument.PluginDeclaredDependenciesTrackSystemTargetVersion">YES</bool>
