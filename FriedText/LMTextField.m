@@ -40,7 +40,14 @@ NSString* LMTextFieldAttributedStringValueBinding = @"attributedStringValue";
 	
 	// Set syntax highlight attribtues
 	if ([self parser]) {
-		[string highlightSyntaxWithParser:[self parser] attributesBlock:NULL];
+		[string highlightSyntaxWithParser:[self parser] attributesBlock:^NSDictionary *(NSUInteger parserTokenMask, NSRange range) {
+			if ([self.delegate respondsToSelector:@selector(textField:fieldEditor:attributesForTextWithParser:tokenMask:atRange:)]) {
+				return [(id<LMTextFieldDelegate>)self.delegate textField:self fieldEditor:nil attributesForTextWithParser:[self parser] tokenMask:parserTokenMask atRange:range];
+			}
+			else {
+				return nil;
+			}
+		}];
 	}
 	
 	[super setAttributedStringValue:[string copy]];
