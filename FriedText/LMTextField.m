@@ -21,6 +21,42 @@ NSString* LMTextFieldAttributedStringValueBinding = @"attributedStringValue";
 
 @implementation LMTextField
 
+- (void)_setup
+{
+#warning Find a more elegant way to execute this code after the text is set by a Cocoa binding
+	dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.01 * NSEC_PER_SEC));
+	dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+		[self setAttributedStringValue:[self attributedStringValue]];
+	});
+}
+
+- (id)init
+{
+	self = [super init];
+	if (self) {
+		[self _setup];
+	}
+	return self;
+}
+
+- (id)initWithCoder:(NSCoder *)aDecoder
+{
+	self = [super initWithCoder:aDecoder];
+	if (self) {
+		[self _setup];
+	}
+	return self;
+}
+
+- (id)initWithFrame:(NSRect)frameRect
+{
+	self = [super initWithFrame:frameRect];
+	if (self) {
+		[self _setup];
+	}
+	return self;
+}
+
 #pragma mark - NSControl Overrides
 
 + (Class)cellClass

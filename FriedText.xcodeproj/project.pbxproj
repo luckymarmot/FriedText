@@ -48,6 +48,8 @@
 		AE338CB71723C52D00982044 /* FriedText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AE338C951723C2C900982044 /* FriedText.framework */; };
 		AE338CB81723C53200982044 /* FriedText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AE338C951723C2C900982044 /* FriedText.framework */; };
 		AE43957917262615009120D2 /* LMFriedTextDefaultColors.h in Headers */ = {isa = PBXBuildFile; fileRef = AE43957817262615009120D2 /* LMFriedTextDefaultColors.h */; };
+		AE43957D17262CB4009120D2 /* LMAttributedStringValueTransformer.h in Headers */ = {isa = PBXBuildFile; fileRef = AE43957B17262CB4009120D2 /* LMAttributedStringValueTransformer.h */; };
+		AE43957E17262CB4009120D2 /* LMAttributedStringValueTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = AE43957C17262CB4009120D2 /* LMAttributedStringValueTransformer.m */; };
 		AE461A061723D7D800A86F35 /* LMTextScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = AE461A021723D7D800A86F35 /* LMTextScrollView.m */; };
 		AE461A081723D7D800A86F35 /* LMTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = AE461A041723D7D800A86F35 /* LMTextView.m */; };
 		AE9225F41723D7FC00D73B16 /* LMTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = AE9225F01723D7FC00D73B16 /* LMTextField.m */; };
@@ -112,6 +114,8 @@
 		AE338C9D1723C2C900982044 /* FriedText-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "FriedText-Prefix.pch"; sourceTree = "<group>"; };
 		AE338CA41723C38F00982044 /* FriedText.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FriedText.h; sourceTree = "<group>"; };
 		AE43957817262615009120D2 /* LMFriedTextDefaultColors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LMFriedTextDefaultColors.h; sourceTree = "<group>"; };
+		AE43957B17262CB4009120D2 /* LMAttributedStringValueTransformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LMAttributedStringValueTransformer.h; sourceTree = SOURCE_ROOT; };
+		AE43957C17262CB4009120D2 /* LMAttributedStringValueTransformer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LMAttributedStringValueTransformer.m; sourceTree = SOURCE_ROOT; };
 		AE461A011723D7D800A86F35 /* LMTextScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LMTextScrollView.h; path = FriedText/LMTextScrollView.h; sourceTree = SOURCE_ROOT; };
 		AE461A021723D7D800A86F35 /* LMTextScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LMTextScrollView.m; path = FriedText/LMTextScrollView.m; sourceTree = SOURCE_ROOT; };
 		AE461A031723D7D800A86F35 /* LMTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LMTextView.h; path = FriedText/LMTextView.h; sourceTree = SOURCE_ROOT; };
@@ -285,6 +289,7 @@
 				AE64243B171581FD00C14DA5 /* Line Numbers Ruler */,
 				AE0C57E8170FECB600FDFBDA /* LMTextParser */,
 				AE04F641170EEDC10032338C /* Completion */,
+				AE43957A17262C96009120D2 /* Value Transformers */,
 				AE4E749B170EF991003BF794 /* Categories */,
 				AE4E74A3170F1565003BF794 /* Dependencies */,
 				AE338C981723C2C900982044 /* Supporting Files */,
@@ -300,6 +305,18 @@
 				AE338C9D1723C2C900982044 /* FriedText-Prefix.pch */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		AE43957A17262C96009120D2 /* Value Transformers */ = {
+			isa = PBXGroup;
+			children = (
+				AE92262B1723D88D00D73B16 /* LMAttributedTokenStringValueTransformer.h */,
+				AE92262C1723D88D00D73B16 /* LMAttributedTokenStringValueTransformer.m */,
+				AE43957B17262CB4009120D2 /* LMAttributedStringValueTransformer.h */,
+				AE43957C17262CB4009120D2 /* LMAttributedStringValueTransformer.m */,
+			);
+			name = "Value Transformers";
+			path = ../LMTextView;
 			sourceTree = "<group>";
 		};
 		AE4E749B170EF991003BF794 /* Categories */ = {
@@ -356,8 +373,6 @@
 				AE9225F91723D80F00D73B16 /* LMTextAttachmentCell.h */,
 				AE9225FA1723D80F00D73B16 /* LMTokenAttachmentCell.h */,
 				AE9225FB1723D80F00D73B16 /* LMTokenAttachmentCell.m */,
-				AE92262B1723D88D00D73B16 /* LMAttributedTokenStringValueTransformer.h */,
-				AE92262C1723D88D00D73B16 /* LMAttributedTokenStringValueTransformer.m */,
 			);
 			name = "Text Attachments";
 			path = ../LMTextView;
@@ -428,6 +443,7 @@
 				AE13E6CA1723E7DC0038174F /* NSView+CocoaExtensions.h in Headers */,
 				AE13E6CB1723E7DC0038174F /* NSWindow+FriedText.h in Headers */,
 				AE43957917262615009120D2 /* LMFriedTextDefaultColors.h in Headers */,
+				AE43957D17262CB4009120D2 /* LMAttributedStringValueTransformer.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -582,6 +598,7 @@
 				AE9226281723D83800D73B16 /* NSView+CocoaExtensions.m in Sources */,
 				AE92262A1723D83800D73B16 /* NSWindow+FriedText.m in Sources */,
 				AE92262E1723D88D00D73B16 /* LMAttributedTokenStringValueTransformer.m in Sources */,
+				AE43957E17262CB4009120D2 /* LMAttributedStringValueTransformer.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -17,24 +17,6 @@
 
 @implementation LMTextFieldCell
 
-#pragma mark - Initializers
-
-- (id)init
-{
-	self = [super init];
-	if (self) {
-	}
-	return self;
-}
-
-- (id)initWithCoder:(NSCoder *)aDecoder
-{
-	self = [super initWithCoder:aDecoder];
-	if (self) {
-	}
-	return self;
-}
-
 #pragma mark - NSCell Overrides
 
 - (BOOL)allowsEditingTextAttributes
