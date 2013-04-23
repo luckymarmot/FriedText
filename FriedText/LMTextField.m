@@ -144,4 +144,14 @@ NSString* LMTextFieldAttributedStringValueBinding = @"attributedStringValue";
 	return nil;
 }
 
+- (NSDictionary *)textView:(LMTextView *)textView attributesForTextWithParser:(id<LMTextParser>)parser tokenMask:(NSUInteger)parserTokenMask atRange:(NSRange)range
+{
+	if ([self.delegate respondsToSelector:@selector(textField:fieldEditor:attributesForTextWithParser:tokenMask:atRange:)]) {
+		return [(id<LMTextFieldDelegate>)self.delegate textField:self fieldEditor:textView attributesForTextWithParser:parser tokenMask:parserTokenMask atRange:range];
+	}
+	else {
+		return nil;
+	}
+}
+
 @end

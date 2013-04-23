@@ -312,7 +312,8 @@
 		if (usingDelegate) {
 			attributes = [(id<LMTextViewDelegate>)self.delegate textView:self attributesForTextWithParser:[self parser] tokenMask:tokenTypeMask atRange:range];
 		}
-		else {
+		
+		if (attributes == nil) {
 			NSColor* color = nil;
 			switch (tokenTypeMask & LMTextParserTokenTypeMask) {
 				case LMTextParserTokenTypeBoolean:
@@ -331,13 +332,11 @@
 			attributes = @{NSForegroundColorAttributeName:color};
 		}
 		
-		if (attributes) {
-			if (_useTemporaryAttributesForSyntaxHighlight) {
-				[layoutManager addTemporaryAttributes:attributes forCharacterRange:range];
-			}
-			else {
-				[textStorage addAttributes:attributes range:range];
-			}
+		if (_useTemporaryAttributesForSyntaxHighlight) {
+			[layoutManager addTemporaryAttributes:attributes forCharacterRange:range];
+		}
+		else {
+			[textStorage addAttributes:attributes range:range];
 		}
 	}];
 	
