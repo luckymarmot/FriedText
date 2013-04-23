@@ -40,7 +40,7 @@ NSString* LMTextFieldAttributedStringValueBinding = @"attributedStringValue";
 	
 	// Set syntax highlight attribtues
 	if ([self parser]) {
-		[string highlightSyntaxWithParser:[self parser]];
+		[string highlightSyntaxWithParser:[self parser] attributesBlock:NULL];
 	}
 	
 	[super setAttributedStringValue:[string copy]];
