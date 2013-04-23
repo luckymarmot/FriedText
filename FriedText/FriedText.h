@@ -24,5 +24,6 @@
 #import "LMCompletionView.h"
 #import "NSArray+KeyPath.h"
 #import "LMJSONTextParser.h"
+#import "LMAttributedStringValueTransformer.h"
 
 #endif
