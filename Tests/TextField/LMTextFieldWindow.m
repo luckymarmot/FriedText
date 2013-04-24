@@ -15,7 +15,7 @@
 {
 	[self.jsonField bind:LMTextFieldAttributedStringValueBinding toObject:[NSUserDefaults standardUserDefaults] withKeyPath:@"TestBindingsKey" options:@{NSValueTransformerNameBindingOption:@"LMAttributedTokenStringValueTransformer"}];
 	[self.serializationTestField bind:LMTextFieldAttributedStringValueBinding toObject:[NSUserDefaults standardUserDefaults] withKeyPath:@"TestBindingsKey" options:@{NSValueTransformerNameBindingOption:@"LMAttributedTokenStringValueTransformer"}];
-	[self.stringField bind:NSValueBinding toObject:[NSUserDefaults standardUserDefaults] withKeyPath:@"TextFieldStringUserDefault" options:@{NSValueTransformerBindingOption:[[LMAttributedStringValueTransformer alloc] initWithTextParser:self.textParser attributesBlock:NULL]}];
+	[self.stringField bind:NSValueBinding toObject:[NSUserDefaults standardUserDefaults] withKeyPath:@"TextFieldStringUserDefault" options:@{NSValueTransformerBindingOption:[LMAttributedStringValueTransformer attributedStringValueTransformerForTextField:self.stringField]}];
 	self.jsonField.richText = NO;
 	self.jsonField2.richText = NO;
 }

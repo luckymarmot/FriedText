@@ -4,4 +4,6 @@
 
 #ifdef __OBJC__
 	#import <Cocoa/Cocoa.h>
+
+	#import <FriedText/FriedText.h>
 #endif
