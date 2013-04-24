@@ -10,6 +10,7 @@
 #import "NSMutableAttributedString+CocoaExtensions.h"
 
 #import "LMTextField.h"
+#import "LMTextView.h"
 
 @implementation LMAttributedStringValueTransformer
 
@@ -26,15 +27,39 @@
 	return valueTransformer;
 }
 
-- (id)initWithTextParser:(id<LMTextParser>)parser defaultAttributes:(NSDictionary *)defaultAttributes attributesBlock:(NSDictionary *(^)(NSUInteger, NSRange))attributesBlock
++ (id)attributedStringValueTransformerForTextView:(LMTextView *)textView
+{
+	LMAttributedStringValueTransformer* valueTransformer = [[LMAttributedStringValueTransformer alloc] initWithTextParser:[textView parser] defaultAttributes:[textView textAttributes] attributesBlock:^NSDictionary *(NSUInteger tokenTypeMask, NSRange range) {
+		if ([textView delegate] && [[textView delegate] respondsToSelector:@selector(textView:attributesForTextWithParser:tokenMask:atRange:)]) {
+			return [(id<LMTextViewDelegate>)[textView delegate] textView:textView attributesForTextWithParser:[textView parser] tokenMask:tokenTypeMask atRange:range];
+		}
+		else {
+			return nil;
+		}
+	}];
+	return valueTransformer;
+}
+
+- (id)init
 {
 	self = [super init];
+	if (self) {
+		self.parser = nil;
+		self.attributesBlock = NULL;
+		self.defaultAttributes = nil;
+		self.useData = NO;
+		self.stringDataEncoding = NSUTF8StringEncoding;
+	}
+	return self;
+}
+
+- (id)initWithTextParser:(id<LMTextParser>)parser defaultAttributes:(NSDictionary *)defaultAttributes attributesBlock:(NSDictionary *(^)(NSUInteger, NSRange))attributesBlock
+{
+	self = [self init];
 	if (self) {
 		self.parser = parser;
 		self.attributesBlock = attributesBlock;
 		self.defaultAttributes = defaultAttributes;
-		self.useData = NO;
-		self.stringDataEncoding = NSUTF8StringEncoding;
 	}
 	return self;
 }
@@ -57,7 +82,7 @@
 		if ([[value class] isSubclassOfClass:[NSData class]]) {
 			string = [[NSString alloc] initWithData:(NSData*)value encoding:self.stringDataEncoding];
 		}
-		attributedString = [[NSMutableAttributedString alloc] initWithString:value];
+		attributedString = [[NSMutableAttributedString alloc] initWithString:string];
 		if ([self parser]) {
 			[attributedString highlightSyntaxWithParser:self.parser defaultAttributes:self.defaultAttributes attributesBlock:[self attributesBlock]];
 		}
@@ -75,7 +100,7 @@
 			return [(NSAttributedString*)value string];
 		}
 		else {
-			return [[(NSAttributedString*)value string] dataUsingEncoding:self.useData];
+			return [[(NSAttributedString*)value string] dataUsingEncoding:self.stringDataEncoding];
 		}
 	}
 	else {

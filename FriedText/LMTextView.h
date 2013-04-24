@@ -46,4 +46,6 @@
 
 - (BOOL)setString:(NSString *)string isUserInitiated:(BOOL)isUserInitiated;
 
+- (NSDictionary*)textAttributes;
+
 @end

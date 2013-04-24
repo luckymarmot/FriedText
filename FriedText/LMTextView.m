@@ -82,6 +82,14 @@
 
 #pragma mark - Accessors
 
+- (NSDictionary *)textAttributes
+{
+	return @{
+		  NSFontAttributeName:[self font],
+	NSForegroundColorAttributeName:[self textColor],
+	};
+}
+
 - (BOOL)setString:(NSString *)string isUserInitiated:(BOOL)isUserInitiated
 {
 	BOOL shouldSet = YES;
