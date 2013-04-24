@@ -55,6 +55,9 @@
 		if ([self parser]) {
 			[attributedString highlightSyntaxWithParser:self.parser defaultAttributes:self.defaultAttributes attributesBlock:[self attributesBlock]];
 		}
+		else if ([self defaultAttributes]) {
+			[attributedString setAttributes:[self defaultAttributes] range:NSMakeRange(0, [attributedString length])];
+		}
 	}
 	return attributedString;
 }
