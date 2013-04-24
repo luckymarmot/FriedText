@@ -16,7 +16,12 @@
 + (id)attributedStringValueTransformerForTextField:(LMTextField *)textField
 {
 	LMAttributedStringValueTransformer* valueTransformer = [[LMAttributedStringValueTransformer alloc] initWithTextParser:[textField parser] defaultAttributes:[textField textAttributes] attributesBlock:^NSDictionary *(NSUInteger tokenTypeMask, NSRange range) {
-		return nil;
+		if ([textField delegate] && [[textField delegate] respondsToSelector:@selector(textField:fieldEditor:attributesForTextWithParser:tokenMask:atRange:)]) {
+			return [(id<LMTextFieldDelegate>)[textField delegate] textField:textField fieldEditor:(LMTextView*)[textField currentEditor] attributesForTextWithParser:[textField parser] tokenMask:tokenTypeMask atRange:range];
+		}
+		else {
+			return nil;
+		}
 	}];
 	return valueTransformer;
 }
