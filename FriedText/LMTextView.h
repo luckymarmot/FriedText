@@ -44,4 +44,6 @@
 
 - (id<NSTextAttachmentCell>)textAttachmentCellForTextAttachment:(NSTextAttachment*)textAttachment;
 
+- (BOOL)setString:(NSString *)string isUserInitiated:(BOOL)isUserInitiated;
+
 @end

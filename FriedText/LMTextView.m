@@ -82,6 +82,22 @@
 
 #pragma mark - Accessors
 
+- (BOOL)setString:(NSString *)string isUserInitiated:(BOOL)isUserInitiated
+{
+	BOOL shouldSet = YES;
+	
+	if (isUserInitiated) {
+		shouldSet = [self shouldChangeTextInRange:NSMakeRange(0, [[self string] length]) replacementString:string];
+	}
+	
+	if (shouldSet) {
+		[self setString:string];
+		[self didChangeText];
+	}
+	
+	return shouldSet;
+}
+
 - (void)setParser:(id<LMTextParser>)parser
 {
 	[self willChangeValueForKey:@"parser"];
