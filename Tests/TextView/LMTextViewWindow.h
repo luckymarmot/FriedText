@@ -7,7 +7,6 @@
 //
 
 #import <Cocoa/Cocoa.h>
-#import <FriedText/FriedText.h>
 
 @interface LMTextViewWindow : NSWindow
 
