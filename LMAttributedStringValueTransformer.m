@@ -9,14 +9,25 @@
 #import "LMAttributedStringValueTransformer.h"
 #import "NSMutableAttributedString+CocoaExtensions.h"
 
+#import "LMTextField.h"
+
 @implementation LMAttributedStringValueTransformer
 
-- (id)initWithTextParser:(id<LMTextParser>)parser attributesBlock:(NSDictionary *(^)(NSUInteger, NSRange))attributesBlock
++ (id)attributedStringValueTransformerForTextField:(LMTextField *)textField
+{
+	LMAttributedStringValueTransformer* valueTransformer = [[LMAttributedStringValueTransformer alloc] initWithTextParser:[textField parser] defaultAttributes:[textField textAttributes] attributesBlock:^NSDictionary *(NSUInteger tokenTypeMask, NSRange range) {
+		return nil;
+	}];
+	return valueTransformer;
+}
+
+- (id)initWithTextParser:(id<LMTextParser>)parser defaultAttributes:(NSDictionary *)defaultAttributes attributesBlock:(NSDictionary *(^)(NSUInteger, NSRange))attributesBlock
 {
 	self = [super init];
 	if (self) {
 		self.parser = parser;
 		self.attributesBlock = attributesBlock;
+		self.defaultAttributes = defaultAttributes;
 	}
 	return self;
 }
@@ -37,7 +48,7 @@
 	if (value && value != [NSNull null]) {
 		attributedString = [[NSMutableAttributedString alloc] initWithString:value];
 		if ([self parser]) {
-			[attributedString highlightSyntaxWithParser:[self parser] attributesBlock:[self attributesBlock]];
+			[attributedString highlightSyntaxWithParser:self.parser defaultAttributes:self.defaultAttributes attributesBlock:[self attributesBlock]];
 		}
 	}
 	return attributedString;

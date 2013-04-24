@@ -23,7 +23,7 @@
 	}];
 }
 
-- (void)highlightSyntaxWithParser:(id<LMTextParser>)parser attributesBlock:(NSDictionary *(^)(NSUInteger, NSRange))attributesBlock
+- (void)highlightSyntaxWithParser:(id<LMTextParser>)parser defaultAttributes:(NSDictionary*)defaultAttributes attributesBlock:(NSDictionary *(^)(NSUInteger, NSRange))attributesBlock
 {
 	[parser setStringBlock:^NSString *{
 		return [self string];
@@ -32,8 +32,15 @@
 	
 	[self beginEditing];
 	
+	// Remove attributes
 	[self removeAttribute:NSForegroundColorAttributeName range:NSMakeRange(0, [self.string length])];
-	
+	[defaultAttributes enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
+		[self removeAttribute:key range:NSMakeRange(0, [self.string length])];
+	}];
+
+	// Set Default Attributes
+	[self setAttributes:defaultAttributes range:NSMakeRange(0, [self.string length])];
+
 	[parser applyAttributesInRange:NSMakeRange(0, [self length]) withBlock:^(NSUInteger tokenTypeMask, NSRange range) {
 		
 		NSDictionary* attributes = nil;

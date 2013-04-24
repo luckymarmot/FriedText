@@ -10,9 +10,15 @@
 
 #import "LMTextParser.h"
 
+@class LMTextField;
+
 @interface LMAttributedStringValueTransformer : NSValueTransformer
 
-- (id)initWithTextParser:(id<LMTextParser>)parser attributesBlock:(NSDictionary *(^)(NSUInteger, NSRange))attributesBlock;
++ (id)attributedStringValueTransformerForTextField:(LMTextField*)textField;
+
+- (id)initWithTextParser:(id<LMTextParser>)parser defaultAttributes:(NSDictionary*)defaultAttributes attributesBlock:(NSDictionary *(^)(NSUInteger, NSRange))attributesBlock;
+
+@property (strong, nonatomic) NSDictionary* defaultAttributes;
 
 @property (strong, nonatomic) id <LMTextParser> parser;
 @property (strong, nonatomic) NSDictionary * (^attributesBlock)(NSUInteger, NSRange);

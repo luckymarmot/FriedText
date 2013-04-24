@@ -53,6 +53,16 @@ NSString* LMTextFieldAttributedStringValueBinding = @"attributedStringValue";
 	return self;
 }
 
+#pragma mark - Accessors
+
+- (NSDictionary *)textAttributes
+{
+	return @{
+				NSFontAttributeName:[self font],
+				NSForegroundColorAttributeName:[self textColor],
+		  };
+}
+
 #pragma mark - NSControl Overrides
 
 + (Class)cellClass
@@ -72,7 +82,7 @@ NSString* LMTextFieldAttributedStringValueBinding = @"attributedStringValue";
 	
 	// Set syntax highlight attribtues
 	if ([self parser]) {
-		[string highlightSyntaxWithParser:[self parser] attributesBlock:^NSDictionary *(NSUInteger parserTokenMask, NSRange range) {
+		[string highlightSyntaxWithParser:self.parser defaultAttributes:[self textAttributes] attributesBlock:^NSDictionary *(NSUInteger parserTokenMask, NSRange range) {
 			if ([self.delegate respondsToSelector:@selector(textField:fieldEditor:attributesForTextWithParser:tokenMask:atRange:)]) {
 				return [(id<LMTextFieldDelegate>)self.delegate textField:self fieldEditor:nil attributesForTextWithParser:[self parser] tokenMask:parserTokenMask atRange:range];
 			}

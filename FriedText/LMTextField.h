@@ -41,4 +41,6 @@ extern NSString* LMTextFieldAttributedStringValueBinding;
 
 @property (nonatomic, getter = isRichText) BOOL richText;
 
+- (NSDictionary*)textAttributes;
+
 @end
