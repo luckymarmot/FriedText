@@ -43,4 +43,12 @@ extern NSString* LMTextFieldAttributedStringValueBinding;
 
 - (NSDictionary*)textAttributes;
 
+/**
+ * Whether the text editor will be using temporary text attribtues for syntax
+ * highlighting, or will be changing the text storage attributes.
+ * Default: NO (Note: this default value is different than the one used in
+ * LMTextView, this is for optimization purposes in LMTextView).
+ */
+@property (nonatomic) BOOL useTemporaryAttributesForSyntaxHighlight;
+
 @end

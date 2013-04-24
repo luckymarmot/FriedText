@@ -23,7 +23,7 @@ NSString* LMTextFieldAttributedStringValueBinding = @"attributedStringValue";
 
 - (void)_setup
 {
-	// Nothing to do (so far)
+	self.useTemporaryAttributesForSyntaxHighlight = NO; // This is different default than LMTextView
 }
 
 - (id)init
@@ -138,6 +138,8 @@ NSString* LMTextFieldAttributedStringValueBinding = @"attributedStringValue";
 		[(LMTextView*)[self currentEditor] setParser:[self parser]];
 		
 		[(LMTextView*)[self currentEditor] highlightSyntax:nil];
+		
+		[(LMTextView*)[self currentEditor] setUseTemporaryAttributesForSyntaxHighlight:self.useTemporaryAttributesForSyntaxHighlight];
 	}
 	
 	return result;

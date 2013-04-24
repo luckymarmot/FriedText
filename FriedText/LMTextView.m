@@ -282,10 +282,11 @@
 	_oldBounds = self.enclosingScrollView.contentView.bounds;
 	
 	NSLayoutManager *layoutManager = [self layoutManager];
+	NSRange fullRange = NSMakeRange(0, [self.textStorage.string length]);
 	
 	NSRange characterRange;
 	if ([self isFieldEditor]) {
-		characterRange = NSMakeRange(0, [self.textStorage.string length]);
+		characterRange = fullRange;
 	}
 	else {
 		NSRange glyphRange = [self.layoutManager glyphRangeForBoundingRect:self.enclosingScrollView.documentVisibleRect inTextContainer:self.textContainer];
@@ -293,25 +294,25 @@
 	}
 	
 	NSTextStorage* textStorage = [self textStorage];
+	NSMutableArray* removedAttribtues = [NSMutableArray array]; // Used to store which attributes were removed once
 	
-	if (_useTemporaryAttributesForSyntaxHighlight) {
-		[layoutManager removeTemporaryAttribute:NSForegroundColorAttributeName forCharacterRange:NSMakeRange(0, [self.textStorage.string length])];
-	}
-	else {
+	if (!_useTemporaryAttributesForSyntaxHighlight) {
 		[textStorage beginEditing];
-		
-		[textStorage removeAttribute:NSForegroundColorAttributeName range:NSMakeRange(0, [self.textStorage.string length])];
 	}
 	
+	// Store whether we can use the delegate to get the attribtues
 	BOOL usingDelegate = [self.delegate respondsToSelector:@selector(textView:attributesForTextWithParser:tokenMask:atRange:)];
 	
 	[[self parser] applyAttributesInRange:characterRange withBlock:^(NSUInteger tokenTypeMask, NSRange range) {
 		
 		NSDictionary* attributes = nil;
+		
+		// Trying to get attribtues from delegate
 		if (usingDelegate) {
 			attributes = [(id<LMTextViewDelegate>)self.delegate textView:self attributesForTextWithParser:[self parser] tokenMask:tokenTypeMask atRange:range];
 		}
 		
+		// If delegate wasn't implemented or returned nil, set default attributes
 		if (attributes == nil) {
 			NSColor* color = nil;
 			switch (tokenTypeMask & LMTextParserTokenTypeMask) {
@@ -331,6 +332,23 @@
 			attributes = @{NSForegroundColorAttributeName:color};
 		}
 		
+		// Remove attributes when used for first time
+		for (NSString* attributeName in attributes) {
+			// If not already removed...
+			if (![removedAttribtues containsObject:attributeName]) {
+				// Remove it
+				if (_useTemporaryAttributesForSyntaxHighlight) {
+					[layoutManager removeTemporaryAttribute:attributeName forCharacterRange:fullRange];
+				}
+				else {
+					[textStorage removeAttribute:attributeName range:fullRange];
+				}
+				// Mark this attribute as removed
+				[removedAttribtues addObject:attributeName];
+			}
+		}
+		
+		// Apply attribtue
 		if (_useTemporaryAttributesForSyntaxHighlight) {
 			[layoutManager addTemporaryAttributes:attributes forCharacterRange:range];
 		}
