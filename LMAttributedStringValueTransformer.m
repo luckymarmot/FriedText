@@ -33,6 +33,8 @@
 		self.parser = parser;
 		self.attributesBlock = attributesBlock;
 		self.defaultAttributes = defaultAttributes;
+		self.useData = NO;
+		self.stringDataEncoding = NSUTF8StringEncoding;
 	}
 	return self;
 }
@@ -51,6 +53,10 @@
 {
 	NSMutableAttributedString* attributedString;
 	if (value && value != [NSNull null]) {
+		NSString* string = value;
+		if ([[value class] isSubclassOfClass:[NSData class]]) {
+			string = [[NSString alloc] initWithData:(NSData*)value encoding:self.stringDataEncoding];
+		}
 		attributedString = [[NSMutableAttributedString alloc] initWithString:value];
 		if ([self parser]) {
 			[attributedString highlightSyntaxWithParser:self.parser defaultAttributes:self.defaultAttributes attributesBlock:[self attributesBlock]];
@@ -65,7 +71,12 @@
 - (id)reverseTransformedValue:(id)value
 {
 	if ([[value class] isSubclassOfClass:[NSAttributedString class]]) {
-		return [(NSAttributedString*)value string];
+		if (!self.useData) {
+			return [(NSAttributedString*)value string];
+		}
+		else {
+			return [[(NSAttributedString*)value string] dataUsingEncoding:self.useData];
+		}
 	}
 	else {
 		return value;

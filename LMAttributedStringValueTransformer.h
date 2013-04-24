@@ -23,4 +23,7 @@
 @property (strong, nonatomic) id <LMTextParser> parser;
 @property (strong, nonatomic) NSDictionary * (^attributesBlock)(NSUInteger, NSRange);
 
+@property (nonatomic) BOOL useData;
+@property (nonatomic) NSStringEncoding stringDataEncoding;
+
 @end
