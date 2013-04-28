@@ -30,6 +30,8 @@ extern NSString* LMTextFieldAttributedStringValueBinding;
 
 - (NSDictionary*)textField:(LMTextField *)textField fieldEditor:(LMTextView*)fieldEditor attributesForTextWithParser:(id<LMTextParser>)parser tokenMask:(NSUInteger)parserTokenMask atRange:(NSRange)range;
 
+- (id<NSTextAttachmentCell>)textField:(LMTextField*)textField fieldEditor:(LMTextView *)textView textAttachmentCellForTextAttachment:(NSTextAttachment *)textAttachment;
+
 @end
 
 
@@ -42,6 +44,8 @@ extern NSString* LMTextFieldAttributedStringValueBinding;
 @property (nonatomic, getter = isRichText) BOOL richText;
 
 - (NSDictionary*)textAttributes;
+
+@property (strong, nonatomic, readonly) NSMutableArray* textAttachmentCellClasses;
 
 /**
  * Whether the text editor will be using temporary text attribtues for syntax

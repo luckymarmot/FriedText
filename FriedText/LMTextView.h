@@ -20,7 +20,7 @@
 @optional
 - (void)textView:(LMTextView*)textView mouseDownForTokenAtRange:(NSRange)range withBounds:(NSRect)bounds keyPath:(NSArray*)keyPath;
 - (void)mouseDownOutsideTokenInTextView:(LMTextView*)textView;
-- (id<NSTextAttachmentCell>)textview:(LMTextView*)textView textAttachmentCellForTextAttachment:(NSTextAttachment*)textAttachment;
+- (id<NSTextAttachmentCell>)textView:(LMTextView*)textView textAttachmentCellForTextAttachment:(NSTextAttachment*)textAttachment;
 - (NSDictionary*)textView:(LMTextView*)textView attributesForTextWithParser:(id<LMTextParser>) parser tokenMask:(NSUInteger)parserTokenMask atRange:(NSRange)range;
 
 @end
@@ -37,6 +37,8 @@
 @property (nonatomic) BOOL optimizeHighlightingOnEditing;
 
 @property (nonatomic) BOOL useTemporaryAttributesForSyntaxHighlight;
+
++ (NSArray*)defaultTextAttachmentCellClasses;
 
 @property (strong, nonatomic, readonly) NSMutableArray* textAttachmentCellClasses;
 

@@ -118,13 +118,18 @@
 	[self didChangeValueForKey:@"parser"];
 }
 
++ (NSArray*)defaultTextAttachmentCellClasses
+{
+	return [NSArray arrayWithObjects:
+			[NSTextAttachmentCell class],
+			[LMTokenAttachmentCell class],
+			nil];
+}
+
 - (NSMutableArray *)textAttachmentCellClasses
 {
 	if (_textAttachmentCellClasses == nil) {
-		_textAttachmentCellClasses = [NSMutableArray arrayWithObjects:
-									  [NSTextAttachmentCell class],
-									  [LMTokenAttachmentCell class],
-									  nil];
+		_textAttachmentCellClasses = [NSMutableArray arrayWithArray:[[self class] defaultTextAttachmentCellClasses]];
 	}
 	return _textAttachmentCellClasses;
 }
@@ -392,8 +397,8 @@
 {
 	__block id<NSTextAttachmentCell> textAttachmentCell = nil;
 	
-	if (self.delegate && [self.delegate respondsToSelector:@selector(textview:textAttachmentCellForTextAttachment:)]) {
-		textAttachmentCell = [(id<LMTextViewDelegate>)self.delegate textview:self textAttachmentCellForTextAttachment:textAttachment];
+	if (self.delegate && [self.delegate respondsToSelector:@selector(textView:textAttachmentCellForTextAttachment:)]) {
+		textAttachmentCell = [(id<LMTextViewDelegate>)self.delegate textView:self textAttachmentCellForTextAttachment:textAttachment];
 	}
 	
 	if (textAttachmentCell == nil) {

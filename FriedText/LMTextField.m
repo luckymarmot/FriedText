@@ -17,6 +17,8 @@ NSString* LMTextFieldAttributedStringValueBinding = @"attributedStringValue";
 
 @interface LMTextField ()
 
+@property (strong, nonatomic, readwrite) NSMutableArray* textAttachmentCellClasses;
+
 @end
 
 @implementation LMTextField
@@ -61,6 +63,14 @@ NSString* LMTextFieldAttributedStringValueBinding = @"attributedStringValue";
 				NSFontAttributeName:[self font],
 				NSForegroundColorAttributeName:[self textColor],
 		  };
+}
+
+- (NSMutableArray *)textAttachmentCellClasses
+{
+	if (_textAttachmentCellClasses == nil) {
+		_textAttachmentCellClasses = [NSMutableArray arrayWithArray:[LMTextView defaultTextAttachmentCellClasses]];
+	}
+	return _textAttachmentCellClasses;
 }
 
 #pragma mark - NSControl Overrides
@@ -140,6 +150,8 @@ NSString* LMTextFieldAttributedStringValueBinding = @"attributedStringValue";
 		[(LMTextView*)[self currentEditor] highlightSyntax:nil];
 		
 		[(LMTextView*)[self currentEditor] setUseTemporaryAttributesForSyntaxHighlight:self.useTemporaryAttributesForSyntaxHighlight];
+		
+		[[(LMTextView*)[self currentEditor] textAttachmentCellClasses] setArray:[self textAttachmentCellClasses]];
 	}
 	
 	return result;
@@ -199,6 +211,16 @@ NSString* LMTextFieldAttributedStringValueBinding = @"attributedStringValue";
 {
 	if ([self.delegate respondsToSelector:@selector(textField:fieldEditor:attributesForTextWithParser:tokenMask:atRange:)]) {
 		return [(id<LMTextFieldDelegate>)self.delegate textField:self fieldEditor:textView attributesForTextWithParser:parser tokenMask:parserTokenMask atRange:range];
+	}
+	else {
+		return nil;
+	}
+}
+
+- (id<NSTextAttachmentCell>)textView:(LMTextView *)textView textAttachmentCellForTextAttachment:(NSTextAttachment *)textAttachment
+{
+	if ([self.delegate respondsToSelector:@selector(textField:fieldEditor:textAttachmentCellForTextAttachment:)]) {
+		return [(id<LMTextFieldDelegate>)self.delegate textField:self fieldEditor:textView textAttachmentCellForTextAttachment:textAttachment];
 	}
 	else {
 		return nil;
