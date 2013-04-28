@@ -67,6 +67,8 @@
 		AE92262A1723D83800D73B16 /* NSWindow+FriedText.m in Sources */ = {isa = PBXBuildFile; fileRef = AE9226201723D83800D73B16 /* NSWindow+FriedText.m */; };
 		AE92262E1723D88D00D73B16 /* LMAttributedTokenStringValueTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = AE92262C1723D88D00D73B16 /* LMAttributedTokenStringValueTransformer.m */; };
 		AED2D2EE1716ABF300C38A87 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AE04F601170EEA170032338C /* Cocoa.framework */; };
+		AED7BB37172D37B5001BDE14 /* LMXMLTextParser.h in Headers */ = {isa = PBXBuildFile; fileRef = AED7BB35172D37B5001BDE14 /* LMXMLTextParser.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		AED7BB38172D37B5001BDE14 /* LMXMLTextParser.m in Sources */ = {isa = PBXBuildFile; fileRef = AED7BB36172D37B5001BDE14 /* LMXMLTextParser.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -151,6 +153,8 @@
 		AE92262B1723D88D00D73B16 /* LMAttributedTokenStringValueTransformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LMAttributedTokenStringValueTransformer.h; path = FriedText/LMAttributedTokenStringValueTransformer.h; sourceTree = SOURCE_ROOT; };
 		AE92262C1723D88D00D73B16 /* LMAttributedTokenStringValueTransformer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LMAttributedTokenStringValueTransformer.m; path = FriedText/LMAttributedTokenStringValueTransformer.m; sourceTree = SOURCE_ROOT; };
 		AED2D2F61716ABF300C38A87 /* LMTextView Text Field.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "LMTextView Text Field.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		AED7BB35172D37B5001BDE14 /* LMXMLTextParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LMXMLTextParser.h; path = FriedText/LMXMLTextParser.h; sourceTree = SOURCE_ROOT; };
+		AED7BB36172D37B5001BDE14 /* LMXMLTextParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LMXMLTextParser.m; path = FriedText/LMXMLTextParser.m; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -274,6 +278,8 @@
 			children = (
 				AE25030F1723CA4A00E46A2F /* LMJSONTextParser.h */,
 				AE2503101723CA4A00E46A2F /* LMJSONTextParser.m */,
+				AED7BB35172D37B5001BDE14 /* LMXMLTextParser.h */,
+				AED7BB36172D37B5001BDE14 /* LMXMLTextParser.m */,
 			);
 			name = Parsers;
 			sourceTree = "<group>";
@@ -434,6 +440,7 @@
 				AE13E6C11723E7DC0038174F /* LMLineNumberRuler.h in Headers */,
 				AE13E6C21723E7DC0038174F /* LMTextParser.h in Headers */,
 				AE13E6C31723E7DC0038174F /* LMJSONTextParser.h in Headers */,
+				AED7BB37172D37B5001BDE14 /* LMXMLTextParser.h in Headers */,
 				AE13E6C41723E7DC0038174F /* LMCompletionTableCellView.h in Headers */,
 				AE13E6C51723E7DC0038174F /* LMCompletionTableView.h in Headers */,
 				AE13E6C61723E7DC0038174F /* LMCompletionView.h in Headers */,
@@ -599,6 +606,7 @@
 				AE92262A1723D83800D73B16 /* NSWindow+FriedText.m in Sources */,
 				AE92262E1723D88D00D73B16 /* LMAttributedTokenStringValueTransformer.m in Sources */,
 				AE43957E17262CB4009120D2 /* LMAttributedStringValueTransformer.m in Sources */,
+				AED7BB38172D37B5001BDE14 /* LMXMLTextParser.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
