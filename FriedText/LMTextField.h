@@ -32,6 +32,8 @@ extern NSString* LMTextFieldAttributedStringValueBinding;
 
 - (id<NSTextAttachmentCell>)textField:(LMTextField*)textField fieldEditor:(LMTextView *)textView textAttachmentCellForTextAttachment:(NSTextAttachment *)textAttachment;
 
+- (void)textField:(LMTextField *)textField fieldEditor:(LMTextView *)fieldEditor clickedOnCell:(id<NSTextAttachmentCell>)cell inRect:(NSRect)cellRect atIndex:(NSUInteger)charIndex;
+
 @end
 
 

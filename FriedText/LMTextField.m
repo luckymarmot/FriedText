@@ -185,6 +185,17 @@ NSString* LMTextFieldAttributedStringValueBinding = @"attributedStringValue";
 	}
 }
 
+#pragma mark - NSTextViewDelegate
+
+- (void)textView:(NSTextView *)textView clickedOnCell:(id<NSTextAttachmentCell>)cell inRect:(NSRect)cellFrame atIndex:(NSUInteger)charIndex
+{
+	if (textView == [self currentEditor]) {
+		if ([self.delegate respondsToSelector:@selector(textField:fieldEditor:clickedOnCell:inRect:atIndex:)]) {
+			[(id<LMTextFieldDelegate>)self.delegate textField:self fieldEditor:(LMTextView*)textView clickedOnCell:cell inRect:cellFrame atIndex:charIndex];
+		}
+	}
+}
+
 #pragma mark - LMTextViewDelegate
 
 - (void)textView:(LMTextView *)textView mouseDownForTokenAtRange:(NSRange)range withBounds:(NSRect)bounds keyPath:(NSArray *)keyPath
