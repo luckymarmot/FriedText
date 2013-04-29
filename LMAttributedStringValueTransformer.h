@@ -10,6 +10,9 @@
 
 #import "LMTextParser.h"
 
+typedef NSString* (^LMAttributedStringStringArchiving)(NSAttributedString* attribtuedString);
+typedef NSMutableAttributedString* (^LMAttributedStringStringUnarchiving)(NSString* string);
+
 @class LMTextField, LMTextView;
 
 @interface LMAttributedStringValueTransformer : NSValueTransformer
@@ -27,5 +30,8 @@
 
 @property (nonatomic) BOOL useData;
 @property (nonatomic) NSStringEncoding stringDataEncoding;
+
+@property (strong, nonatomic) LMAttributedStringStringArchiving archivingBlock;
+@property (strong, nonatomic) LMAttributedStringStringUnarchiving unarchivingBlock;
 
 @end

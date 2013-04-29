@@ -78,16 +78,28 @@
 {
 	NSMutableAttributedString* attributedString;
 	if (value && value != [NSNull null]) {
+		
+		// Get the NSString
 		NSString* string = value;
 		if ([[value class] isSubclassOfClass:[NSData class]]) {
-			string = [[NSString alloc] initWithData:(NSData*)value encoding:self.stringDataEncoding];
+			string = [[NSString alloc] initWithData:(NSData*)value encoding:_stringDataEncoding];
 		}
-		attributedString = [[NSMutableAttributedString alloc] initWithString:string];
+		
+		// Get the raw NSAttributedString (with no attributes, or only attachments)
+		if (_unarchivingBlock) {
+			attributedString = _unarchivingBlock(string);
+		}
+		else {
+			attributedString = [[NSMutableAttributedString alloc] initWithString:string];
+		}
+		
+		// Highlight syntax
 		if ([self parser]) {
 			[attributedString highlightSyntaxWithParser:self.parser defaultAttributes:self.defaultAttributes attributesBlock:[self attributesBlock]];
 		}
+		// Or set only default attributes
 		else if ([self defaultAttributes]) {
-			[attributedString setAttributes:[self defaultAttributes] range:NSMakeRange(0, [attributedString length])];
+			[attributedString addAttributes:[self defaultAttributes] range:NSMakeRange(0, [attributedString length])];
 		}
 	}
 	return attributedString;
@@ -96,11 +108,22 @@
 - (id)reverseTransformedValue:(id)value
 {
 	if ([[value class] isSubclassOfClass:[NSAttributedString class]]) {
-		if (!self.useData) {
-			return [(NSAttributedString*)value string];
+
+		// Get the NSString
+		NSString* string = nil;
+		if (_archivingBlock) {
+			string = _archivingBlock(value);
 		}
 		else {
-			return [[(NSAttributedString*)value string] dataUsingEncoding:self.stringDataEncoding];
+			string = [(NSAttributedString*)value string];
+		}
+		
+		// Encode to NSData if necessary
+		if (!_useData) {
+			return string;
+		}
+		else {
+			return [string dataUsingEncoding:_stringDataEncoding];
 		}
 	}
 	else {

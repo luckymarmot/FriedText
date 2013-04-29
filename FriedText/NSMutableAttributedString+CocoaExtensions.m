@@ -39,7 +39,7 @@
 	}];
 
 	// Set Default Attributes
-	[self setAttributes:defaultAttributes range:NSMakeRange(0, [self.string length])];
+	[self addAttributes:defaultAttributes range:NSMakeRange(0, [self.string length])];
 
 	[parser applyAttributesInRange:NSMakeRange(0, [self length]) withBlock:^(NSUInteger tokenTypeMask, NSRange range) {
 		
