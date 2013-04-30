@@ -26,5 +26,7 @@
 #import "LMJSONTextParser.h"
 #import "LMXMLTextParser.h"
 #import "LMAttributedStringValueTransformer.h"
+#import "NSObject+TDBindings.h"
+#import "NSAttributedString+CocoaExtensions.h"
 
 #endif

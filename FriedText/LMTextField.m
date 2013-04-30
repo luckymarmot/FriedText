@@ -165,7 +165,6 @@ NSString* LMTextFieldAttributedStringValueBinding = @"attributedStringValue";
 		[super textDidChange:notification];
 		
 		[self invalidateIntrinsicContentSize];
-		
 		if ([self.delegate respondsToSelector:@selector(textField:textDidChangeWithFieldEditor:)]) {
 			[(id<LMTextFieldDelegate>)self.delegate textField:self textDidChangeWithFieldEditor:(LMTextView*)[self currentEditor]];
 		}
