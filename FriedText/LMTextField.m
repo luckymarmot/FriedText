@@ -162,6 +162,13 @@ NSString* LMTextFieldAttributedStringValueBinding = @"attributedStringValue";
 - (void)textDidChange:(NSNotification *)notification
 {
 	if (notification.object == [self currentEditor]) {
+		
+#warning Fix the shouldUpdateContinuouslyBinding for LMTextFieldAttributedStringValueBinding
+		if ([self shouldUpdateContinuouslyBinding:LMTextFieldAttributedStringValueBinding]) {
+			
+		}
+		[self propagateValue:[[(LMTextView*)[self currentEditor] textStorage] copy] forBinding:LMTextFieldAttributedStringValueBinding];
+		
 		[super textDidChange:notification];
 		
 		[self invalidateIntrinsicContentSize];

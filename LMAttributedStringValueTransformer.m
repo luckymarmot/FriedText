@@ -107,11 +107,14 @@
 
 - (id)reverseTransformedValue:(id)value
 {
-	if ([[value class] isSubclassOfClass:[NSAttributedString class]]) {
+	if ([[value class] isSubclassOfClass:[NSAttributedString class]] || [[value class] isSubclassOfClass:[NSString class]]) {
 
 		// Get the NSString
 		NSString* string = nil;
-		if (_archivingBlock) {
+		if ([[value class] isSubclassOfClass:[NSString class]]) {
+			string = value;
+		}
+		else if (_archivingBlock) {
 			string = _archivingBlock(value);
 		}
 		else {

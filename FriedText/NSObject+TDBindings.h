@@ -10,6 +10,7 @@
 
 @interface NSObject (TDBindings)
 
--(void) propagateValue:(id)value forBinding:(NSString*)binding;
+- (void)propagateValue:(id)value forBinding:(NSString*)binding;
+- (BOOL)shouldUpdateContinuouslyBinding:(NSString*)binding;
 
 @end

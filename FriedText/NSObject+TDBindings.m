@@ -8,11 +8,27 @@
 
 #import "NSObject+TDBindings.h"
 
-// From: http://tomdalling.com/blog/cocoa/implementing-your-own-cocoa-bindings/
 
 @implementation NSObject(TDBindings)
 
--(void) propagateValue:(id)value forBinding:(NSString*)binding
+- (BOOL)shouldUpdateContinuouslyBinding:(NSString *)binding
+{
+	NSDictionary* bindingInfo = [self infoForBinding:binding];
+	if (bindingInfo) {
+		NSDictionary* bindingOptions = [bindingInfo objectForKey:NSOptionsKey];
+		id continuouslyUpdatesValue = [bindingOptions objectForKey:NSContinuouslyUpdatesValueBindingOption];
+		if (continuouslyUpdatesValue &&
+			continuouslyUpdatesValue != [NSNull null] &&
+			[continuouslyUpdatesValue boolValue] == YES) {
+			return YES;
+		}
+	}
+	
+	return NO;
+}
+
+// From: http://tomdalling.com/blog/cocoa/implementing-your-own-cocoa-bindings/
+- (void)propagateValue:(id)value forBinding:(NSString*)binding
 {
 	NSParameterAssert(binding != nil);
 	
