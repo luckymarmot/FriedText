@@ -26,6 +26,9 @@ NSString* LMTextFieldAttributedStringValueBinding = @"attributedStringValue";
 - (void)_setup
 {
 	self.useTemporaryAttributesForSyntaxHighlight = NO; // This is different default than LMTextView
+	
+	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(frameDidChange:) name:NSViewFrameDidChangeNotification object:self];
+	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(boundsDidChange:) name:NSViewBoundsDidChangeNotification object:self];
 }
 
 - (id)init
@@ -53,6 +56,11 @@ NSString* LMTextFieldAttributedStringValueBinding = @"attributedStringValue";
 		[self _setup];
 	}
 	return self;
+}
+
+- (void)dealloc
+{
+	[[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 #pragma mark - Accessors
@@ -242,6 +250,18 @@ NSString* LMTextFieldAttributedStringValueBinding = @"attributedStringValue";
 	else {
 		return nil;
 	}
+}
+
+#pragma mark - Observing Frame / Bounds
+
+- (void)frameDidChange:(NSNotification*)notification
+{
+	[self invalidateIntrinsicContentSize];
+}
+
+- (void)boundsDidChange:(NSNotification*)notification
+{
+	[self invalidateIntrinsicContentSize];
 }
 
 @end
