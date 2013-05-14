@@ -34,6 +34,8 @@ extern NSString* LMTextFieldAttributedStringValueBinding;
 
 - (void)textField:(LMTextField *)textField fieldEditor:(LMTextView *)fieldEditor clickedOnCell:(id<NSTextAttachmentCell>)cell inRect:(NSRect)cellRect atIndex:(NSUInteger)charIndex;
 
+- (NSMenu*)textField:(LMTextField *)textField fieldEditor:(LMTextView *)fieldEditor menu:(NSMenu *)menu forEvent:(NSEvent *)event atIndex:(NSUInteger)charIndex;
+
 @end
 
 

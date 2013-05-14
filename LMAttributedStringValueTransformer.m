@@ -76,7 +76,7 @@
 
 - (id)transformedValue:(id)value
 {
-	NSMutableAttributedString* attributedString;
+	NSMutableAttributedString* attributedString = [[NSMutableAttributedString alloc] init];
 	if (value && value != [NSNull null]) {
 		
 		// Get the NSString

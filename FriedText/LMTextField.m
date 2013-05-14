@@ -210,6 +210,16 @@ NSString* LMTextFieldAttributedStringValueBinding = @"attributedStringValue";
 	}
 }
 
+- (NSMenu *)textView:(NSTextView *)textView menu:(NSMenu *)menu forEvent:(NSEvent *)event atIndex:(NSUInteger)charIndex
+{
+	if ([self.delegate respondsToSelector:@selector(textField:fieldEditor:menu:forEvent:atIndex:)]) {
+		return [(id<LMTextFieldDelegate>)self.delegate textField:self fieldEditor:(LMTextView*)textView menu:menu forEvent:event atIndex:charIndex];
+	}
+	else {
+		return menu;
+	}
+}
+
 #pragma mark - LMTextViewDelegate
 
 - (void)textView:(LMTextView *)textView mouseDownForTokenAtRange:(NSRange)range withBounds:(NSRect)bounds keyPath:(NSArray *)keyPath
