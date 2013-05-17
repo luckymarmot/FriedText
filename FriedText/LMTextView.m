@@ -85,8 +85,8 @@
 - (NSDictionary *)textAttributes
 {
 	return @{
-		  NSFontAttributeName:[self font],
-	NSForegroundColorAttributeName:[self textColor],
+		  NSFontAttributeName:[self font] ?: [NSFont systemFontOfSize:[NSFont systemFontSize]],
+	NSForegroundColorAttributeName:[self textColor] ?: [NSColor blackColor],
 	};
 }
 
