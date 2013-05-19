@@ -27,6 +27,12 @@
 
 #import "LMFriedTextDefaultColors.h"
 
+/* Pasteboard Constant Values:
+ * NSPasteboardTypeRTFD: com.apple.flat-rtfd
+ * kUTTypeFlatRTFD: com.apple.flat-rtfd
+ * NSRTFDPboardType: NeXT RTFD pasteboard type
+ */
+
 #warning Make a smart system to force users to allow rich text if using tokens, while blocking rich text input if needed
 
 @interface LMTextView () {
@@ -179,33 +185,71 @@
 
 #pragma mark - Pasteboard
 
+- (NSString *)preferredPasteboardTypeFromArray:(NSArray *)availableTypes restrictedToTypesFromArray:(NSArray *)allowedTypes
+{
+	NSArray* types;
+	if (allowedTypes) {
+		NSMutableSet* set = [NSMutableSet setWithArray:availableTypes];
+		[set intersectSet:[NSSet setWithArray:allowedTypes]];
+		types = [set allObjects];
+	}
+	else {
+		types = availableTypes;
+	}
+	
+	NSArray* preferredTypes = nil;
+	if ([self.delegate respondsToSelector:@selector(preferredPasteboardTypesForTextView:)]) {
+		preferredTypes = [(id<LMTextViewDelegate>)self.delegate preferredPasteboardTypesForTextView:self];
+	}
+	preferredTypes = [(preferredTypes ?: @[]) arrayByAddingObjectsFromArray:@[NSPasteboardTypeRTFD, NSRTFDPboardType]];
+	
+	for (NSString* type in preferredTypes) {
+		if ([types containsObject:type]) {
+			return type;
+		}
+	}
+	
+	return [super preferredPasteboardTypeFromArray:availableTypes restrictedToTypesFromArray:allowedTypes];
+}
+
 - (BOOL)readSelectionFromPasteboard:(NSPasteboard *)pboard type:(NSString *)type
 {
-	NSData* data = [pboard dataForType:type];
-	if (!data) {
-		return NO;
+	NSAttributedString* attributedString = nil;
+	
+	// Try to get an attributed string from the delegate
+	if ([self.delegate respondsToSelector:@selector(textView:attributedStringFromPasteboard:type:range:)]) {
+		attributedString = [(id<LMTextViewDelegate>)self.delegate textView:self attributedStringFromPasteboard:pboard type:type range:[self rangeForUserTextChange]];
 	}
 	
-	NSMutableAttributedString* attributedString = [[NSMutableAttributedString alloc] initWithData:data options:nil documentAttributes:nil error:NULL];
-	if (!attributedString) {
-		return NO;
-	}
-	
-	[attributedString enumerateAttribute:NSAttachmentAttributeName inRange:NSMakeRange(0, [attributedString length]) options:0 usingBlock:^(id value, NSRange range, BOOL *stop) {
-		if (value) {
-			NSTextAttachment* textAttachment = value;
-			textAttachment.attachmentCell = [self textAttachmentCellForTextAttachment:textAttachment];
-		}
-	}];
-	
-	if ([self shouldChangeTextInRange:[self selectedRange] replacementString:[attributedString string]]) {
-		[[self textStorage] replaceCharactersInRange:[self selectedRange] withAttributedString:attributedString];
-		[self didChangeText];
+	// If not set by the delegate, try to read as NSPasteboardTypeRTFD or NSRTFDPboardType
+	// Note: Even if doc says that NSRTFDPboardType should be replaced by NSPasteboardTypeRTFD, it is still used by the framework
+	if (attributedString == nil &&
+		([type isEqualToString:NSPasteboardTypeRTFD] || [type isEqualToString:NSRTFDPboardType])) {
 		
-		return YES;
+		NSData* data = [pboard dataForType:type];
+		if (data) {
+			attributedString = [[NSMutableAttributedString alloc] initWithData:data options:nil documentAttributes:nil error:NULL];
+		}
 	}
 	
-	return NO;
+	// If an attributedString is set before, insert it
+	if (attributedString) {
+		[attributedString enumerateAttribute:NSAttachmentAttributeName inRange:NSMakeRange(0, [attributedString length]) options:0 usingBlock:^(id value, NSRange range, BOOL *stop) {
+			if (value) {
+				NSTextAttachment* textAttachment = value;
+				textAttachment.attachmentCell = [self textAttachmentCellForTextAttachment:textAttachment];
+			}
+		}];
+		
+		if ([self shouldChangeTextInRange:[self rangeForUserTextChange] replacementString:[attributedString string]]) {
+			[[self textStorage] replaceCharactersInRange:[self rangeForUserTextChange] withAttributedString:attributedString];
+			[self didChangeText];
+			
+			return YES;
+		}
+	}
+	
+	return [super readSelectionFromPasteboard:pboard type:type];
 }
 
 #pragma mark - Helpers

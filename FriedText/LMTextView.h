@@ -23,6 +23,11 @@
 - (id<NSTextAttachmentCell>)textView:(LMTextView*)textView textAttachmentCellForTextAttachment:(NSTextAttachment*)textAttachment;
 - (NSDictionary*)textView:(LMTextView*)textView attributesForTextWithParser:(id<LMTextParser>) parser tokenMask:(NSUInteger)parserTokenMask atRange:(NSRange)range;
 
+// Handling Pasteboard
+
+- (NSArray*)preferredPasteboardTypesForTextView:(LMTextView*)textView;
+- (NSAttributedString*)textView:(LMTextView*)textView attributedStringFromPasteboard:(NSPasteboard*)pboard type:(NSString*)type range:(NSRange)range;
+
 @end
 
 #pragma mark - LMTextView
