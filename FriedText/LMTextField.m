@@ -262,6 +262,26 @@ NSString* LMTextFieldAttributedStringValueBinding = @"attributedStringValue";
 	}
 }
 
+- (NSArray *)preferredPasteboardTypesForTextView:(LMTextView *)textView
+{
+	if ([self.delegate respondsToSelector:@selector(preferredPasteboardTypesForTextField:fieldEditor:)]) {
+		return [(id<LMTextFieldDelegate>)self.delegate preferredPasteboardTypesForTextField:self fieldEditor:textView];
+	}
+	else {
+		return nil;
+	}
+}
+
+- (NSAttributedString *)textView:(LMTextView *)textView attributedStringFromPasteboard:(NSPasteboard *)pboard type:(NSString *)type range:(NSRange)range
+{
+	if ([self.delegate respondsToSelector:@selector(textField:fieldEditor:attributedStringFromPasteboard:type:range:)]) {
+		return [(id<LMTextFieldDelegate>)self.delegate textField:self fieldEditor:textView attributedStringFromPasteboard:pboard type:type range:range];
+	}
+	else {
+		return nil;
+	}
+}
+
 #pragma mark - Observing Frame / Bounds
 
 - (void)frameDidChange:(NSNotification*)notification

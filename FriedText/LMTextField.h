@@ -36,6 +36,12 @@ extern NSString* LMTextFieldAttributedStringValueBinding;
 
 - (NSMenu*)textField:(LMTextField *)textField fieldEditor:(LMTextView *)fieldEditor menu:(NSMenu *)menu forEvent:(NSEvent *)event atIndex:(NSUInteger)charIndex;
 
+// Handling Pasteboard
+
+- (NSArray*)preferredPasteboardTypesForTextField:(LMTextField *)textField fieldEditor:(LMTextView *)fieldEditor;
+
+- (NSAttributedString*)textField:(LMTextField *)textField fieldEditor:(LMTextView *)fieldEditor attributedStringFromPasteboard:(NSPasteboard*)pboard type:(NSString*)type range:(NSRange)range;
+
 @end
 
 
