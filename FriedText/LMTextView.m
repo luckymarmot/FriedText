@@ -303,6 +303,42 @@
 	}
 }
 
+#pragma mark - Contextual Menu
+
+- (NSMenu *)menuForEvent:(NSEvent *)theEvent
+{
+	NSMenu* menu = [super menuForEvent:theEvent];
+	
+	NSLayoutManager *layoutManager = [self layoutManager];
+	NSTextContainer *textContainer = [self textContainer];
+	NSUInteger charIndex = [self charIndexForPoint:[self convertPoint:[theEvent locationInWindow] fromView:nil]];
+	NSRange tokenRange = NSMakeRange(NSNotFound, 0);
+	
+    if (charIndex != NSNotFound) {
+		if ([[self.textStorage string] characterAtIndex:charIndex] == 0xFFFC) {
+			
+		}
+		else if (self.parser) {
+			NSArray* path = [self.parser keyPathForObjectAtRange:NSMakeRange(charIndex, 1) objectRange:&tokenRange];
+			NSRect bounds = [layoutManager boundingRectForGlyphRange:tokenRange inTextContainer:textContainer];
+			
+			if (tokenRange.location != NSNotFound) {
+				BOOL selectToken = NO;
+				
+				if ([self.delegate respondsToSelector:@selector(textView:menu:forEvent:forTokenRange:withBounds:keyPath:selectToken:)]) {
+					menu = [(id<LMTextViewDelegate>)self.delegate textView:self menu:menu forEvent:theEvent forTokenRange:tokenRange withBounds:bounds keyPath:path selectToken:&selectToken];
+				}
+				
+				if (selectToken) {
+					[self setSelectedRange:tokenRange];
+				}
+			}
+		}
+    }
+	
+	return menu;
+}
+
 #pragma mark - Mouse Events
 
 - (void)mouseMoved:(NSEvent *)theEvent {
@@ -341,12 +377,12 @@
 	NSLayoutManager *layoutManager = [self layoutManager];
 	NSTextContainer *textContainer = [self textContainer];
 	NSUInteger charIndex = [self charIndexForPoint:[self convertPoint:[theEvent locationInWindow] fromView:nil]];
+	NSRange tokenRange = NSMakeRange(NSNotFound, 0);
     if (charIndex != NSNotFound) {
 		if ([[self.textStorage string] characterAtIndex:charIndex] == 0xFFFC) {
 			
 		}
 		else if (self.parser) {
-			NSRange tokenRange;
 			NSArray* path = [self.parser keyPathForObjectAtRange:NSMakeRange(charIndex, 1) objectRange:&tokenRange];
 			NSRect bounds = [layoutManager boundingRectForGlyphRange:tokenRange inTextContainer:textContainer];
 			

@@ -28,6 +28,10 @@
 - (NSArray*)preferredPasteboardTypesForTextView:(LMTextView*)textView;
 - (NSAttributedString*)textView:(LMTextView*)textView attributedStringFromPasteboard:(NSPasteboard*)pboard type:(NSString*)type range:(NSRange)range;
 
+// Handling Menu
+
+- (NSMenu*)textView:(NSTextView *)view menu:(NSMenu *)menu forEvent:(NSEvent *)event forTokenRange:(NSRange)tokenRange withBounds:(NSRect)bounds keyPath:(NSArray*)keyPath selectToken:(BOOL*)selectToken;
+
 @end
 
 #pragma mark - LMTextView
