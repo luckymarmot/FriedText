@@ -244,11 +244,15 @@
 			}
 		}];
 		
-		if ([self shouldChangeTextInRange:[self rangeForUserTextChange] replacementString:[attributedString string]]) {
-			[[self textStorage] replaceCharactersInRange:[self rangeForUserTextChange] withAttributedString:attributedString];
+		NSRange range = [self rangeForUserTextChange];
+		if ([self shouldChangeTextInRange:range replacementString:[attributedString string]]) {
+			[[self textStorage] replaceCharactersInRange:range withAttributedString:attributedString];
 			[self didChangeText];
 			
 			return YES;
+		}
+		else {
+			NSLog(@"readSelectionFromPasteboard: Text View rejected replacement by %@ at range %@", attributedString, NSStringFromRange(range));
 		}
 	}
 	
