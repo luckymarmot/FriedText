@@ -214,6 +214,9 @@
 
 - (BOOL)readSelectionFromPasteboard:(NSPasteboard *)pboard type:(NSString *)type
 {
+	// Hack: We override the type since there is a bug when drag-and-dropping files
+	type = [self preferredPasteboardTypeFromArray:[pboard types] restrictedToTypesFromArray:nil];
+	
 	NSAttributedString* attributedString = nil;
 	
 	// Try to get an attributed string from the delegate
