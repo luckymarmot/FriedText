@@ -259,6 +259,22 @@
 	return [super readSelectionFromPasteboard:pboard type:type];
 }
 
+- (NSArray *)writablePasteboardTypes
+{
+	// Interesting experiment: without subclassing -writablePasteboardTypes, NSPasteboardTypeRTFD and NSRTFDPboardType are used only when another app supporting rich text such as TextEdit is open...
+	
+	NSMutableArray* writablePasteboardTypes = [[super writablePasteboardTypes] mutableCopy];
+	
+	if (![writablePasteboardTypes containsObject:NSPasteboardTypeRTFD]) {
+		[writablePasteboardTypes addObject:NSPasteboardTypeRTFD];
+	}
+	if (![writablePasteboardTypes containsObject:NSRTFDPboardType]) {
+		[writablePasteboardTypes addObject:NSRTFDPboardType];
+	}
+	
+	return writablePasteboardTypes;
+}
+
 #pragma mark - Helpers
 
 - (NSUInteger)charIndexForPoint:(NSPoint)point
