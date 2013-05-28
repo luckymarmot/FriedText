@@ -14,8 +14,8 @@
 
 - (void)removeAllAttributesExcept:(NSArray *)exceptions
 {
-	[self enumerateAttributesInRange:NSMakeRange(0, [self length]) options:0 usingBlock:^(NSDictionary *attrs, NSRange range, BOOL *stop) {
-		[attrs enumerateKeysAndObjectsWithOptions:0 usingBlock:^(id key, id obj, BOOL *stop) {
+	[self enumerateAttributesInRange:NSMakeRange(0, [self length]) options:kNilOptions usingBlock:^(NSDictionary *attrs, NSRange range, BOOL *stop) {
+		[attrs enumerateKeysAndObjectsWithOptions:kNilOptions usingBlock:^(id key, id obj, BOOL *stop) {
 			if (![exceptions containsObject:key]) {
 				[self removeAttribute:key range:range];
 			}

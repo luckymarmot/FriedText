@@ -237,7 +237,7 @@
 	
 	// If an attributedString is set before, insert it
 	if (attributedString) {
-		[attributedString enumerateAttribute:NSAttachmentAttributeName inRange:NSMakeRange(0, [attributedString length]) options:0 usingBlock:^(id value, NSRange range, BOOL *stop) {
+		[attributedString enumerateAttribute:NSAttachmentAttributeName inRange:NSMakeRange(0, [attributedString length]) options:kNilOptions usingBlock:^(id value, NSRange range, BOOL *stop) {
 			if (value) {
 				NSTextAttachment* textAttachment = value;
 				textAttachment.attachmentCell = [self textAttachmentCellForTextAttachment:textAttachment];
