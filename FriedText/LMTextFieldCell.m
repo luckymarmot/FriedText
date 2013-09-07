@@ -37,7 +37,7 @@
 		}
 		return fieldEditor;
 	}
-	return nil;
+	return nil; // If control is not a LMTextField, use standard field editor
 }
 
 @end

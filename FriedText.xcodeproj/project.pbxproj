@@ -8,6 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		AE04F602170EEA170032338C /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AE04F601170EEA170032338C /* Cocoa.framework */; };
+		AE0F270717D9F84200BBBF9A /* LMCompletionOption.h in Headers */ = {isa = PBXBuildFile; fileRef = AE0F270517D9F84200BBBF9A /* LMCompletionOption.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		AE0F270817D9F84200BBBF9A /* LMCompletionOption.m in Sources */ = {isa = PBXBuildFile; fileRef = AE0F270617D9F84200BBBF9A /* LMCompletionOption.m */; };
+		AE0F270F17DA087D00BBBF9A /* NSString+LMCompletionOption.h in Headers */ = {isa = PBXBuildFile; fileRef = AE0F270D17DA087D00BBBF9A /* NSString+LMCompletionOption.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		AE0F271017DA087D00BBBF9A /* NSString+LMCompletionOption.m in Sources */ = {isa = PBXBuildFile; fileRef = AE0F270E17DA087D00BBBF9A /* NSString+LMCompletionOption.m */; };
 		AE13E6B91723E7DC0038174F /* LMTextScrollView.h in Headers */ = {isa = PBXBuildFile; fileRef = AE461A011723D7D800A86F35 /* LMTextScrollView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		AE13E6BA1723E7DC0038174F /* LMTextView.h in Headers */ = {isa = PBXBuildFile; fileRef = AE461A031723D7D800A86F35 /* LMTextView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		AE13E6BB1723E7DC0038174F /* LMTextField.h in Headers */ = {isa = PBXBuildFile; fileRef = AE9225EF1723D7FC00D73B16 /* LMTextField.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -93,6 +97,10 @@
 /* Begin PBXFileReference section */
 		AE04F5FE170EEA170032338C /* LMTextView Text View.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "LMTextView Text View.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		AE04F601170EEA170032338C /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
+		AE0F270517D9F84200BBBF9A /* LMCompletionOption.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LMCompletionOption.h; path = FriedText/LMCompletionOption.h; sourceTree = SOURCE_ROOT; };
+		AE0F270617D9F84200BBBF9A /* LMCompletionOption.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LMCompletionOption.m; path = FriedText/LMCompletionOption.m; sourceTree = SOURCE_ROOT; };
+		AE0F270D17DA087D00BBBF9A /* NSString+LMCompletionOption.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSString+LMCompletionOption.h"; path = "FriedText/NSString+LMCompletionOption.h"; sourceTree = SOURCE_ROOT; };
+		AE0F270E17DA087D00BBBF9A /* NSString+LMCompletionOption.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSString+LMCompletionOption.m"; path = "FriedText/NSString+LMCompletionOption.m"; sourceTree = SOURCE_ROOT; };
 		AE2503021723C9B700E46A2F /* LMAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LMAppDelegate.h; path = Tests/LMAppDelegate.h; sourceTree = SOURCE_ROOT; };
 		AE2503031723C9B700E46A2F /* LMAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LMAppDelegate.m; path = Tests/LMAppDelegate.m; sourceTree = SOURCE_ROOT; };
 		AE2503061723C9C300E46A2F /* jsmn.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = jsmn.c; path = FriedText/Dependencies/jsmn/jsmn.c; sourceTree = SOURCE_ROOT; };
@@ -239,6 +247,10 @@
 				AE92260E1723D82800D73B16 /* LMCompletionTableView.m */,
 				AE92260F1723D82800D73B16 /* LMCompletionView.h */,
 				AE9226101723D82800D73B16 /* LMCompletionView.m */,
+				AE0F270517D9F84200BBBF9A /* LMCompletionOption.h */,
+				AE0F270617D9F84200BBBF9A /* LMCompletionOption.m */,
+				AE0F270D17DA087D00BBBF9A /* NSString+LMCompletionOption.h */,
+				AE0F270E17DA087D00BBBF9A /* NSString+LMCompletionOption.m */,
 			);
 			name = Completion;
 			path = ../LMTextView;
@@ -458,6 +470,8 @@
 				AE43957917262615009120D2 /* LMFriedTextDefaultColors.h in Headers */,
 				AE83504C172F9D67001C8850 /* NSAttributedString+CocoaExtensions.h in Headers */,
 				AE43957D17262CB4009120D2 /* LMAttributedStringValueTransformer.h in Headers */,
+				AE0F270717D9F84200BBBF9A /* LMCompletionOption.h in Headers */,
+				AE0F270F17DA087D00BBBF9A /* NSString+LMCompletionOption.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -615,6 +629,8 @@
 				AE43957E17262CB4009120D2 /* LMAttributedStringValueTransformer.m in Sources */,
 				AED7BB38172D37B5001BDE14 /* LMXMLTextParser.m in Sources */,
 				AE83504D172F9D67001C8850 /* NSAttributedString+CocoaExtensions.m in Sources */,
+				AE0F270817D9F84200BBBF9A /* LMCompletionOption.m in Sources */,
+				AE0F271017DA087D00BBBF9A /* NSString+LMCompletionOption.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

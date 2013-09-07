@@ -1,6 +1,6 @@
 //
 //  LMTextField.m
-//  TextFieldAutocompletion
+//  LMTextView
 //
 //  Created by Micha Mazaheri on 12/6/12.
 //  Copyright (c) 2012 Lucky Marmot. All rights reserved.
@@ -8,9 +8,6 @@
 
 #import "LMTextView.h"
 #import "LMTextField.h"
-
-#import "LMCompletionView.h"
-#import "LMCompletionTableView.h"
 
 #import <QuartzCore/QuartzCore.h>
 
@@ -26,6 +23,8 @@
 #import "LMTextAttachmentCell.h"
 
 #import "LMFriedTextDefaultColors.h"
+
+#import "LMCompletionOption.h"
 
 /* Pasteboard Constant Values:
  * NSPasteboardTypeRTFD: com.apple.flat-rtfd
@@ -516,7 +515,7 @@
 	return textAttachmentCell;
 }
 
-#pragma mark - Completion
+#pragma mark - NSTextView (NSCompletion)
 
 - (NSRange)rangeForUserCompletion
 {
@@ -524,15 +523,29 @@
 		NSRange range = {NSNotFound, 0};
 		[self.parser keyPathForObjectAtRange:self.selectedRange objectRange:&range];
 		
-		if ([[self string] length] == 0 && range.location == NSNotFound) {
+		if ([[self string] length] == 0) {
 			range = NSMakeRange(0, 0);
+		}
+		else if (range.location == NSNotFound) {
+			range = self.selectedRange;
 		}
 		
 		return range;
 	}
 	else {
+#warning Add delegate method for that use
 		return [super rangeForUserCompletion];
 	}
+}
+
+- (NSArray *)completionsForPartialWordRange:(NSRange)charRange indexOfSelectedItem:(NSInteger *)index
+{
+	NSArray* originalCompletions = [super completionsForPartialWordRange:charRange indexOfSelectedItem:index];
+	NSMutableArray* completions = [NSMutableArray arrayWithCapacity:[originalCompletions count]];
+	for (id<LMCompletionOption>completionOption in originalCompletions) {
+		[completions addObject:[completionOption stringValue]];
+	}
+	return completions;
 }
 
 @end

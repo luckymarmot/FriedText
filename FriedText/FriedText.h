@@ -28,5 +28,6 @@
 #import "LMAttributedStringValueTransformer.h"
 #import "NSObject+TDBindings.h"
 #import "NSAttributedString+CocoaExtensions.h"
+#import "LMCompletionOption.h"
 
 #endif
