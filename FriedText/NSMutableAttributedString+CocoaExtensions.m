@@ -25,11 +25,18 @@
 
 - (void)highlightSyntaxWithParser:(id<LMTextParser>)parser defaultAttributes:(NSDictionary*)defaultAttributes attributesBlock:(NSDictionary *(^)(NSUInteger, NSRange))attributesBlock
 {
+	// Backup the current parser's string block, to restore it after highlighting
+	// It is common pattern to use same parser for field editor and binding value transformer,
+	// so we should care both won't interfere
+	NSString*(^previousParserStringBlock)(void) = [parser stringBlock];
+	
+	// Set custom string block, and invalidate string
 	[parser setStringBlock:^NSString *{
 		return [self string];
 	}];
 	[parser invalidateString];
 	
+	// Batch changes between begin/end editing calls
 	[self beginEditing];
 	
 	// Remove attributes
@@ -40,14 +47,18 @@
 
 	// Set Default Attributes
 	[self addAttributes:defaultAttributes range:NSMakeRange(0, [self.string length])];
-
+	
+	// Call parser's method to set attributes giving the block
 	[parser applyAttributesInRange:NSMakeRange(0, [self length]) withBlock:^(NSUInteger tokenTypeMask, NSRange range) {
 		
 		NSDictionary* attributes = nil;
+		
+		// Trying to use attributes provided by `attributesBlock`
 		if (attributesBlock) {
 			attributes = attributesBlock(tokenTypeMask, range);
 		}
 		
+		// If no attributes set (not even an empty dictionary), set default ones
 		if (attributes == nil) {
 			NSColor* color = nil;
 			switch (tokenTypeMask & LMTextParserTokenTypeMask) {
@@ -67,11 +78,16 @@
 			attributes = @{NSForegroundColorAttributeName: color};
 		}
 		
-		
+		// Set attributes
 		[self addAttributes:attributes range:range];
 	}];
 	
+	// End batch changes
 	[self endEditing];
+	
+	// Restore previous string block & invalidate string
+	[parser setStringBlock:previousParserStringBlock];
+	[parser invalidateString];
 }
 
 @end
