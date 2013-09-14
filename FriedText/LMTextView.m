@@ -25,6 +25,7 @@
 #import "LMFriedTextDefaultColors.h"
 
 #import "LMCompletionOption.h"
+#import "LMCompletionView.h"
 
 /* Pasteboard Constant Values:
  * NSPasteboardTypeRTFD: com.apple.flat-rtfd
@@ -40,6 +41,8 @@
 	NSMutableAttributedString* _originalStringBeforeCompletion;
 	id _insertedString;
 	BOOL _handlingCompletion;
+	LMCompletionView* _completionView;
+	NSWindow* _completionWindow;
 }
 
 @property (strong, nonatomic) NSTimer* timer;
@@ -154,6 +157,16 @@
 {
 	[self highlightSyntax:nil];
 	return [super becomeFirstResponder];
+}
+
+- (BOOL)resignFirstResponder
+{
+	// End autocompletion
+	if (self.enableAutocompletion) {
+		[self complete:nil];
+	}
+	
+	return [super resignFirstResponder];
 }
 
 // Always called before textDidChange:
@@ -574,6 +587,20 @@
 	_insertedString = nil;
 }
 
+- (NSRect)_frameForCompletionWindowRangeForUserCompletion:(NSRange)rangeForUserCompletion
+{
+	// Determine the frame for the completion view in the screen coordinate system
+	NSRect glyphRange = [self.layoutManager boundingRectForGlyphRange:rangeForUserCompletion inTextContainer:self.textContainer];
+	NSRect glyphRangeInTextView = NSOffsetRect(glyphRange, self.textContainerOrigin.x, self.textContainerOrigin.y);
+	CGSize completionViewSize = [_completionView intrinsicContentSize];
+	CGRect completionRect = CGRectMake(round(glyphRangeInTextView.origin.x - _completionView.completionInset.width),
+									   round(glyphRangeInTextView.origin.y + glyphRangeInTextView.size.height - _completionView.completionInset.height),
+									   completionViewSize.width,
+									   completionViewSize.height);
+	NSRect frameInWindow = [self convertRect:completionRect toView:nil];
+	return [self.window convertRectToScreen:frameInWindow];
+}
+
 - (void)complete:(id)sender
 {
 	// If Autocompletion is enabled
@@ -592,12 +619,16 @@
 		
 		NSLog(@"rangeForUserTextChange: %@", NSStringFromRange(rangeForUserTextChange));
 		
+		BOOL updateCompletions = NO;
+		
 		// No completion before, start a new completion session
 		if (insertedStringLength > 0 &&
 			_completionRange.location == NSNotFound) {
 			NSLog(@"START completion");
 			_completionRange = rangeForUserCompletion;
 			_originalStringBeforeCompletion = [[[self textStorage] attributedSubstringFromRange:rangeForUserCompletion] mutableCopy];
+			
+			updateCompletions = YES;
 		}
 		
 		// Continue completion session
@@ -610,6 +641,8 @@
 			
 			NSAttributedString* originalStringToAdd = [[self textStorage] attributedSubstringFromRange:rangeOfInsertedText];
 			[_originalStringBeforeCompletion appendAttributedString:originalStringToAdd];
+			
+			updateCompletions = YES;
 		}
 		
 		// End of completion
@@ -638,6 +671,10 @@
 			else {
 				_completionRange.location = NSNotFound;
 			}
+			
+			// Remove completion window
+			[self.window removeChildWindow:_completionWindow];
+			_completionWindow = nil;
 
 			_originalStringBeforeCompletion = nil;
 		}
@@ -646,6 +683,49 @@
 		else {
 			NSLog(@"ALREADY ENDED");
 		}
+		
+		// On START or CONTINUE completions, set their values
+		if (updateCompletions) {
+			NSInteger indexOfSelectedItem = 0;
+			NSArray* completions = [self completionsForPartialWordRange:rangeForUserCompletion indexOfSelectedItem:&indexOfSelectedItem];
+			
+			if ([completions count] > 0) {
+				
+				// If completion view is nil, create it
+				if (_completionView == nil) {
+					_completionView = [[LMCompletionView alloc] init];
+				}
+				
+				// Set completions in the view
+				[_completionView setCompletions:completions];
+				
+				// If completion window is nil, create it
+				if (_completionWindow == nil) {
+					
+					// Create the completion window
+					_completionWindow = [[NSWindow alloc] initWithContentRect:[self _frameForCompletionWindowRangeForUserCompletion:rangeForUserCompletion] styleMask:NSBorderlessWindowMask backing:NSBackingStoreBuffered defer:NO];
+					_completionWindow.backgroundColor = [NSColor clearColor];
+					[_completionWindow setOpaque:NO];
+					[_completionWindow setAnimationBehavior:NSWindowAnimationBehaviorAlertPanel];
+					[self.window addChildWindow:_completionWindow ordered:NSWindowAbove];
+					
+					// Set the completion view in its window
+					[_completionWindow setContentView:_completionView];
+				}
+				// Set the frame if window already existed
+				else {
+					[_completionWindow setFrame:[self _frameForCompletionWindowRangeForUserCompletion:rangeForUserCompletion] display:YES];
+				}
+			}
+			
+			// When no completions
+			else {
+				// Remove completion window
+				[self.window removeChildWindow:_completionWindow];
+				_completionWindow = nil;
+			}
+		}
+		
 		
 		if (_completionRange.location != NSNotFound) {
 			NSLog(@"Completing Range: %@", NSStringFromRange(_completionRange));

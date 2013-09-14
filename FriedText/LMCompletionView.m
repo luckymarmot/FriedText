@@ -11,10 +11,9 @@
 #import "LMCompletionTableView.h"
 #import "LMCompletionTableCellView.h"
 
-#import "NSView+CocoaExtensions.h"
+#import "LMCompletionOption.h"
 
-NSString* LMCompletionEntryWordKey = @"word";
-NSString* LMCompletionEntryDescriptionKey = @"desc";
+#import "NSView+CocoaExtensions.h"
 
 @interface LMCompletionView () <NSTableViewDataSource, NSTableViewDelegate>
 
@@ -163,7 +162,7 @@ NSString* LMCompletionEntryDescriptionKey = @"desc";
 - (NSView *)tableView:(NSTableView *)tableView viewForTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row
 {
 	LMCompletionTableCellView* view = [[LMCompletionTableCellView alloc] init];
-	view.string = [[_completions objectAtIndex:row] valueForKey:LMCompletionEntryWordKey];
+	view.string = [(id<LMCompletionOption>)[_completions objectAtIndex:row] stringValue];
 	return view;
 }
 
@@ -179,8 +178,8 @@ NSString* LMCompletionEntryDescriptionKey = @"desc";
 - (NSString *)completingString
 {
 	if (self.tableView.selectedRow >= 0) {
-		id completionEntry = [_completions objectAtIndex:self.tableView.selectedRow];
-		return [completionEntry objectForKey:LMCompletionEntryWordKey];
+		id<LMCompletionOption> completionEntry = [_completions objectAtIndex:self.tableView.selectedRow];
+		return [completionEntry stringValue];
 	}
 	else {
 		return nil;
@@ -190,8 +189,13 @@ NSString* LMCompletionEntryDescriptionKey = @"desc";
 - (NSString *)completingDescription
 {
 	if (self.tableView.selectedRow >= 0) {
-		id completionEntry = [_completions objectAtIndex:self.tableView.selectedRow];
-		return [completionEntry objectForKey:LMCompletionEntryDescriptionKey];
+		id<LMCompletionOption> completionEntry = [_completions objectAtIndex:self.tableView.selectedRow];
+		if ([completionEntry respondsToSelector:@selector(comment)]) {
+			return [completionEntry comment];
+		}
+		else {
+			return nil;
+		}
 	}
 	else {
 		return nil;
@@ -201,6 +205,15 @@ NSString* LMCompletionEntryDescriptionKey = @"desc";
 - (void)doubleClicked
 {
 	[self.delegate didSelectCompletingString:[self completingString]];
+}
+
+- (NSSize)intrinsicContentSize
+{
+	CGFloat completionWidth = 300.f;
+	CGFloat completionHeight =	self.tableView.rowHeight * [self.completions count] +
+								self.textFieldHeight +
+								self.completionInset.height * 2;
+	return NSMakeSize(completionWidth, completionHeight);
 }
 
 @end

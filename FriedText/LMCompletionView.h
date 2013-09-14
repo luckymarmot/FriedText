@@ -8,9 +8,6 @@
 
 #import <Cocoa/Cocoa.h>
 
-extern NSString* LMCompletionEntryWordKey;
-extern NSString* LMCompletionEntryDescriptionKey;
-
 @class LMCompletionView;
 
 @protocol LMCompletionViewDelegate <NSObject>
