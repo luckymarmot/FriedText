@@ -35,7 +35,7 @@
 
 #warning Make a smart system to force users to allow rich text if using tokens, while blocking rich text input if needed
 
-@interface LMTextView () {
+@interface LMTextView () <LMCompletionViewDelegate> {
 	NSRect _oldBounds;
 	NSRange _completionRange;
 	NSMutableAttributedString* _originalStringBeforeCompletion;
@@ -570,16 +570,6 @@
 	}
 }
 
-- (NSArray *)completionsForPartialWordRange:(NSRange)charRange indexOfSelectedItem:(NSInteger *)index
-{
-	NSArray* originalCompletions = [super completionsForPartialWordRange:charRange indexOfSelectedItem:index];
-	NSMutableArray* completions = [NSMutableArray arrayWithCapacity:[originalCompletions count]];
-	for (id<LMCompletionOption>completionOption in originalCompletions) {
-		[completions addObject:[completionOption stringValue]];
-	}
-	return completions;
-}
-
 - (void)insertText:(id)insertString
 {
 	_insertedString = insertString;
@@ -599,6 +589,36 @@
 									   completionViewSize.height);
 	NSRect frameInWindow = [self convertRect:completionRect toView:nil];
 	return [self.window convertRectToScreen:frameInWindow];
+}
+
+- (void)doCommandBySelector:(SEL)aSelector
+{
+	BOOL handled = NO;
+	
+	// Completion
+	if (_completionWindow) {
+		if (aSelector == @selector(moveDown:)) {
+			[_completionView selectNextCompletion];
+			handled = YES;
+		}
+		else if (aSelector == @selector(moveUp:)) {
+			[_completionView selectPreviousCompletion];
+			handled = YES;
+		}
+		else if (aSelector == @selector(insertNewline:)) {
+			id<LMCompletionOption>completionOption = [_completionView currentCompletionOption];
+			[self insertCompletion:[completionOption stringValue] forPartialWordRange:[self rangeForUserCompletion] movement:0 isFinal:YES];
+			handled = YES;
+		}
+		else if (aSelector == @selector(cancelOperation:)) {
+			[self complete:nil];
+			handled = YES;
+		}
+	}
+	
+	if (!handled) {
+		[super doCommandBySelector:aSelector];
+	}
 }
 
 - (void)complete:(id)sender
@@ -694,6 +714,7 @@
 				// If completion view is nil, create it
 				if (_completionView == nil) {
 					_completionView = [[LMCompletionView alloc] init];
+					[_completionView setDelegate:self];
 				}
 				
 				// Set completions in the view
@@ -741,6 +762,13 @@
 	else {
 		[super complete:sender];
 	}
+}
+
+#pragma mark - LMCompletionViewDelegate
+
+- (void)didSelectCompletionOption:(id<LMCompletionOption>)completionOption
+{
+	[self insertCompletion:[completionOption stringValue] forPartialWordRange:[self rangeForUserCompletion] movement:0 isFinal:YES];
 }
 
 @end

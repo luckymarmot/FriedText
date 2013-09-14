@@ -11,8 +11,6 @@
 #import "LMCompletionTableView.h"
 #import "LMCompletionTableCellView.h"
 
-#import "LMCompletionOption.h"
-
 #import "NSView+CocoaExtensions.h"
 
 @interface LMCompletionView () <NSTableViewDataSource, NSTableViewDelegate>
@@ -175,6 +173,16 @@
 	[self setNeedsDisplay:YES];
 }
 
+- (id<LMCompletionOption>)currentCompletionOption
+{
+	if (self.tableView.selectedRow >= 0) {
+		return [_completions objectAtIndex:self.tableView.selectedRow];
+	}
+	else {
+		return nil;
+	}
+}
+
 - (NSString *)completingString
 {
 	if (self.tableView.selectedRow >= 0) {
@@ -204,7 +212,7 @@
 
 - (void)doubleClicked
 {
-	[self.delegate didSelectCompletingString:[self completingString]];
+	[self.delegate didSelectCompletionOption:[self currentCompletionOption]];
 }
 
 - (NSSize)intrinsicContentSize

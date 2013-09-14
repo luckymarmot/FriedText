@@ -8,11 +8,13 @@
 
 #import <Cocoa/Cocoa.h>
 
+#import "LMCompletionOption.h"
+
 @class LMCompletionView;
 
 @protocol LMCompletionViewDelegate <NSObject>
 
-- (void)didSelectCompletingString:(NSString*)completingString;
+- (void)didSelectCompletionOption:(id<LMCompletionOption>)completionOption;
 
 @end
 
@@ -28,6 +30,8 @@
 
 @property (nonatomic, readonly) CGFloat textFieldHeight;
 @property (nonatomic, readonly) CGSize completionInset;
+
+- (id<LMCompletionOption>)currentCompletionOption;
 
 - (void)selectNextCompletion;
 - (void)selectPreviousCompletion;
