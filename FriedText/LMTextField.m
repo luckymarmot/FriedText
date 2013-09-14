@@ -160,6 +160,8 @@ NSString* LMTextFieldAttributedStringValueBinding = @"attributedStringValue";
 		[(LMTextView*)[self currentEditor] setUseTemporaryAttributesForSyntaxHighlight:self.useTemporaryAttributesForSyntaxHighlight];
 		
 		[[(LMTextView*)[self currentEditor] textAttachmentCellClasses] setArray:[self textAttachmentCellClasses]];
+		
+		[(LMTextView*)[self currentEditor] setEnableAutocompletion:self.enableAutocompletion];
 	}
 	
 	return result;

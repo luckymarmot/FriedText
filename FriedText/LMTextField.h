@@ -65,4 +65,6 @@ extern NSString* LMTextFieldAttributedStringValueBinding;
  */
 @property (nonatomic) BOOL useTemporaryAttributesForSyntaxHighlight;
 
+@property (nonatomic) BOOL enableAutocompletion;
+
 @end

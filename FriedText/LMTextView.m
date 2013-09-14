@@ -1,5 +1,5 @@
 //
-//  LMTextField.m
+//  LMTextView.m
 //  LMTextView
 //
 //  Created by Micha Mazaheri on 12/6/12.
@@ -36,6 +36,10 @@
 
 @interface LMTextView () {
 	NSRect _oldBounds;
+	NSRange _completionRange;
+	NSMutableAttributedString* _originalStringBeforeCompletion;
+	id _insertedString;
+	BOOL _handlingCompletion;
 }
 
 @property (strong, nonatomic) NSTimer* timer;
@@ -60,6 +64,11 @@
 	[self setTextColor:baseColor];
 	
 	self.useTemporaryAttributesForSyntaxHighlight = YES;
+	
+	_completionRange.location = NSNotFound;
+	_originalStringBeforeCompletion = nil;
+	_insertedString = nil;
+	_handlingCompletion = NO;
 }
 
 - (id)initWithCoder:(NSCoder *)aDecoder
@@ -147,8 +156,10 @@
 	return [super becomeFirstResponder];
 }
 
+// Always called before textDidChange:
 - (void)textStorageDidProcessEditing:(NSNotification*)notification
 {
+//	NSLog(@"textStorageDidProcessEditing:");
 	[self.parser invalidateString];
 }
 
@@ -170,6 +181,9 @@
 
 - (void)textDidChange:(NSNotification *)notification
 {
+//	NSLog(@"textDidChange:");
+	
+	// Syntax Highlighting
 	if (_optimizeHighlightingOnEditing) {
 		if (self.timer != nil) {
 			[self.timer invalidate];
@@ -179,6 +193,11 @@
 	}
 	else {
 		[self highlightSyntax:nil];
+	}
+	
+	// Autocompletion
+	if (self.enableAutocompletion) {
+		[self complete:nil];
 	}
 }
 
@@ -521,19 +540,19 @@
 {
 	if (self.parser) {
 		NSRange range = {NSNotFound, 0};
-		[self.parser keyPathForObjectAtRange:self.selectedRange objectRange:&range];
+		[self.parser keyPathForObjectAtRange:[self rangeForUserTextChange] objectRange:&range];
 		
 		if ([[self string] length] == 0) {
 			range = NSMakeRange(0, 0);
 		}
 		else if (range.location == NSNotFound) {
-			range = self.selectedRange;
+			range = [self rangeForUserTextChange];
 		}
 		
 		return range;
 	}
 	else {
-#warning Add delegate method for that use
+//#warning Add delegate method for that use
 		return [super rangeForUserCompletion];
 	}
 }
@@ -546,6 +565,102 @@
 		[completions addObject:[completionOption stringValue]];
 	}
 	return completions;
+}
+
+- (void)insertText:(id)insertString
+{
+	_insertedString = insertString;
+	[super insertText:insertString];
+	_insertedString = nil;
+}
+
+- (void)complete:(id)sender
+{
+	// If Autocompletion is enabled
+	
+	if (self.enableAutocompletion) {
+		
+		if (_handlingCompletion) {
+			return;
+		}
+		_handlingCompletion = YES;
+		
+		NSRange rangeForUserCompletion = [self rangeForUserCompletion];
+		NSRange rangeForUserTextChange = [self rangeForUserTextChange];
+		NSUInteger insertedStringLength = _insertedString ? [_insertedString length] : 0;
+		NSRange rangeOfInsertedText = NSMakeRange(rangeForUserTextChange.location - insertedStringLength, insertedStringLength);
+		
+		NSLog(@"rangeForUserTextChange: %@", NSStringFromRange(rangeForUserTextChange));
+		
+		// No completion before, start a new completion session
+		if (insertedStringLength > 0 &&
+			_completionRange.location == NSNotFound) {
+			NSLog(@"START completion");
+			_completionRange = rangeForUserCompletion;
+			_originalStringBeforeCompletion = [[[self textStorage] attributedSubstringFromRange:rangeForUserCompletion] mutableCopy];
+		}
+		
+		// Continue completion session
+		else if (insertedStringLength &&
+				 _completionRange.location != NSNotFound &&
+				 _completionRange.location >= rangeForUserCompletion.location &&
+				 _completionRange.location + _completionRange.length <= rangeForUserCompletion.location + rangeForUserCompletion.length) {
+			NSLog(@"CONTINUE completion");
+			_completionRange = rangeForUserCompletion;
+			
+			NSAttributedString* originalStringToAdd = [[self textStorage] attributedSubstringFromRange:rangeOfInsertedText];
+			[_originalStringBeforeCompletion appendAttributedString:originalStringToAdd];
+		}
+		
+		// End of completion
+		else if (_completionRange.location != NSNotFound) {
+			NSLog(@"END completion");
+			
+			NSLog(@"Length: %ld Range: %@", [[self textStorage] length], NSStringFromRange(_completionRange));
+			
+			// There may be characters left in the text storage and have been modified by completions
+			// We need to restore them as they were if there were no completion mechanism
+			if ([[self textStorage] length] > _completionRange.location) {
+				
+				// In the case characters have been deleted
+				if (_completionRange.length + _completionRange.location > [[self textStorage] length]) {
+					[_originalStringBeforeCompletion deleteCharactersInRange:NSMakeRange([[self textStorage] length] - _completionRange.location, _completionRange.location + _completionRange.length - [[self textStorage] length])];
+					_completionRange.length = [[self textStorage] length] - _completionRange.location;
+				}
+				
+				NSAssert(_completionRange.length == [_originalStringBeforeCompletion length], @"Ending completion with a wrong length for original string");
+				
+				[[self textStorage] replaceCharactersInRange:_completionRange withAttributedString:_originalStringBeforeCompletion];
+				_completionRange.location = NSNotFound;
+				
+				[self didChangeText];
+			}
+			else {
+				_completionRange.location = NSNotFound;
+			}
+
+			_originalStringBeforeCompletion = nil;
+		}
+		
+		// Nothing to do, completion is already ended
+		else {
+			NSLog(@"ALREADY ENDED");
+		}
+		
+		if (_completionRange.location != NSNotFound) {
+			NSLog(@"Completing Range: %@", NSStringFromRange(_completionRange));
+			NSLog(@"Completing String: %@", [[[self textStorage] attributedSubstringFromRange:_completionRange] string]);
+			NSLog(@"String Before Completion: %@", [_originalStringBeforeCompletion string]);
+		}
+		
+		_handlingCompletion = NO;
+	}
+	
+	// If not, use system completion mechanism
+	
+	else {
+		[super complete:sender];
+	}
 }
 
 @end

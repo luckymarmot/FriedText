@@ -1,6 +1,6 @@
 //
-//  LMTextField.h
-//  TextFieldAutocompletion
+//  LMTextView.h
+//  LMTextView
 //
 //  Created by Micha Mazaheri on 12/6/12.
 //  Copyright (c) 2012 Lucky Marmot. All rights reserved.
@@ -46,6 +46,8 @@
 @property (nonatomic) BOOL optimizeHighlightingOnEditing;
 
 @property (nonatomic) BOOL useTemporaryAttributesForSyntaxHighlight;
+
+@property (nonatomic) BOOL enableAutocompletion;
 
 + (NSArray*)defaultTextAttachmentCellClasses;
 
