@@ -35,6 +35,8 @@
 
 - (void)selectNextCompletion;
 - (void)selectPreviousCompletion;
+- (void)selectFirstCompletion;
+- (void)selectLastCompletion;
 
 - (NSString*)completingString;
 - (NSString*)completingDescription;

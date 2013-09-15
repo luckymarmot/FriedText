@@ -142,13 +142,25 @@
 
 - (void)selectNextCompletion
 {
-	[self.tableView selectRowIndexes:[NSIndexSet indexSetWithIndex:MIN(self.tableView.numberOfRows, self.tableView.selectedRow + 1)] byExtendingSelection:NO];
+	[self.tableView selectRowIndexes:[NSIndexSet indexSetWithIndex:MIN(self.tableView.numberOfRows - 1, self.tableView.selectedRow + 1)] byExtendingSelection:NO];
 	[self.tableView scrollRowToVisible:self.tableView.selectedRow];
 }
 
 - (void)selectPreviousCompletion
 {
 	[self.tableView selectRowIndexes:[NSIndexSet indexSetWithIndex:MAX(0, self.tableView.selectedRow - 1)] byExtendingSelection:NO];
+	[self.tableView scrollRowToVisible:self.tableView.selectedRow];
+}
+
+- (void)selectFirstCompletion
+{
+	[self.tableView selectRowIndexes:[NSIndexSet indexSetWithIndex:0] byExtendingSelection:NO];
+	[self.tableView scrollRowToVisible:self.tableView.selectedRow];
+}
+
+- (void)selectLastCompletion
+{
+	[self.tableView selectRowIndexes:[NSIndexSet indexSetWithIndex:self.tableView.numberOfRows - 1] byExtendingSelection:NO];
 	[self.tableView scrollRowToVisible:self.tableView.selectedRow];
 }
 
@@ -218,7 +230,7 @@
 - (NSSize)intrinsicContentSize
 {
 	CGFloat completionWidth = 300.f;
-	CGFloat completionHeight =	self.tableView.rowHeight * [self.completions count] +
+	CGFloat completionHeight =	self.tableView.rowHeight * MIN([self.completions count], 10) +
 								self.textFieldHeight +
 								self.completionInset.height * 2;
 	return NSMakeSize(completionWidth, completionHeight);

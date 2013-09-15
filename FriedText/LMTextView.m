@@ -614,6 +614,14 @@
 			[self complete:nil];
 			handled = YES;
 		}
+		else if (aSelector == @selector(moveToBeginningOfDocument:)) {
+			[_completionView selectFirstCompletion];
+			handled = YES;
+		}
+		else if (aSelector == @selector(moveToEndOfDocument:)) {
+			[_completionView selectLastCompletion];
+			handled = YES;
+		}
 	}
 	
 	if (!handled) {
