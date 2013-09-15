@@ -28,6 +28,8 @@
 #import "NSString+LMCompletionOption.h"
 #import "LMCompletionView.h"
 
+#define NSLog(...)
+
 /* Pasteboard Constant Values:
  * NSPasteboardTypeRTFD: com.apple.flat-rtfd
  * kUTTypeFlatRTFD: com.apple.flat-rtfd
@@ -40,6 +42,7 @@ typedef enum {
 	LMCompletionEventTextDidChange,
 	LMCompletionEventResignFirstResponder,
 	LMCompletionEventSystemCompletion,
+	LMCompletionEventFinalCompletionInserted,
 } LMCompletionEventType;
 
 @interface LMTextView () <LMCompletionViewDelegate> {
@@ -696,7 +699,9 @@ typedef enum {
 		
 		// There may be characters left in the text storage and have been modified by completions
 		// We need to restore them as they were if there were no completion mechanism
-		if ([[self textStorage] length] > _completionRange.location) {
+		// We shouldn't replace by original completion if called by insertCompletion: for final insertions
+		if ([[self textStorage] length] > _completionRange.location &&
+			completionEvent != LMCompletionEventFinalCompletionInserted) {
 			
 			// In the case characters have been deleted
 			if (_completionRange.length + _completionRange.location > [[self textStorage] length]) {
@@ -799,8 +804,28 @@ typedef enum {
 {
 	NSAssert(self.enableAutocompletion, @"Calling -insertCompletionOption:inRange:isFinal when using system completion");
 	
-	[[self textStorage] replaceCharactersInRange:range withString:[completionOption stringValue]];
-	[self didChangeText];
+	// TODO: handle non final insertions (XCode style)
+	if (!isFinal) {
+		return;
+	}
+	
+	// We need to set the _handlingCompletion flag here too
+	// because calling didChangeText triggers _handleCompletion:
+	if (_handlingCompletion) {
+		return;
+	}
+	_handlingCompletion = YES;
+	
+	if ([self shouldChangeTextInRange:range replacementString:[completionOption stringValue]]) {
+		[[self textStorage] beginEditing];
+		[[self textStorage] replaceCharactersInRange:range withString:[completionOption stringValue]];
+		[[self textStorage] endEditing];
+		[self didChangeText];
+	}
+	
+	_handlingCompletion = NO;
+	
+	[self _handleCompletion:LMCompletionEventFinalCompletionInserted];
 }
 
 - (void)insertCompletion:(NSString *)word forPartialWordRange:(NSRange)charRange movement:(NSInteger)movement isFinal:(BOOL)flag
