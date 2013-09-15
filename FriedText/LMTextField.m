@@ -294,6 +294,16 @@ NSString* LMTextFieldAttributedStringValueBinding = @"attributedStringValue";
 	}
 }
 
+- (LMCompletionView *)completionViewForTextView:(LMTextView *)textView
+{
+	if (self.delegate && [self.delegate respondsToSelector:@selector(completionViewForTextField:fieldEditor:)]) {
+		return [(id<LMTextFieldDelegate>)self.delegate completionViewForTextField:self fieldEditor:textView];
+	}
+	else {
+		return nil;
+	}
+}
+
 #pragma mark - Observing Frame / Bounds
 
 - (void)frameDidChange:(NSNotification*)notification

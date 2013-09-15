@@ -744,6 +744,7 @@ typedef enum {
 		// Remove completion window
 		[self.window removeChildWindow:_completionWindow];
 		_completionWindow = nil;
+		_completionView = nil;
 		
 		_originalStringBeforeCompletion = nil;
 	}
@@ -762,7 +763,15 @@ typedef enum {
 			
 			// If completion view is nil, create it
 			if (_completionView == nil) {
-				_completionView = [[LMCompletionView alloc] init];
+				// Try to use delegate's completion view
+				if (self.delegate && [self.delegate respondsToSelector:@selector(completionViewForTextView:)]) {
+					_completionView = [(id<LMTextViewDelegate>)self.delegate completionViewForTextView:self];
+				}
+				// If delegate didn't set the view, init the default one
+				if (_completionView == nil) {
+					_completionView = [[LMCompletionView alloc] init];
+				}
+				// Set self as delegate
 				[_completionView setDelegate:self];
 			}
 			
@@ -793,6 +802,7 @@ typedef enum {
 			// Remove completion window
 			[self.window removeChildWindow:_completionWindow];
 			_completionWindow = nil;
+			_completionView = nil;
 		}
 	}
 	

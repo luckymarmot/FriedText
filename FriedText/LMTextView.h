@@ -10,7 +10,7 @@
 
 #import "LMTextParser.h"
 
-@class LMTextView, LMTextField;
+@class LMTextView, LMTextField, LMCompletionView;
 
 
 #pragma mark - LMTextViewDelegate
@@ -35,6 +35,7 @@
 // Handling Completion
 
 - (NSValue*)rangeForUserCompletionInTextView:(LMTextView*)textView;
+- (LMCompletionView*)completionViewForTextView:(LMTextView*)textView;
 
 @end
 

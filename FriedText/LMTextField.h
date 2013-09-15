@@ -13,7 +13,7 @@
 
 extern NSString* LMTextFieldAttributedStringValueBinding;
 
-@class LMTextField;
+@class LMTextField, LMCompletionView;
 
 
 #pragma mark - LMTextFieldDelegate
@@ -45,6 +45,8 @@ extern NSString* LMTextFieldAttributedStringValueBinding;
 - (NSArray *)textField:(LMTextField*)textField fieldEditor:(LMTextView *)fieldEditor completions:(NSArray *)words forPartialWordRange:(NSRange)charRange indexOfSelectedItem:(NSInteger *)index;
 
 - (NSValue*)rangeForUserCompletionInTextField:(LMTextField*)textField fieldEditor:(LMTextView*)fieldEditor;
+
+- (LMCompletionView*)completionViewForTextField:(LMTextField*)textField fieldEditor:(LMTextView*)fieldEditor;
 
 @end
 
