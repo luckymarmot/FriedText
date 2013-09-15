@@ -35,6 +35,12 @@
 
 #warning Make a smart system to force users to allow rich text if using tokens, while blocking rich text input if needed
 
+typedef enum {
+	LMCompletionEventTextDidChange,
+	LMCompletionEventResignFirstResponder,
+	LMCompletionEventSystemCompletion,
+} LMCompletionEventType;
+
 @interface LMTextView () <LMCompletionViewDelegate> {
 	NSRect _oldBounds;
 	NSRange _completionRange;
@@ -163,7 +169,7 @@
 {
 	// End autocompletion
 	if (self.enableAutocompletion) {
-		[self complete:nil];
+		[self _handleCompletion:LMCompletionEventResignFirstResponder];
 	}
 	
 	return [super resignFirstResponder];
@@ -210,7 +216,7 @@
 	
 	// Autocompletion
 	if (self.enableAutocompletion) {
-		[self complete:nil];
+		[self _handleCompletion:LMCompletionEventTextDidChange];
 	}
 }
 
@@ -629,140 +635,156 @@
 	}
 }
 
-- (void)complete:(id)sender
+- (void)_handleCompletion:(LMCompletionEventType)completionEvent
 {
-	// If Autocompletion is enabled
+	NSAssert(self.enableAutocompletion, @"Called _handleCompletion when enableAutocompletion is NO");
 	
-	if (self.enableAutocompletion) {
+	if (_handlingCompletion) {
+		return;
+	}
+	_handlingCompletion = YES;
+	
+	NSRange rangeForUserCompletion = [self rangeForUserCompletion];
+	NSRange rangeForUserTextChange = [self rangeForUserTextChange];
+	NSUInteger insertedStringLength = _insertedString ? [_insertedString length] : 0;
+	NSRange rangeOfInsertedText = NSMakeRange(rangeForUserTextChange.location - insertedStringLength, insertedStringLength);
+	
+	NSLog(@"rangeForUserTextChange: %@", NSStringFromRange(rangeForUserTextChange));
+	
+	BOOL updateCompletions = NO;
+	
+	// START completion session
+	// No completion before, start a new completion session
+	
+	if ((
+			(completionEvent == LMCompletionEventTextDidChange && insertedStringLength > 0) ||
+			completionEvent == LMCompletionEventSystemCompletion
+		 ) &&
+		_completionRange.location == NSNotFound) {
+		NSLog(@"START completion");
+		_completionRange = rangeForUserCompletion;
+		_originalStringBeforeCompletion = [[[self textStorage] attributedSubstringFromRange:rangeForUserCompletion] mutableCopy];
 		
-		if (_handlingCompletion) {
-			return;
-		}
-		_handlingCompletion = YES;
+		updateCompletions = YES;
+	}
+	
+	// CONTINUE completion session
+	
+	else if ((
+				(completionEvent == LMCompletionEventTextDidChange && insertedStringLength > 0) ||
+				completionEvent == LMCompletionEventSystemCompletion
+			  ) &&
+			 _completionRange.location != NSNotFound &&
+			 _completionRange.location >= rangeForUserCompletion.location &&
+			 _completionRange.location + _completionRange.length <= rangeForUserCompletion.location + rangeForUserCompletion.length) {
+		NSLog(@"CONTINUE completion");
+		_completionRange = rangeForUserCompletion;
 		
-		NSRange rangeForUserCompletion = [self rangeForUserCompletion];
-		NSRange rangeForUserTextChange = [self rangeForUserTextChange];
-		NSUInteger insertedStringLength = _insertedString ? [_insertedString length] : 0;
-		NSRange rangeOfInsertedText = NSMakeRange(rangeForUserTextChange.location - insertedStringLength, insertedStringLength);
+		NSAttributedString* originalStringToAdd = [[self textStorage] attributedSubstringFromRange:rangeOfInsertedText];
+		[_originalStringBeforeCompletion appendAttributedString:originalStringToAdd];
 		
-		NSLog(@"rangeForUserTextChange: %@", NSStringFromRange(rangeForUserTextChange));
+		updateCompletions = YES;
+	}
+	
+	// END completion session
+	
+	else if (_completionRange.location != NSNotFound) {
+		NSLog(@"END completion");
 		
-		BOOL updateCompletions = NO;
+		NSLog(@"Length: %ld Range: %@", [[self textStorage] length], NSStringFromRange(_completionRange));
 		
-		// No completion before, start a new completion session
-		if (insertedStringLength > 0 &&
-			_completionRange.location == NSNotFound) {
-			NSLog(@"START completion");
-			_completionRange = rangeForUserCompletion;
-			_originalStringBeforeCompletion = [[[self textStorage] attributedSubstringFromRange:rangeForUserCompletion] mutableCopy];
+		// There may be characters left in the text storage and have been modified by completions
+		// We need to restore them as they were if there were no completion mechanism
+		if ([[self textStorage] length] > _completionRange.location) {
 			
-			updateCompletions = YES;
-		}
-		
-		// Continue completion session
-		else if (insertedStringLength &&
-				 _completionRange.location != NSNotFound &&
-				 _completionRange.location >= rangeForUserCompletion.location &&
-				 _completionRange.location + _completionRange.length <= rangeForUserCompletion.location + rangeForUserCompletion.length) {
-			NSLog(@"CONTINUE completion");
-			_completionRange = rangeForUserCompletion;
-			
-			NSAttributedString* originalStringToAdd = [[self textStorage] attributedSubstringFromRange:rangeOfInsertedText];
-			[_originalStringBeforeCompletion appendAttributedString:originalStringToAdd];
-			
-			updateCompletions = YES;
-		}
-		
-		// End of completion
-		else if (_completionRange.location != NSNotFound) {
-			NSLog(@"END completion");
-			
-			NSLog(@"Length: %ld Range: %@", [[self textStorage] length], NSStringFromRange(_completionRange));
-			
-			// There may be characters left in the text storage and have been modified by completions
-			// We need to restore them as they were if there were no completion mechanism
-			if ([[self textStorage] length] > _completionRange.location) {
-				
-				// In the case characters have been deleted
-				if (_completionRange.length + _completionRange.location > [[self textStorage] length]) {
-					[_originalStringBeforeCompletion deleteCharactersInRange:NSMakeRange([[self textStorage] length] - _completionRange.location, _completionRange.location + _completionRange.length - [[self textStorage] length])];
-					_completionRange.length = [[self textStorage] length] - _completionRange.location;
-				}
-				
-				NSAssert(_completionRange.length == [_originalStringBeforeCompletion length], @"Ending completion with a wrong length for original string");
-				
-				[[self textStorage] replaceCharactersInRange:_completionRange withAttributedString:_originalStringBeforeCompletion];
-				_completionRange.location = NSNotFound;
-				
-				[self didChangeText];
+			// In the case characters have been deleted
+			if (_completionRange.length + _completionRange.location > [[self textStorage] length]) {
+				[_originalStringBeforeCompletion deleteCharactersInRange:NSMakeRange([[self textStorage] length] - _completionRange.location, _completionRange.location + _completionRange.length - [[self textStorage] length])];
+				_completionRange.length = [[self textStorage] length] - _completionRange.location;
 			}
+			
+			NSAssert(_completionRange.length == [_originalStringBeforeCompletion length], @"Ending completion with a wrong length for original string");
+			
+			[[self textStorage] replaceCharactersInRange:_completionRange withAttributedString:_originalStringBeforeCompletion];
+			_completionRange.location = NSNotFound;
+			
+			[self didChangeText];
+		}
+		else {
+			_completionRange.location = NSNotFound;
+		}
+		
+		// Remove completion window
+		[self.window removeChildWindow:_completionWindow];
+		_completionWindow = nil;
+		
+		_originalStringBeforeCompletion = nil;
+	}
+	
+	// Nothing to do, completion is already ended
+	else {
+		NSLog(@"ALREADY ENDED");
+	}
+	
+	// On START or CONTINUE completions, set their values
+	if (updateCompletions) {
+		NSInteger indexOfSelectedItem = 0;
+		NSArray* completions = [self completionsForPartialWordRange:rangeForUserCompletion indexOfSelectedItem:&indexOfSelectedItem];
+		
+		if ([completions count] > 0) {
+			
+			// If completion view is nil, create it
+			if (_completionView == nil) {
+				_completionView = [[LMCompletionView alloc] init];
+				[_completionView setDelegate:self];
+			}
+			
+			// Set completions in the view
+			[_completionView setCompletions:completions];
+			
+			// If completion window is nil, create it
+			if (_completionWindow == nil) {
+				
+				// Create the completion window
+				_completionWindow = [[NSWindow alloc] initWithContentRect:[self _frameForCompletionWindowRangeForUserCompletion:rangeForUserCompletion] styleMask:NSBorderlessWindowMask backing:NSBackingStoreBuffered defer:NO];
+				_completionWindow.backgroundColor = [NSColor clearColor];
+				[_completionWindow setOpaque:NO];
+				[_completionWindow setAnimationBehavior:NSWindowAnimationBehaviorAlertPanel];
+				[self.window addChildWindow:_completionWindow ordered:NSWindowAbove];
+				
+				// Set the completion view in its window
+				[_completionWindow setContentView:_completionView];
+			}
+			// Set the frame if window already existed
 			else {
-				_completionRange.location = NSNotFound;
+				[_completionWindow setFrame:[self _frameForCompletionWindowRangeForUserCompletion:rangeForUserCompletion] display:YES];
 			}
-			
+		}
+		
+		// When no completions
+		else {
 			// Remove completion window
 			[self.window removeChildWindow:_completionWindow];
 			_completionWindow = nil;
+		}
+	}
+	
+	
+	if (_completionRange.location != NSNotFound) {
+		NSLog(@"Completing Range: %@", NSStringFromRange(_completionRange));
+		NSLog(@"Completing String: %@", [[[self textStorage] attributedSubstringFromRange:_completionRange] string]);
+		NSLog(@"String Before Completion: %@", [_originalStringBeforeCompletion string]);
+	}
+	
+	_handlingCompletion = NO;
+}
 
-			_originalStringBeforeCompletion = nil;
-		}
-		
-		// Nothing to do, completion is already ended
-		else {
-			NSLog(@"ALREADY ENDED");
-		}
-		
-		// On START or CONTINUE completions, set their values
-		if (updateCompletions) {
-			NSInteger indexOfSelectedItem = 0;
-			NSArray* completions = [self completionsForPartialWordRange:rangeForUserCompletion indexOfSelectedItem:&indexOfSelectedItem];
-			
-			if ([completions count] > 0) {
-				
-				// If completion view is nil, create it
-				if (_completionView == nil) {
-					_completionView = [[LMCompletionView alloc] init];
-					[_completionView setDelegate:self];
-				}
-				
-				// Set completions in the view
-				[_completionView setCompletions:completions];
-				
-				// If completion window is nil, create it
-				if (_completionWindow == nil) {
-					
-					// Create the completion window
-					_completionWindow = [[NSWindow alloc] initWithContentRect:[self _frameForCompletionWindowRangeForUserCompletion:rangeForUserCompletion] styleMask:NSBorderlessWindowMask backing:NSBackingStoreBuffered defer:NO];
-					_completionWindow.backgroundColor = [NSColor clearColor];
-					[_completionWindow setOpaque:NO];
-					[_completionWindow setAnimationBehavior:NSWindowAnimationBehaviorAlertPanel];
-					[self.window addChildWindow:_completionWindow ordered:NSWindowAbove];
-					
-					// Set the completion view in its window
-					[_completionWindow setContentView:_completionView];
-				}
-				// Set the frame if window already existed
-				else {
-					[_completionWindow setFrame:[self _frameForCompletionWindowRangeForUserCompletion:rangeForUserCompletion] display:YES];
-				}
-			}
-			
-			// When no completions
-			else {
-				// Remove completion window
-				[self.window removeChildWindow:_completionWindow];
-				_completionWindow = nil;
-			}
-		}
-		
-		
-		if (_completionRange.location != NSNotFound) {
-			NSLog(@"Completing Range: %@", NSStringFromRange(_completionRange));
-			NSLog(@"Completing String: %@", [[[self textStorage] attributedSubstringFromRange:_completionRange] string]);
-			NSLog(@"String Before Completion: %@", [_originalStringBeforeCompletion string]);
-		}
-		
-		_handlingCompletion = NO;
+- (void)complete:(id)sender
+{
+	// Use LMTextView's custom completion mechanism
+	
+	if (self.enableAutocompletion) {
+		[self _handleCompletion:LMCompletionEventSystemCompletion];
 	}
 	
 	// If not, use system completion mechanism
