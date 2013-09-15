@@ -32,6 +32,10 @@
 
 - (NSMenu*)textView:(NSTextView *)view menu:(NSMenu *)menu forEvent:(NSEvent *)event forTokenRange:(NSRange)tokenRange withBounds:(NSRect)bounds keyPath:(NSArray*)keyPath selectToken:(BOOL*)selectToken;
 
+// Handling Completion
+
+- (NSValue*)rangeForUserCompletionInTextView:(LMTextView*)textView;
+
 @end
 
 #pragma mark - LMTextView

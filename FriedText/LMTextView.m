@@ -562,6 +562,14 @@ typedef enum {
 
 - (NSRange)rangeForUserCompletion
 {
+	// Check if delegate can handle it (delegate may return nil as the value to set the default behavior)
+	if (self.delegate && [self.delegate respondsToSelector:@selector(rangeForUserCompletionInTextView:)]) {
+		NSValue* range = [(id<LMTextViewDelegate>)self.delegate rangeForUserCompletionInTextView:self];
+		if (range) {
+			return [range rangeValue];
+		}
+	}
+	
 	if (self.parser) {
 		NSRange range = {NSNotFound, 0};
 		[self.parser keyPathForObjectAtRange:[self rangeForUserTextChange] objectRange:&range];
@@ -576,7 +584,6 @@ typedef enum {
 		return range;
 	}
 	else {
-//#warning Add delegate method for that use
 		return [super rangeForUserCompletion];
 	}
 }

@@ -24,8 +24,6 @@ extern NSString* LMTextFieldAttributedStringValueBinding;
 
 - (void)textField:(LMTextField*)textField fieldEditor:(LMTextView*)fieldEditor mouseDownForTokenAtRange:(NSRange)range withBounds:(NSRect)bounds keyPath:(NSArray*)keyPath;
 
-- (NSArray *)textField:(LMTextField*)textField fieldEditor:(LMTextView *)fieldEditor completions:(NSArray *)words forPartialWordRange:(NSRange)charRange indexOfSelectedItem:(NSInteger *)index;
-
 - (void)textField:(LMTextField *)textField textDidChangeWithFieldEditor:(LMTextView *)fieldEditor;
 
 - (NSDictionary*)textField:(LMTextField *)textField fieldEditor:(LMTextView*)fieldEditor attributesForTextWithParser:(id<LMTextParser>)parser tokenMask:(NSUInteger)parserTokenMask atRange:(NSRange)range;
@@ -41,6 +39,12 @@ extern NSString* LMTextFieldAttributedStringValueBinding;
 - (NSArray*)preferredPasteboardTypesForTextField:(LMTextField *)textField fieldEditor:(LMTextView *)fieldEditor;
 
 - (NSAttributedString*)textField:(LMTextField *)textField fieldEditor:(LMTextView *)fieldEditor attributedStringFromPasteboard:(NSPasteboard*)pboard type:(NSString*)type range:(NSRange)range;
+
+// Handling User Completion
+
+- (NSArray *)textField:(LMTextField*)textField fieldEditor:(LMTextView *)fieldEditor completions:(NSArray *)words forPartialWordRange:(NSRange)charRange indexOfSelectedItem:(NSInteger *)index;
+
+- (NSValue*)rangeForUserCompletionInTextField:(LMTextField*)textField fieldEditor:(LMTextView*)fieldEditor;
 
 @end
 
