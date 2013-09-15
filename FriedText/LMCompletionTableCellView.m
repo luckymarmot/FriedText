@@ -68,7 +68,17 @@
 											   textColor, NSForegroundColorAttributeName,
 											   textStyle, NSParagraphStyleAttributeName, nil];
 	
-	[self.string drawInRect: textRect withAttributes: textFontAttributes];
+	id<LMCompletionOption>completionOption = [self completionOption];
+	if ([completionOption respondsToSelector:@selector(attributedStringValue)]) {
+		NSMutableAttributedString* attributedString = [[completionOption attributedStringValue] mutableCopy];
+		[attributedString addAttributes:textFontAttributes range:NSMakeRange(0, [attributedString length])];
+		[attributedString drawInRect: textRect];
+	}
+	else {
+		[[completionOption stringValue] drawInRect: textRect withAttributes: textFontAttributes];
+	}
+	
+	
 	[NSGraphicsContext restoreGraphicsState];
 }
 

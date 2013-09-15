@@ -7,9 +7,10 @@
 //
 
 #import <Cocoa/Cocoa.h>
+#import "LMCompletionOption.h"
 
 @interface LMCompletionTableCellView : NSTableCellView
 
-@property (strong) NSString* string;
+@property (strong) id<LMCompletionOption>completionOption;
 
 @end

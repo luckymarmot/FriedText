@@ -13,9 +13,9 @@
 
 #import "NSView+CocoaExtensions.h"
 
-@interface LMCompletionView () <NSTableViewDataSource, NSTableViewDelegate>
-
-@property (strong) NSString* lastCompletingString;
+@interface LMCompletionView () <NSTableViewDataSource, NSTableViewDelegate> {
+	id<LMCompletionOption> _lastCompletionOption;
+}
 
 @end
 
@@ -27,6 +27,7 @@
     if (self) {
 		_textFieldHeight = 40.f;
 		_completionInset = CGSizeMake(10.f, 10.f);
+		_lastCompletionOption = nil;
 		
 		NSRect scrollViewFrame = NSMakeRect(_completionInset.width,
 											_textFieldHeight + _completionInset.height,
@@ -110,7 +111,7 @@
 	[textStyle setAlignment: NSLeftTextAlignment];
 	
 	NSFont* font = [NSFont systemFontOfSize:10.f];
-	NSString* completingDescription = [self completingDescription];
+	NSString* completingDescription = [self currentCompletionComment];
 	if ([completingDescription length] == 0) {
 		font = [[NSFontManager sharedFontManager] convertFont:[NSFont fontWithName:@"Helvetica" size:10.f] toHaveTrait:NSItalicFontMask];
 		completingDescription = @"No description";
@@ -136,7 +137,7 @@
 	
 	[self.tableView reloadData];
 	
-	NSInteger row = [completions indexOfObject:self.lastCompletingString];
+	NSInteger row = [completions indexOfObject:_lastCompletionOption];
 	[self.tableView selectRowIndexes:[NSIndexSet indexSetWithIndex:(row == NSNotFound ? 0 : row)] byExtendingSelection:NO];
 }
 
@@ -172,15 +173,15 @@
 - (NSView *)tableView:(NSTableView *)tableView viewForTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row
 {
 	LMCompletionTableCellView* view = [[LMCompletionTableCellView alloc] init];
-	view.string = [(id<LMCompletionOption>)[_completions objectAtIndex:row] stringValue];
+	view.completionOption = [_completions objectAtIndex:row];
 	return view;
 }
 
 - (void)tableViewSelectionDidChange:(NSNotification *)notification
 {
-	[self willChangeValueForKey:@"completingString"];
-	[self didChangeValueForKey:@"completingString"];
-	self.lastCompletingString = self.completingString;
+	[self willChangeValueForKey:@"currentCompletionOption"];
+	[self didChangeValueForKey:@"currentCompletionOption"];
+	_lastCompletionOption = [self currentCompletionOption];
 	[self setWantsLayer:NO];
 	[self setNeedsDisplay:YES];
 }
@@ -195,7 +196,7 @@
 	}
 }
 
-- (NSString *)completingString
+- (NSString *)currentCompletionString
 {
 	if (self.tableView.selectedRow >= 0) {
 		id<LMCompletionOption> completionEntry = [_completions objectAtIndex:self.tableView.selectedRow];
@@ -206,7 +207,7 @@
 	}
 }
 
-- (NSString *)completingDescription
+- (NSString *)currentCompletionComment
 {
 	if (self.tableView.selectedRow >= 0) {
 		id<LMCompletionOption> completionEntry = [_completions objectAtIndex:self.tableView.selectedRow];

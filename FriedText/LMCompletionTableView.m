@@ -25,6 +25,7 @@
 		self.backgroundColor = [NSColor clearColor];
 		self.selectionHighlightStyle = NSTableViewSelectionHighlightStyleNone;
 		self.intercellSpacing = NSMakeSize(0.f, 0.f);
+		self.rowHeight = 20.f;
     }
     
     return self;

@@ -15,6 +15,7 @@
 @optional
 
 - (NSString*)comment;
+- (NSAttributedString*)attributedStringValue;
 
 @end
 

@@ -38,8 +38,8 @@
 - (void)selectFirstCompletion;
 - (void)selectLastCompletion;
 
-- (NSString*)completingString;
-- (NSString*)completingDescription;
+- (NSString*)currentCompletionString;
+- (NSString*)currentCompletionComment;
 
 - (void)doubleClicked;
 

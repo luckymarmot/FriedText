@@ -816,10 +816,23 @@ typedef enum {
 	}
 	_handlingCompletion = YES;
 	
-	if ([self shouldChangeTextInRange:range replacementString:[completionOption stringValue]]) {
-		[[self textStorage] beginEditing];
-		[[self textStorage] replaceCharactersInRange:range withString:[completionOption stringValue]];
-		[[self textStorage] endEditing];
+	NSString* completionString = nil;
+	NSAttributedString* completionAttributedString = nil;
+	if ([completionOption respondsToSelector:@selector(attributedStringValue)]) {
+		completionAttributedString = [completionOption attributedStringValue];
+		completionString = [completionAttributedString string];
+	}
+	else {
+		completionString = [completionOption stringValue];
+	}
+	
+	if ([self shouldChangeTextInRange:range replacementString:completionString]) {
+		if (completionAttributedString) {
+			[[self textStorage] replaceCharactersInRange:range withAttributedString:completionAttributedString];
+		}
+		else {
+			[[self textStorage] replaceCharactersInRange:range withString:[completionOption stringValue]];
+		}
 		[self didChangeText];
 	}
 	
