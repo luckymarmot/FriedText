@@ -25,6 +25,7 @@
 #import "LMFriedTextDefaultColors.h"
 
 #import "LMCompletionOption.h"
+#import "NSString+LMCompletionOption.h"
 #import "LMCompletionView.h"
 
 /* Pasteboard Constant Values:
@@ -613,7 +614,7 @@ typedef enum {
 		}
 		else if (aSelector == @selector(insertNewline:)) {
 			id<LMCompletionOption>completionOption = [_completionView currentCompletionOption];
-			[self insertCompletion:[completionOption stringValue] forPartialWordRange:[self rangeForUserCompletion] movement:0 isFinal:YES];
+			[self insertCompletionOption:completionOption inRange:[self rangeForUserCompletion] isFinal:YES];
 			handled = YES;
 		}
 		else if (aSelector == @selector(cancelOperation:)) {
@@ -794,11 +795,29 @@ typedef enum {
 	}
 }
 
+- (void)insertCompletionOption:(id<LMCompletionOption>)completionOption inRange:(NSRange)range isFinal:(BOOL)isFinal
+{
+	NSAssert(self.enableAutocompletion, @"Calling -insertCompletionOption:inRange:isFinal when using system completion");
+	
+	[[self textStorage] replaceCharactersInRange:range withString:[completionOption stringValue]];
+	[self didChangeText];
+}
+
+- (void)insertCompletion:(NSString *)word forPartialWordRange:(NSRange)charRange movement:(NSInteger)movement isFinal:(BOOL)flag
+{
+	if (self.enableAutocompletion) {
+		[self insertCompletionOption:word inRange:charRange isFinal:flag];
+	}
+	else {
+		[super insertCompletion:word forPartialWordRange:charRange movement:movement isFinal:flag];
+	}
+}
+
 #pragma mark - LMCompletionViewDelegate
 
 - (void)didSelectCompletionOption:(id<LMCompletionOption>)completionOption
 {
-	[self insertCompletion:[completionOption stringValue] forPartialWordRange:[self rangeForUserCompletion] movement:0 isFinal:YES];
+	[self insertCompletionOption:completionOption inRange:[self rangeForUserCompletion] isFinal:YES];
 }
 
 @end
