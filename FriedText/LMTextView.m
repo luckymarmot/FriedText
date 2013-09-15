@@ -43,6 +43,7 @@ typedef enum {
 	LMCompletionEventResignFirstResponder,
 	LMCompletionEventSystemCompletion,
 	LMCompletionEventFinalCompletionInserted,
+	LMCompletionEventEscapeKey,
 } LMCompletionEventType;
 
 @interface LMTextView () <LMCompletionViewDelegate> {
@@ -601,6 +602,23 @@ typedef enum {
 	return [self.window convertRectToScreen:frameInWindow];
 }
 
+- (void)keyDown:(NSEvent *)theEvent
+{
+	// This fixes a weird Cocoa behavior: in some cases, ESCAPE key is handled in keyDown:
+	// to remove focus on the text field before we can handle completion: or doCoomandBySelector:
+	if (theEvent.keyCode == 53 /* ESCAPE Key */) {
+		if (_completionWindow == nil) {
+			[self _handleCompletion:LMCompletionEventSystemCompletion];
+		}
+		else {
+			[self _handleCompletion:LMCompletionEventEscapeKey];
+		}
+	}
+	else {
+		[super keyDown:theEvent];
+	}
+}
+
 - (void)doCommandBySelector:(SEL)aSelector
 {
 	BOOL handled = NO;
@@ -618,10 +636,6 @@ typedef enum {
 		else if (aSelector == @selector(insertNewline:)) {
 			id<LMCompletionOption>completionOption = [_completionView currentCompletionOption];
 			[self insertCompletionOption:completionOption inRange:[self rangeForUserCompletion] isFinal:YES];
-			handled = YES;
-		}
-		else if (aSelector == @selector(cancelOperation:)) {
-			[self complete:nil];
 			handled = YES;
 		}
 		else if (aSelector == @selector(moveToBeginningOfDocument:)) {
