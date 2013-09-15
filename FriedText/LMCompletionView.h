@@ -25,6 +25,7 @@
 @property (strong, nonatomic) LMCompletionTableView* tableView;
 
 @property (strong, nonatomic) NSArray* completions;
+- (void)setCompletions:(NSArray *)completions reload:(BOOL)reload;
 
 @property (strong, nonatomic) id <LMCompletionViewDelegate> delegate;
 

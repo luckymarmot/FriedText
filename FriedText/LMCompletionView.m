@@ -133,9 +133,16 @@
 
 - (void)setCompletions:(NSArray *)completions
 {
+	[self setCompletions:completions reload:YES];
+}
+
+- (void)setCompletions:(NSArray *)completions reload:(BOOL)reload
+{
 	_completions = completions;
 	
-	[self.tableView reloadData];
+	if (reload) {
+		[self.tableView reloadData];
+	}
 	
 	NSInteger row = [completions indexOfObject:_lastCompletionOption];
 	[self.tableView selectRowIndexes:[NSIndexSet indexSetWithIndex:(row == NSNotFound ? 0 : row)] byExtendingSelection:NO];
