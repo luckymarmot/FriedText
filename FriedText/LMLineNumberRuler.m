@@ -48,11 +48,13 @@
 	}
 }
 
-- (BOOL)isFlipped {
+- (BOOL)isFlipped
+{
     return YES;
 }
 
-- (void)setClientView:(NSView *)clientView {
+- (void)setClientView:(NSView *)clientView
+{
     [[NSNotificationCenter defaultCenter] removeObserver:self name:NSTextStorageDidProcessEditingNotification object:nil];
     
     [super setClientView:clientView];
@@ -64,18 +66,21 @@
     }
 }
 
-- (void)clientTextStorageDidProcessEditing:(NSNotification *)notification {
+- (void)clientTextStorageDidProcessEditing:(NSNotification *)notification
+{
     self.lineInformationValid = NO;
     
     [self setNeedsDisplay:YES];
 }
 
-- (NSTextStorage *)currentTextStorage {
+- (NSTextStorage *)currentTextStorage
+{
     NSView *clientView = [self clientView];
     return [clientView isKindOfClass:[NSTextView self]] ? [(NSTextView *)clientView textStorage] : nil;
 }
 
-- (void)updateLineInformation {
+- (void)updateLineInformation
+{
     NSMutableIndexSet *mutableLineStartCharacterIndexes = [NSMutableIndexSet indexSet];
     
     NSString *clientString = [[self currentTextStorage] string];
@@ -120,7 +125,8 @@
     [self setRuleThickness:newRuleThickness];
 }
 
-- (void)viewWillDraw {
+- (void)viewWillDraw
+{
     [super viewWillDraw];
 	
     if (!self.lineInformationValid) {
@@ -128,7 +134,8 @@
     }
 }
 
-- (NSUInteger)lineIndexForCharacterIndex:(NSUInteger)characterIndex {
+- (NSUInteger)lineIndexForCharacterIndex:(NSUInteger)characterIndex
+{
     if (!_lineStartCharacterIndexes) {
         return NSNotFound;
     }
@@ -150,7 +157,8 @@
     return foundIndex ? (foundIndex-_lineStartCharacterIndexes) : NSNotFound;
 }
 
-- (NSDictionary *)textAttributes {
+- (NSDictionary *)textAttributes
+{
     return [NSDictionary dictionaryWithObjectsAndKeys:self.font, NSFontAttributeName, self.textColor, NSForegroundColorAttributeName, nil];
 }
 
