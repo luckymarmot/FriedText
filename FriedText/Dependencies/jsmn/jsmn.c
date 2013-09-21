@@ -34,15 +34,16 @@ static void jsmn_fill_token(jsmntok_t *token, jsmntype_t type,
 /**
  * Fills next available token with JSON primitive.
  */
-static jsmnerr_t jsmn_parse_primitive(jsmn_parser *parser, const char *js,
-		jsmntok_t *tokens, size_t num_tokens) {
+static jsmnerr_t jsmn_parse_primitive(jsmn_parser *parser, CFStringRef js,
+		jsmntok_t *tokens, size_t num_tokens, long len) {
 	jsmntok_t *token;
 	int start;
 
 	start = parser->pos;
 
-	for (; js[parser->pos] != '\0'; parser->pos++) {
-		switch (js[parser->pos]) {
+	for (; parser->pos < len; parser->pos++) {
+		UniChar c = CFStringGetCharacterAtIndex(js, parser->pos);
+		switch (c) {
 #ifndef JSMN_STRICT
 			/* In strict mode primitive must be followed by "," or "}" or "]" */
 			case ':':
@@ -51,7 +52,7 @@ static jsmnerr_t jsmn_parse_primitive(jsmn_parser *parser, const char *js,
 			case ','  : case ']'  : case '}' :
 				goto found;
 		}
-		if (js[parser->pos] < 32 || js[parser->pos] >= 127) {
+		if (c < 32 || c >= 127) {
 			parser->pos = start;
 			return JSMN_ERROR_INVAL;
 		}
@@ -82,8 +83,8 @@ found:
 /**
  * Filsl next token with JSON string.
  */
-static jsmnerr_t jsmn_parse_string(jsmn_parser *parser, const char *js,
-		jsmntok_t *tokens, size_t num_tokens) {
+static jsmnerr_t jsmn_parse_string(jsmn_parser *parser, CFStringRef js,
+		jsmntok_t *tokens, size_t num_tokens, long len) {
 	jsmntok_t *token;
 
 	int start = parser->pos;
@@ -91,8 +92,8 @@ static jsmnerr_t jsmn_parse_string(jsmn_parser *parser, const char *js,
 	parser->pos++;
 
 	/* Skip starting quote */
-	for (; js[parser->pos] != '\0'; parser->pos++) {
-		char c = js[parser->pos];
+	for (; parser->pos < len; parser->pos++) {
+		UniChar c = CFStringGetCharacterAtIndex(js, parser->pos);
 
 		/* Quote: end of string */
 		if (c == '\"') {
@@ -114,7 +115,7 @@ static jsmnerr_t jsmn_parse_string(jsmn_parser *parser, const char *js,
 		/* Backslash: Quoted symbol expected */
 		if (c == '\\') {
 			parser->pos++;
-			switch (js[parser->pos]) {
+			switch (CFStringGetCharacterAtIndex(js, parser->pos)) {
 				/* Allowed escaped symbols */
 				case '\"': case '/' : case '\\' : case 'b' :
 				case 'f' : case 'r' : case 'n'  : case 't' :
@@ -137,17 +138,18 @@ static jsmnerr_t jsmn_parse_string(jsmn_parser *parser, const char *js,
 /**
  * Parse JSON string and fill tokens.
  */
-jsmnerr_t jsmn_parse(jsmn_parser *parser, const char *js, jsmntok_t *tokens, 
+jsmnerr_t jsmn_parse(jsmn_parser *parser, CFStringRef js, jsmntok_t *tokens,
 		unsigned int num_tokens) {
 	jsmnerr_t r;
 	int i;
 	jsmntok_t *token;
+	long len = CFStringGetLength(js);
 
-	for (; js[parser->pos] != '\0'; parser->pos++) {
-		char c;
+	for (; parser->pos < len; parser->pos++) {
+		UniChar c;
 		jsmntype_t type;
 
-		c = js[parser->pos];
+		c = CFStringGetCharacterAtIndex(js, parser->pos);
 		switch (c) {
 			case '{': case '[':
 				token = jsmn_alloc_token(parser, tokens, num_tokens);
@@ -211,7 +213,7 @@ jsmnerr_t jsmn_parse(jsmn_parser *parser, const char *js, jsmntok_t *tokens,
 #endif
 				break;
 			case '\"':
-				r = jsmn_parse_string(parser, js, tokens, num_tokens);
+				r = jsmn_parse_string(parser, js, tokens, num_tokens, len);
 				if (r < 0) return r;
 				if (parser->toksuper != -1)
 					tokens[parser->toksuper].size++;
@@ -227,7 +229,7 @@ jsmnerr_t jsmn_parse(jsmn_parser *parser, const char *js, jsmntok_t *tokens,
 			/* In non-strict mode every unquoted value is a primitive */
 			default:
 #endif
-				r = jsmn_parse_primitive(parser, js, tokens, num_tokens);
+				r = jsmn_parse_primitive(parser, js, tokens, num_tokens, len);
 				if (r < 0) return r;
 				if (parser->toksuper != -1)
 					tokens[parser->toksuper].size++;

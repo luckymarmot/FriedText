@@ -13,14 +13,12 @@
 #warning Parsing will stop when NUM_TOKENS is exceeded
 
 #define NUM_TOKENS 1048576
-#define MAX_JSON_SIZE 1048576
 
 @interface LMJSONTextParser () {
 	jsmn_parser parser;
 	jsmntok_t tokens[NUM_TOKENS];
 }
 
-@property (strong, nonatomic) NSData* data;
 @property (strong, nonatomic) NSString* string;
 
 @property (nonatomic, getter = isStringValid) BOOL stringIsValid;
@@ -47,22 +45,14 @@
 	return _string;
 }
 
-- (NSData *)data
-{
-	if (![self isStringValid]) {
-		_data = [[self string] dataUsingEncoding:NSASCIIStringEncoding allowLossyConversion:YES];
-	}
-	return _data;
-}
-
 - (void)parse
 {
 	jsmn_init(&parser);
-	char c[MAX_JSON_SIZE];
-	memcpy(c, [[self data] bytes], MIN([[self data] length], MAX_JSON_SIZE));
-	jsmnerr_t result = jsmn_parse(&parser, c, tokens, NUM_TOKENS);
+	jsmnerr_t result = jsmn_parse(&parser, (__bridge CFStringRef)[self string], tokens, NUM_TOKENS);
 	if (result != JSMN_SUCCESS) {
-		
+//		Ignore errors
+//		parser.toknext = 0;
+//		If making the parser more strict, make jsmn strict too
 	}
 }
 
@@ -76,11 +66,13 @@
 		[self parse];
 	}
 	
+	NSString* string = [self string];
+	
 	for (unsigned int i = 0; i < parser.toknext; i++) {
 		NSRange range = NSMakeRange(tokens[i].start, tokens[i].end-tokens[i].start);
 		if (NSIntersectionRange(characterRange, range).length > 0) {
 			if (tokens[i].type == JSMN_PRIMITIVE) {
-				const char c = ((char *)[[self data] bytes])[tokens[i].start];
+				unichar c = [string characterAtIndex:tokens[i].start];
 				if (c == 't') {
 					block(LMTextParserTokenTypeBoolean | LMTextParserTokenJSONTypeTrue, range);
 				}
