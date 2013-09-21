@@ -9,7 +9,6 @@
 #ifndef LMTextView_FriedText_h
 #define LMTextView_FriedText_h
 
-#import "LMLineNumberRuler.h"
 #import "LMTextView.h"
 #import "LMTextScrollView.h"
 #import "LMTextField.h"
@@ -29,5 +28,8 @@
 #import "NSObject+TDBindings.h"
 #import "NSAttributedString+CocoaExtensions.h"
 #import "LMCompletionOption.h"
+
+// From NoodleKit
+#import "NoodleLineNumberView.h"
 
 #endif

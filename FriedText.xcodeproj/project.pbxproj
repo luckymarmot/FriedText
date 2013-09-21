@@ -20,7 +20,6 @@
 		AE13E6BE1723E7DC0038174F /* LMTextAttachmentCell.h in Headers */ = {isa = PBXBuildFile; fileRef = AE9225F91723D80F00D73B16 /* LMTextAttachmentCell.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		AE13E6BF1723E7DC0038174F /* LMTokenAttachmentCell.h in Headers */ = {isa = PBXBuildFile; fileRef = AE9225FA1723D80F00D73B16 /* LMTokenAttachmentCell.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		AE13E6C01723E7DC0038174F /* LMAttributedTokenStringValueTransformer.h in Headers */ = {isa = PBXBuildFile; fileRef = AE92262B1723D88D00D73B16 /* LMAttributedTokenStringValueTransformer.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		AE13E6C11723E7DC0038174F /* LMLineNumberRuler.h in Headers */ = {isa = PBXBuildFile; fileRef = AE9226051723D81800D73B16 /* LMLineNumberRuler.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		AE13E6C21723E7DC0038174F /* LMTextParser.h in Headers */ = {isa = PBXBuildFile; fileRef = AE9226091723D81F00D73B16 /* LMTextParser.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		AE13E6C31723E7DC0038174F /* LMJSONTextParser.h in Headers */ = {isa = PBXBuildFile; fileRef = AE25030F1723CA4A00E46A2F /* LMJSONTextParser.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		AE13E6C41723E7DC0038174F /* LMCompletionTableCellView.h in Headers */ = {isa = PBXBuildFile; fileRef = AE92260B1723D82800D73B16 /* LMCompletionTableCellView.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -62,7 +61,6 @@
 		AE9225F61723D7FC00D73B16 /* LMTextFieldCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AE9225F21723D7FC00D73B16 /* LMTextFieldCell.m */; };
 		AE9225FF1723D80F00D73B16 /* LMFoldingTextAttachmentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AE9225F81723D80F00D73B16 /* LMFoldingTextAttachmentCell.m */; };
 		AE9226021723D80F00D73B16 /* LMTokenAttachmentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AE9225FB1723D80F00D73B16 /* LMTokenAttachmentCell.m */; };
-		AE9226081723D81800D73B16 /* LMLineNumberRuler.m in Sources */ = {isa = PBXBuildFile; fileRef = AE9226061723D81800D73B16 /* LMLineNumberRuler.m */; };
 		AE9226121723D82800D73B16 /* LMCompletionTableCellView.m in Sources */ = {isa = PBXBuildFile; fileRef = AE92260C1723D82800D73B16 /* LMCompletionTableCellView.m */; };
 		AE9226141723D82800D73B16 /* LMCompletionTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = AE92260E1723D82800D73B16 /* LMCompletionTableView.m */; };
 		AE9226161723D82800D73B16 /* LMCompletionView.m in Sources */ = {isa = PBXBuildFile; fileRef = AE9226101723D82800D73B16 /* LMCompletionView.m */; };
@@ -75,6 +73,12 @@
 		AED2D2EE1716ABF300C38A87 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AE04F601170EEA170032338C /* Cocoa.framework */; };
 		AED7BB37172D37B5001BDE14 /* LMXMLTextParser.h in Headers */ = {isa = PBXBuildFile; fileRef = AED7BB35172D37B5001BDE14 /* LMXMLTextParser.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		AED7BB38172D37B5001BDE14 /* LMXMLTextParser.m in Sources */ = {isa = PBXBuildFile; fileRef = AED7BB36172D37B5001BDE14 /* LMXMLTextParser.m */; };
+		AEE6593017EE112700F8C44B /* NoodleMarkerLineNumberView.h in Headers */ = {isa = PBXBuildFile; fileRef = AEE6592A17EE112700F8C44B /* NoodleMarkerLineNumberView.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		AEE6593117EE112700F8C44B /* NoodleMarkerLineNumberView.m in Sources */ = {isa = PBXBuildFile; fileRef = AEE6592B17EE112700F8C44B /* NoodleMarkerLineNumberView.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		AEE6593217EE112700F8C44B /* NoodleLineNumberMarker.h in Headers */ = {isa = PBXBuildFile; fileRef = AEE6592C17EE112700F8C44B /* NoodleLineNumberMarker.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		AEE6593317EE112700F8C44B /* NoodleLineNumberMarker.m in Sources */ = {isa = PBXBuildFile; fileRef = AEE6592D17EE112700F8C44B /* NoodleLineNumberMarker.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		AEE6593417EE112700F8C44B /* NoodleLineNumberView.h in Headers */ = {isa = PBXBuildFile; fileRef = AEE6592E17EE112700F8C44B /* NoodleLineNumberView.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		AEE6593517EE112700F8C44B /* NoodleLineNumberView.m in Sources */ = {isa = PBXBuildFile; fileRef = AEE6592F17EE112700F8C44B /* NoodleLineNumberView.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -143,8 +147,6 @@
 		AE9225F91723D80F00D73B16 /* LMTextAttachmentCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LMTextAttachmentCell.h; path = FriedText/LMTextAttachmentCell.h; sourceTree = SOURCE_ROOT; };
 		AE9225FA1723D80F00D73B16 /* LMTokenAttachmentCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LMTokenAttachmentCell.h; path = FriedText/LMTokenAttachmentCell.h; sourceTree = SOURCE_ROOT; };
 		AE9225FB1723D80F00D73B16 /* LMTokenAttachmentCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LMTokenAttachmentCell.m; path = FriedText/LMTokenAttachmentCell.m; sourceTree = SOURCE_ROOT; };
-		AE9226051723D81800D73B16 /* LMLineNumberRuler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LMLineNumberRuler.h; path = FriedText/LMLineNumberRuler.h; sourceTree = SOURCE_ROOT; };
-		AE9226061723D81800D73B16 /* LMLineNumberRuler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LMLineNumberRuler.m; path = FriedText/LMLineNumberRuler.m; sourceTree = SOURCE_ROOT; };
 		AE9226091723D81F00D73B16 /* LMTextParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LMTextParser.h; path = FriedText/LMTextParser.h; sourceTree = SOURCE_ROOT; };
 		AE92260B1723D82800D73B16 /* LMCompletionTableCellView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LMCompletionTableCellView.h; path = FriedText/LMCompletionTableCellView.h; sourceTree = SOURCE_ROOT; };
 		AE92260C1723D82800D73B16 /* LMCompletionTableCellView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LMCompletionTableCellView.m; path = FriedText/LMCompletionTableCellView.m; sourceTree = SOURCE_ROOT; };
@@ -167,6 +169,12 @@
 		AED2D2F61716ABF300C38A87 /* LMTextView Text Field.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "LMTextView Text Field.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		AED7BB35172D37B5001BDE14 /* LMXMLTextParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LMXMLTextParser.h; path = FriedText/LMXMLTextParser.h; sourceTree = SOURCE_ROOT; };
 		AED7BB36172D37B5001BDE14 /* LMXMLTextParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LMXMLTextParser.m; path = FriedText/LMXMLTextParser.m; sourceTree = SOURCE_ROOT; };
+		AEE6592A17EE112700F8C44B /* NoodleMarkerLineNumberView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NoodleMarkerLineNumberView.h; path = FriedText/Dependencies/NoodleLineNumberView/NoodleMarkerLineNumberView.h; sourceTree = SOURCE_ROOT; };
+		AEE6592B17EE112700F8C44B /* NoodleMarkerLineNumberView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NoodleMarkerLineNumberView.m; path = FriedText/Dependencies/NoodleLineNumberView/NoodleMarkerLineNumberView.m; sourceTree = SOURCE_ROOT; };
+		AEE6592C17EE112700F8C44B /* NoodleLineNumberMarker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NoodleLineNumberMarker.h; path = FriedText/Dependencies/NoodleLineNumberView/NoodleLineNumberMarker.h; sourceTree = SOURCE_ROOT; };
+		AEE6592D17EE112700F8C44B /* NoodleLineNumberMarker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NoodleLineNumberMarker.m; path = FriedText/Dependencies/NoodleLineNumberView/NoodleLineNumberMarker.m; sourceTree = SOURCE_ROOT; };
+		AEE6592E17EE112700F8C44B /* NoodleLineNumberView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NoodleLineNumberView.h; path = FriedText/Dependencies/NoodleLineNumberView/NoodleLineNumberView.h; sourceTree = SOURCE_ROOT; };
+		AEE6592F17EE112700F8C44B /* NoodleLineNumberView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NoodleLineNumberView.m; path = FriedText/Dependencies/NoodleLineNumberView/NoodleLineNumberView.m; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -308,7 +316,6 @@
 				AE04F643170EEDCC0032338C /* LMTextView */,
 				AED2D3011716AF6600C38A87 /* LMTextField */,
 				AEC8532C171C4C8200A1EABE /* Text Attachments */,
-				AE64243B171581FD00C14DA5 /* Line Numbers Ruler */,
 				AE0C57E8170FECB600FDFBDA /* LMTextParser */,
 				AE04F641170EEDC10032338C /* Completion */,
 				AE43957A17262C96009120D2 /* Value Transformers */,
@@ -364,6 +371,7 @@
 		AE4E74A3170F1565003BF794 /* Dependencies */ = {
 			isa = PBXGroup;
 			children = (
+				AEE6592917EE112000F8C44B /* NoodleLineNumberView */,
 				AE4E74A4170F156A003BF794 /* JSMN */,
 			);
 			name = Dependencies;
@@ -377,16 +385,6 @@
 				AE2503071723C9C300E46A2F /* jsmn.h */,
 			);
 			name = JSMN;
-			sourceTree = "<group>";
-		};
-		AE64243B171581FD00C14DA5 /* Line Numbers Ruler */ = {
-			isa = PBXGroup;
-			children = (
-				AE9226051723D81800D73B16 /* LMLineNumberRuler.h */,
-				AE9226061723D81800D73B16 /* LMLineNumberRuler.m */,
-			);
-			name = "Line Numbers Ruler";
-			path = ../LMTextView;
 			sourceTree = "<group>";
 		};
 		AEC8532C171C4C8200A1EABE /* Text Attachments */ = {
@@ -439,6 +437,19 @@
 			path = ../LMTextView;
 			sourceTree = "<group>";
 		};
+		AEE6592917EE112000F8C44B /* NoodleLineNumberView */ = {
+			isa = PBXGroup;
+			children = (
+				AEE6592A17EE112700F8C44B /* NoodleMarkerLineNumberView.h */,
+				AEE6592B17EE112700F8C44B /* NoodleMarkerLineNumberView.m */,
+				AEE6592C17EE112700F8C44B /* NoodleLineNumberMarker.h */,
+				AEE6592D17EE112700F8C44B /* NoodleLineNumberMarker.m */,
+				AEE6592E17EE112700F8C44B /* NoodleLineNumberView.h */,
+				AEE6592F17EE112700F8C44B /* NoodleLineNumberView.m */,
+			);
+			name = NoodleLineNumberView;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -455,7 +466,6 @@
 				AE13E6BE1723E7DC0038174F /* LMTextAttachmentCell.h in Headers */,
 				AE13E6BF1723E7DC0038174F /* LMTokenAttachmentCell.h in Headers */,
 				AE13E6C01723E7DC0038174F /* LMAttributedTokenStringValueTransformer.h in Headers */,
-				AE13E6C11723E7DC0038174F /* LMLineNumberRuler.h in Headers */,
 				AE13E6C21723E7DC0038174F /* LMTextParser.h in Headers */,
 				AE13E6C31723E7DC0038174F /* LMJSONTextParser.h in Headers */,
 				AED7BB37172D37B5001BDE14 /* LMXMLTextParser.h in Headers */,
@@ -469,6 +479,9 @@
 				AE13E6CB1723E7DC0038174F /* NSWindow+FriedText.h in Headers */,
 				AE43957917262615009120D2 /* LMFriedTextDefaultColors.h in Headers */,
 				AE83504C172F9D67001C8850 /* NSAttributedString+CocoaExtensions.h in Headers */,
+				AEE6593017EE112700F8C44B /* NoodleMarkerLineNumberView.h in Headers */,
+				AEE6593417EE112700F8C44B /* NoodleLineNumberView.h in Headers */,
+				AEE6593217EE112700F8C44B /* NoodleLineNumberMarker.h in Headers */,
 				AE43957D17262CB4009120D2 /* LMAttributedStringValueTransformer.h in Headers */,
 				AE0F270717D9F84200BBBF9A /* LMCompletionOption.h in Headers */,
 				AE0F270F17DA087D00BBBF9A /* NSString+LMCompletionOption.h in Headers */,
@@ -616,7 +629,6 @@
 				AE9225F61723D7FC00D73B16 /* LMTextFieldCell.m in Sources */,
 				AE9225FF1723D80F00D73B16 /* LMFoldingTextAttachmentCell.m in Sources */,
 				AE9226021723D80F00D73B16 /* LMTokenAttachmentCell.m in Sources */,
-				AE9226081723D81800D73B16 /* LMLineNumberRuler.m in Sources */,
 				AE9226121723D82800D73B16 /* LMCompletionTableCellView.m in Sources */,
 				AE9226141723D82800D73B16 /* LMCompletionTableView.m in Sources */,
 				AE9226161723D82800D73B16 /* LMCompletionView.m in Sources */,
@@ -631,6 +643,9 @@
 				AE83504D172F9D67001C8850 /* NSAttributedString+CocoaExtensions.m in Sources */,
 				AE0F270817D9F84200BBBF9A /* LMCompletionOption.m in Sources */,
 				AE0F271017DA087D00BBBF9A /* NSString+LMCompletionOption.m in Sources */,
+				AEE6593117EE112700F8C44B /* NoodleMarkerLineNumberView.m in Sources */,
+				AEE6593317EE112700F8C44B /* NoodleLineNumberMarker.m in Sources */,
+				AEE6593517EE112700F8C44B /* NoodleLineNumberView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
