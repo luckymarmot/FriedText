@@ -10,7 +10,7 @@
 
 @interface LMLineNumberRuler () {
 	NSUInteger * _lineStartCharacterIndexes;
-	size_t _lineStartCharacterIndexesSize;
+	size_t _lineStartCharacterIndexesCount;
 }
 
 @property (getter=isLineInformationValid) BOOL lineInformationValid;
@@ -29,6 +29,9 @@
         self.textColor = [NSColor darkGrayColor];
         self.backgroundColor = [NSColor colorWithCalibratedWhite:0.9 alpha:1.0];
 		[self setClientView:textView];
+		
+		_lineStartCharacterIndexes = NULL;
+		_lineStartCharacterIndexesCount = 0;
 		
 		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(boundsDidChange:) name:NSViewBoundsDidChangeNotification object:textView.enclosingScrollView.contentView];
     }
@@ -84,34 +87,57 @@
     NSMutableIndexSet *mutableLineStartCharacterIndexes = [NSMutableIndexSet indexSet];
     
     NSString *clientString = [[self currentTextStorage] string];
+	
+	NSLog(@"Client String: {%@}", clientString);
     
-    [clientString enumerateSubstringsInRange:(NSRange){.length=[clientString length]} options:NSStringEnumerationByLines|NSStringEnumerationSubstringNotRequired usingBlock:^(NSString *substring, NSRange substringRange, NSRange enclosingRange, BOOL *stop) {
+    [clientString enumerateSubstringsInRange:NSMakeRange(0, [clientString length]) options:NSStringEnumerationByLines|NSStringEnumerationSubstringNotRequired usingBlock:^(NSString *substring, NSRange substringRange, NSRange enclosingRange, BOOL *stop) {
         [mutableLineStartCharacterIndexes addIndex:substringRange.location];
     }];
+	if ([clientString length] > 0 && [[NSCharacterSet newlineCharacterSet] characterIsMember:[clientString characterAtIndex:([clientString length] - 1)]]) {
+		 [mutableLineStartCharacterIndexes addIndex:([clientString length] - 1)];
+	}
+	
+	NSLog(@"mutableLineStartCharacterIndexes:");
+	[mutableLineStartCharacterIndexes enumerateIndexesUsingBlock:^(NSUInteger idx, BOOL *stop) {
+		NSLog(@"> %ld", idx);
+	}];
     
     const NSUInteger numberOfLines = [mutableLineStartCharacterIndexes count];
     const NSUInteger newLineStartCharacterIndexesSize = numberOfLines * sizeof(NSUInteger);
-    if (newLineStartCharacterIndexesSize > _lineStartCharacterIndexesSize) {
-        if (_lineStartCharacterIndexes) {
+	
+	// If there is more lines, we may need to re-allocate
+    if (numberOfLines > _lineStartCharacterIndexesCount || _lineStartCharacterIndexes == NULL) {
+		// If already existing, re-allocate
+        if (_lineStartCharacterIndexes != NULL) {
             void * newIndexes = NSReallocateCollectable(_lineStartCharacterIndexes, newLineStartCharacterIndexesSize, 0);
+			// If re-allocation failed, return
             if (!newIndexes) {
                 return;
             }
-            
             _lineStartCharacterIndexes = newIndexes;
         }
+		// If not existing, allocate
         else {
             _lineStartCharacterIndexes = NSAllocateCollectable(newLineStartCharacterIndexesSize, 0);
-            if (!_lineStartCharacterIndexes)
-                return;
+			// If allocation failed, return
+            if (!_lineStartCharacterIndexes) {
+				return;
+			}
         }
-        
-        _lineStartCharacterIndexesSize = newLineStartCharacterIndexesSize;
     }
+	
+	// Set new number of lines
+	_lineStartCharacterIndexesCount = numberOfLines;
     
+	// Get indexes from the mutable set
     if (_lineStartCharacterIndexes) {
-        [mutableLineStartCharacterIndexes getIndexes:_lineStartCharacterIndexes maxCount:_lineStartCharacterIndexesSize/sizeof(NSUInteger) inIndexRange:NULL];
+        [mutableLineStartCharacterIndexes getIndexes:_lineStartCharacterIndexes maxCount:_lineStartCharacterIndexesCount inIndexRange:NULL];
     }
+	
+	NSLog(@"_lineStartCharacterIndexes:");
+	for (int i = 0; i < _lineStartCharacterIndexesCount; i++) {
+		NSLog(@"> %ld", _lineStartCharacterIndexes[i]);
+	}
     
     self.lineInformationValid = YES;
     
@@ -140,7 +166,7 @@
         return NSNotFound;
     }
     
-    NSUInteger *foundIndex = bsearch_b(&characterIndex, _lineStartCharacterIndexes, _lineStartCharacterIndexesSize/sizeof(NSUInteger), sizeof(NSUInteger), ^(const void *arg1, const void *arg2) {
+    NSUInteger *foundIndex = bsearch_b(&characterIndex, _lineStartCharacterIndexes, _lineStartCharacterIndexesCount, sizeof(NSUInteger), ^(const void *arg1, const void *arg2) {
         const NSUInteger int1 = *(NSUInteger *)arg1;
         const NSUInteger int2 = *(NSUInteger *)arg2;
         if (int1 < int2) {
@@ -199,17 +225,34 @@
 	
     CGFloat lastLinePositionY = -1.0;
 	
-    for (NSUInteger characterIndex=visibleCharacterRange.location; characterIndex<visibleCharacterRange.location + visibleCharacterRange.length;) {
-        const NSUInteger lineNumber = [self lineIndexForCharacterIndex:characterIndex];
+//	NSLog(@"Visible: {%@}(%ld)", [[textView string] substringWithRange:visibleCharacterRange], visibleCharacterRange.length);
+	
+	NSUInteger characterIndex;
+	
+    for (NSUInteger lineNumber = [self lineIndexForCharacterIndex:visibleCharacterRange.location]; ; ) {
+		
+		if (lineNumber >= _lineStartCharacterIndexesCount ||
+			(characterIndex = _lineStartCharacterIndexes[lineNumber]) >= visibleCharacterRange.location + visibleCharacterRange.length) {
+			NSLog(@"Last line: %ld", lineNumber);
+			break;
+		}
+		
+		
+//		NSLog(@"lineNumber: %ld characterIndex: %ld", lineNumber, characterIndex);
         if (lineNumber == NSNotFound) {
             break;
         }
         
         NSUInteger layoutRectCount;
-        NSRectArray layoutRects = [layoutManager rectArrayForCharacterRange:(NSRange){characterIndex, 0} withinSelectedCharacterRange:(NSRange){NSNotFound, 0} inTextContainer:textContainer rectCount:&layoutRectCount];
+        NSRectArray layoutRects = [layoutManager rectArrayForCharacterRange:NSMakeRange(characterIndex, 0) withinSelectedCharacterRange:NSMakeRange(NSNotFound, 0) inTextContainer:textContainer rectCount:&layoutRectCount];
         if (layoutRectCount == 0) {
             break;
         }
+		
+		NSLog(@"> Line: %ld | %@", lineNumber, [textString substringWithRange:NSMakeRange(characterIndex, MIN([textString length]-characterIndex, 1))]);
+		for (NSUInteger k=0; k<layoutRectCount;k++) {
+			NSLog(@"  > %ld: %@", k, NSStringFromRect(layoutRects[k]));
+		}
         
         NSString *lineString = [NSString stringWithFormat:@"%lu", (NSUInteger)lineNumber+1];
         const NSSize lineStringSize = [lineString sizeWithAttributes:textAttributes];
@@ -224,8 +267,27 @@
 		
         lastLinePositionY = NSMinY(lineStringRect);
 		
-        [textString getLineStart:NULL end:&characterIndex contentsEnd:NULL forRange:(NSRange){characterIndex, 0}];
+//		if (characterIndex == visibleCharacterRange.location + visibleCharacterRange.length) {
+//			break;
+//		}
+		
+//		NSLog(@"1:characterIndex %ld", characterIndex);
+//        [textString getLineStart:NULL end:&characterIndex contentsEnd:NULL forRange:NSMakeRange(characterIndex, 0)];
+//		NSRange newLineRange = [textString rangeOfCharacterFromSet:[NSCharacterSet newlineCharacterSet] options:kNilOptions range:NSMakeRange(characterIndex, [textString length] - characterIndex)];
+//		if (newLineRange.location == NSNotFound) {
+//			break;
+//		}
+//		else {
+//			characterIndex = newLineRange;
+//		}
+//		NSLog(@"2:characterIndex %ld", characterIndex);
+		
+		
+		
+		lineNumber++;
     }
+	
+//	NSLog(@"LAST characterIndex: %ld", characterIndex);
 }
 
 @end
