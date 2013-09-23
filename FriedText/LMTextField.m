@@ -153,11 +153,16 @@ NSString* LMTextFieldAttributedStringValueBinding = @"attributedStringValue";
 	[[self currentEditor] setRichText:[self isRichText]];
 	
 	if ([[[self currentEditor] class] isSubclassOfClass:[LMTextView class]]) {
+		
+		[(LMTextView*)[self currentEditor] setUseTemporaryAttributesForSyntaxHighlight:self.useTemporaryAttributesForSyntaxHighlight];
+		
+		// Enforce font (must be called before parser and highlighting)
+		NSTextStorage* textStorage = [(LMTextView*)[self currentEditor] textStorage];
+		[textStorage setAttributes:[self textAttributes] range:NSMakeRange(0, [textStorage length])];
+		
 		[(LMTextView*)[self currentEditor] setParser:[self parser]];
 		
 		[(LMTextView*)[self currentEditor] highlightSyntax:nil];
-		
-		[(LMTextView*)[self currentEditor] setUseTemporaryAttributesForSyntaxHighlight:self.useTemporaryAttributesForSyntaxHighlight];
 		
 		[[(LMTextView*)[self currentEditor] textAttachmentCellClasses] setArray:[self textAttachmentCellClasses]];
 		
