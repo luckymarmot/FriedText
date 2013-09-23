@@ -792,7 +792,7 @@ typedef enum {
 				_completionWindow = [[NSWindow alloc] initWithContentRect:[self _frameForCompletionWindowRangeForUserCompletion:rangeForUserCompletion] styleMask:NSBorderlessWindowMask backing:NSBackingStoreBuffered defer:NO];
 				_completionWindow.backgroundColor = [NSColor clearColor];
 				[_completionWindow setOpaque:NO];
-				[_completionWindow setAnimationBehavior:NSWindowAnimationBehaviorAlertPanel];
+				[_completionWindow setAnimationBehavior:NSWindowAnimationBehaviorNone];
 				[self.window addChildWindow:_completionWindow ordered:NSWindowAbove];
 				
 				// Set the completion view in its window
