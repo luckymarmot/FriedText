@@ -187,6 +187,13 @@ typedef enum {
 {
 //	NSLog(@"textStorageDidProcessEditing:");
 	[self.parser invalidateString];
+	
+	// If Field Editor, enforce field's attributes
+	if ([self isFieldEditor] && [self.delegate isKindOfClass:[LMTextField class]]) {
+		LMTextField* textField = (LMTextField*)[self delegate];
+		NSTextStorage* textStorage = [self textStorage];
+		[textStorage addAttributes:[textField textAttributes] range:NSMakeRange(0, [textStorage length])];
+	}
 }
 
 - (void)boundsDidChange:(NSNotification*)notification
@@ -208,13 +215,6 @@ typedef enum {
 - (void)textDidChange:(NSNotification *)notification
 {
 //	NSLog(@"textDidChange:");
-	
-	// If Field Editor, enforce field's attributes
-	if ([self isFieldEditor] && [self.delegate isKindOfClass:[LMTextField class]]) {
-		LMTextField* textField = (LMTextField*)[self delegate];
-		NSTextStorage* textStorage = [self textStorage];
-		[textStorage addAttributes:[textField textAttributes] range:NSMakeRange(0, [textStorage length])];
-	}
 	
 	// Syntax Highlighting
 	if (_optimizeHighlightingOnEditing) {
@@ -670,7 +670,7 @@ typedef enum {
 }
 
 - (void)_handleCompletion:(LMCompletionEventType)completionEvent
-{
+{return;
 	NSAssert(self.enableAutocompletion, @"Called _handleCompletion when enableAutocompletion is NO");
 	
 	if (_handlingCompletion) {

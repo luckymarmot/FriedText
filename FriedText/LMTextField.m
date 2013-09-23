@@ -160,6 +160,10 @@ NSString* LMTextFieldAttributedStringValueBinding = @"attributedStringValue";
 		NSTextStorage* textStorage = [(LMTextView*)[self currentEditor] textStorage];
 		[textStorage setAttributes:[self textAttributes] range:NSMakeRange(0, [textStorage length])];
 		
+//		Not sure yet if it's useful (debug VERY carefully)
+//		[(LMTextView*)[self currentEditor] setFont:[self font]];
+//		[(LMTextView*)[self currentEditor] setTextColor:[self textColor]];
+		
 		[(LMTextView*)[self currentEditor] setParser:[self parser]];
 		
 		[(LMTextView*)[self currentEditor] highlightSyntax:nil];
