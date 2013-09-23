@@ -29,6 +29,8 @@
 #import "LMCompletionView.h"
 
 #define NSLog(...)
+#define LMTextViewCompletionLog(...)
+//#define LMTextViewCompletionLog NSLog
 
 /* Pasteboard Constant Values:
  * NSPasteboardTypeRTFD: com.apple.flat-rtfd
@@ -681,7 +683,7 @@ typedef enum {
 	NSUInteger insertedStringLength = _insertedString ? [_insertedString length] : 0;
 	NSRange rangeOfInsertedText = NSMakeRange(rangeForUserTextChange.location - insertedStringLength, insertedStringLength);
 	
-	NSLog(@"rangeForUserTextChange: %@", NSStringFromRange(rangeForUserTextChange));
+	LMTextViewCompletionLog(@"rangeForUserTextChange: %@", NSStringFromRange(rangeForUserTextChange));
 	
 	BOOL updateCompletions = NO;
 	
@@ -693,7 +695,7 @@ typedef enum {
 			completionEvent == LMCompletionEventSystemCompletion
 		 ) &&
 		_completionRange.location == NSNotFound) {
-		NSLog(@"START completion");
+		LMTextViewCompletionLog(@"START completion");
 		_completionRange = rangeForUserCompletion;
 		_originalStringBeforeCompletion = [[[self textStorage] attributedSubstringFromRange:rangeForUserCompletion] mutableCopy];
 		
@@ -709,7 +711,7 @@ typedef enum {
 			 _completionRange.location != NSNotFound &&
 			 _completionRange.location >= rangeForUserCompletion.location &&
 			 _completionRange.location + _completionRange.length <= rangeForUserCompletion.location + rangeForUserCompletion.length) {
-		NSLog(@"CONTINUE completion");
+		LMTextViewCompletionLog(@"CONTINUE completion");
 		_completionRange = rangeForUserCompletion;
 		
 		NSAttributedString* originalStringToAdd = [[self textStorage] attributedSubstringFromRange:rangeOfInsertedText];
@@ -721,9 +723,9 @@ typedef enum {
 	// END completion session
 	
 	else if (_completionRange.location != NSNotFound) {
-		NSLog(@"END completion");
+		LMTextViewCompletionLog(@"END completion");
 		
-		NSLog(@"Length: %ld Range: %@", [[self textStorage] length], NSStringFromRange(_completionRange));
+		LMTextViewCompletionLog(@"Length: %ld Range: %@", [[self textStorage] length], NSStringFromRange(_completionRange));
 		
 		// There may be characters left in the text storage and have been modified by completions
 		// We need to restore them as they were if there were no completion mechanism
@@ -758,7 +760,7 @@ typedef enum {
 	
 	// Nothing to do, completion is already ended
 	else {
-		NSLog(@"ALREADY ENDED");
+		LMTextViewCompletionLog(@"ALREADY ENDED");
 	}
 	
 	// On START or CONTINUE completions, set their values
@@ -815,9 +817,9 @@ typedef enum {
 	
 	
 	if (_completionRange.location != NSNotFound) {
-		NSLog(@"Completing Range: %@", NSStringFromRange(_completionRange));
-		NSLog(@"Completing String: %@", [[[self textStorage] attributedSubstringFromRange:_completionRange] string]);
-		NSLog(@"String Before Completion: %@", [_originalStringBeforeCompletion string]);
+		LMTextViewCompletionLog(@"Completing Range: %@", NSStringFromRange(_completionRange));
+		LMTextViewCompletionLog(@"Completing String: %@", [[[self textStorage] attributedSubstringFromRange:_completionRange] string]);
+		LMTextViewCompletionLog(@"String Before Completion: %@", [_originalStringBeforeCompletion string]);
 	}
 	
 	_handlingCompletion = NO;
