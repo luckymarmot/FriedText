@@ -125,18 +125,19 @@ NSString* LMTextFieldAttributedStringValueBinding = @"attributedStringValue";
 	
     CGFloat width = frame.size.width;
 	
-    // Make the frame very high, while keeping the width
+    // Make the height practically infinite, while keeping the width
     frame.size.height = CGFLOAT_MAX;
 	
     // Calculate new height within the frame
-    // with practically infinite height.
-    CGFloat height = [self.cell cellSizeForBounds: frame].height;
-	
+    CGFloat height;
 	if ([self currentEditor] && [[[self currentEditor] class] isSubclassOfClass:[NSTextView class]]) {
 		
 		// Thanks to: https://github.com/DouglasHeriot/AutoGrowingNSTextField/blob/master/autoGrowingExample/TSTTextGrowth.m
 		NSRect usedRect = [[[(NSTextView*)[self currentEditor] textContainer] layoutManager] usedRectForTextContainer:[(NSTextView*)[self currentEditor] textContainer]];
 		height = usedRect.size.height + 5;
+	}
+	else {
+		height = [self.cell cellSizeForBounds: frame].height;
 	}
 	
 	return NSMakeSize(width, height);
