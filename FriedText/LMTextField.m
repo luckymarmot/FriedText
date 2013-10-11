@@ -159,7 +159,7 @@ NSString* LMTextFieldAttributedStringValueBinding = @"attributedStringValue";
 		
 		// Enforce font (must be called before parser and highlighting)
 		NSTextStorage* textStorage = [(LMTextView*)[self currentEditor] textStorage];
-		[textStorage setAttributes:[self textAttributes] range:NSMakeRange(0, [textStorage length])];
+		[textStorage addAttributes:[self textAttributes] range:NSMakeRange(0, [textStorage length])];
 		
 //		Not sure yet if it's useful (debug VERY carefully)
 //		[(LMTextView*)[self currentEditor] setFont:[self font]];
