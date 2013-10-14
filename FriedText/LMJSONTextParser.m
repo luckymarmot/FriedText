@@ -70,7 +70,8 @@
 	
 	for (unsigned int i = 0; i < parser.toknext; i++) {
 		NSRange range = NSMakeRange(tokens[i].start, tokens[i].end-tokens[i].start);
-		if (NSIntersectionRange(characterRange, range).length > 0) {
+		if (range.location >= characterRange.location &&
+			range.location + range.length <= characterRange.location + characterRange.length) {
 			if (tokens[i].type == JSMN_PRIMITIVE) {
 				unichar c = [string characterAtIndex:tokens[i].start];
 				if (c == 't') {
