@@ -18,7 +18,7 @@
 @protocol LMTextViewDelegate <NSTextViewDelegate>
 
 @optional
-- (void)textView:(LMTextView*)textView mouseDownForTokenAtRange:(NSRange)range withBounds:(NSRect)bounds keyPath:(NSArray*)keyPath;
+- (BOOL)textView:(LMTextView*)textView mouseDownForTokenAtRange:(NSRange)range withBounds:(NSRect)bounds keyPath:(NSArray*)keyPath;
 - (void)mouseDownOutsideTokenInTextView:(LMTextView*)textView;
 - (id<NSTextAttachmentCell>)textView:(LMTextView*)textView textAttachmentCellForTextAttachment:(NSTextAttachment*)textAttachment;
 - (NSDictionary*)textView:(LMTextView*)textView attributesForTextWithParser:(id<LMTextParser>) parser tokenMask:(NSUInteger)parserTokenMask atRange:(NSRange)range;
@@ -46,6 +46,7 @@
 @property (strong, nonatomic) id <LMTextParser> parser;
 
 @property (nonatomic) BOOL changeCursorOnTokens;
+@property (nonatomic) BOOL underlineTokensOnMouseOver;
 
 @property (nonatomic) BOOL optimizeHighlightingOnScrolling;
 @property (nonatomic) BOOL optimizeHighlightingOnEditing;

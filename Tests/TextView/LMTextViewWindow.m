@@ -123,7 +123,7 @@
 //		  ];
 }
 
-- (void)textView:(LMTextView *)textView mouseDownForTokenAtRange:(NSRange)range withBounds:(NSRect)bounds keyPath:(NSArray *)keyPath
+- (BOOL)textView:(LMTextView *)textView mouseDownForTokenAtRange:(NSRange)range withBounds:(NSRect)bounds keyPath:(NSArray *)keyPath
 {
 	_tokenPopoverRange = range;
 	_tokenPopoverValue = [keyPath keyPathDescription];
@@ -135,6 +135,8 @@
 	else {
 		[self tokenize:nil];
 	}
+	
+	return YES;
 }
 
 @end

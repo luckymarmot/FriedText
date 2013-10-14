@@ -85,6 +85,7 @@ typedef enum {
 	_originalStringBeforeCompletion = nil;
 	_insertedString = nil;
 	_handlingCompletion = NO;
+	_underlineTokensOnMouseOver = YES;
 }
 
 - (id)initWithCoder:(NSCoder *)aDecoder
@@ -407,7 +408,9 @@ typedef enum {
 			NSRange tokenRange;
 			[self.parser keyPathForObjectAtRange:NSMakeRange(charIndex, 1) objectRange:&tokenRange];
 			if (tokenRange.location != NSNotFound) {
-				[layoutManager addTemporaryAttribute:NSUnderlineStyleAttributeName value:@(NSUnderlinePatternDot | NSUnderlineStyleSingle) forCharacterRange:tokenRange];
+				if (_underlineTokensOnMouseOver) {
+					[layoutManager addTemporaryAttribute:NSUnderlineStyleAttributeName value:@(NSUnderlinePatternDot | NSUnderlineStyleSingle) forCharacterRange:tokenRange];
+				}
 				
 				needsCursor = YES;
 			}
@@ -430,6 +433,7 @@ typedef enum {
 	NSTextContainer *textContainer = [self textContainer];
 	NSUInteger charIndex = [self charIndexForPoint:[self convertPoint:[theEvent locationInWindow] fromView:nil]];
 	NSRange tokenRange = NSMakeRange(NSNotFound, 0);
+	BOOL foundToken = NO;
     if (charIndex != NSNotFound) {
 		if ([[self.textStorage string] characterAtIndex:charIndex] == 0xFFFC) {
 			
@@ -439,16 +443,20 @@ typedef enum {
 			NSRect bounds = [layoutManager boundingRectForGlyphRange:tokenRange inTextContainer:textContainer];
 			
 			if (tokenRange.location != NSNotFound) {
+				foundToken = YES;
 				if ([self.delegate respondsToSelector:@selector(textView:mouseDownForTokenAtRange:withBounds:keyPath:)]) {
-					[(id<LMTextViewDelegate>)self.delegate textView:self mouseDownForTokenAtRange:tokenRange withBounds:bounds keyPath:path];
+					if ([(id<LMTextViewDelegate>)self.delegate textView:self mouseDownForTokenAtRange:tokenRange withBounds:bounds keyPath:path]) {
+						return;
+					}
 				}
-				return;
 			}
 		}
     }
 	
-	if ([self.delegate respondsToSelector:@selector(mouseDownOutsideTokenInTextView:)]) {
-		[(id<LMTextViewDelegate>)self.delegate mouseDownOutsideTokenInTextView:self];
+	if (!foundToken) {
+		if ([self.delegate respondsToSelector:@selector(mouseDownOutsideTokenInTextView:)]) {
+			[(id<LMTextViewDelegate>)self.delegate mouseDownOutsideTokenInTextView:self];
+		}
 	}
 	
 	[super mouseDown:theEvent];
@@ -487,59 +495,73 @@ typedef enum {
 	// Store whether we can use the delegate to get the attribtues
 	BOOL usingDelegate = [self.delegate respondsToSelector:@selector(textView:attributesForTextWithParser:tokenMask:atRange:)];
 	
-	[[self parser] applyAttributesInRange:characterRange withBlock:^(NSUInteger tokenTypeMask, NSRange range) {
-		
-		NSDictionary* attributes = nil;
-		
-		// Trying to get attribtues from delegate
-		if (usingDelegate) {
-			attributes = [(id<LMTextViewDelegate>)self.delegate textView:self attributesForTextWithParser:[self parser] tokenMask:tokenTypeMask atRange:range];
-		}
-		
-		// If delegate wasn't implemented or returned nil, set default attributes
-		if (attributes == nil) {
-			NSColor* color = nil;
-			switch (tokenTypeMask & LMTextParserTokenTypeMask) {
-				case LMTextParserTokenTypeBoolean:
-					color = LMFriedTextDefaultColorPrimitive;
-					break;
-				case LMTextParserTokenTypeNumber:
-					color = LMFriedTextDefaultColorPrimitive;
-					break;
-				case LMTextParserTokenTypeString:
-					color = LMFriedTextDefaultColorString;
-					break;
-				case LMTextParserTokenTypeOther:
-					color = LMFriedTextDefaultColorPrimitive;
-					break;
+	id <LMTextParser> parser = [self parser];
+	
+	if (parser) {
+		[parser applyAttributesInRange:characterRange withBlock:^(NSUInteger tokenTypeMask, NSRange range) {
+			
+			NSDictionary* attributes = nil;
+			
+			// Trying to get attribtues from delegate
+			if (usingDelegate) {
+				attributes = [(id<LMTextViewDelegate>)self.delegate textView:self attributesForTextWithParser:[self parser] tokenMask:tokenTypeMask atRange:range];
 			}
-			attributes = @{NSForegroundColorAttributeName:color};
-		}
-		
-		// Remove attributes when used for first time
-		for (NSString* attributeName in attributes) {
-			// If not already removed...
-			if (![removedAttribtues containsObject:attributeName]) {
-				// Remove it
-				if (_useTemporaryAttributesForSyntaxHighlight) {
-					[layoutManager removeTemporaryAttribute:attributeName forCharacterRange:fullRange];
+			
+			// If delegate wasn't implemented or returned nil, set default attributes
+			if (attributes == nil) {
+				NSColor* color = nil;
+				switch (tokenTypeMask & LMTextParserTokenTypeMask) {
+					case LMTextParserTokenTypeBoolean:
+						color = LMFriedTextDefaultColorPrimitive;
+						break;
+					case LMTextParserTokenTypeNumber:
+						color = LMFriedTextDefaultColorPrimitive;
+						break;
+					case LMTextParserTokenTypeString:
+						color = LMFriedTextDefaultColorString;
+						break;
+					case LMTextParserTokenTypeOther:
+						color = LMFriedTextDefaultColorPrimitive;
+						break;
 				}
-				else {
-					[textStorage removeAttribute:attributeName range:fullRange];
-				}
-				// Mark this attribute as removed
-				[removedAttribtues addObject:attributeName];
+				attributes = @{NSForegroundColorAttributeName:color};
 			}
-		}
-		
-		// Apply attribtue
+			
+			// Remove attributes when used for first time
+			for (NSString* attributeName in attributes) {
+				// If not already removed...
+				if (![removedAttribtues containsObject:attributeName]) {
+					// Remove it
+					if (_useTemporaryAttributesForSyntaxHighlight) {
+						[layoutManager removeTemporaryAttribute:attributeName forCharacterRange:fullRange];
+					}
+					else {
+						[textStorage removeAttribute:attributeName range:fullRange];
+					}
+					// Mark this attribute as removed
+					[removedAttribtues addObject:attributeName];
+				}
+			}
+			
+			// Apply attribtue
+			if (_useTemporaryAttributesForSyntaxHighlight) {
+				[layoutManager addTemporaryAttributes:attributes forCharacterRange:range];
+			}
+			else {
+				[textStorage addAttributes:attributes range:range];
+			}
+		}];
+	}
+	else {
 		if (_useTemporaryAttributesForSyntaxHighlight) {
-			[layoutManager addTemporaryAttributes:attributes forCharacterRange:range];
+			[layoutManager removeTemporaryAttribute:NSFontAttributeName forCharacterRange:fullRange];
+			[layoutManager removeTemporaryAttribute:NSForegroundColorAttributeName forCharacterRange:fullRange];
 		}
 		else {
-			[textStorage addAttributes:attributes range:range];
+			[textStorage removeAttribute:NSFontAttributeName range:fullRange];
+			[textStorage removeAttribute:NSForegroundColorAttributeName range:fullRange];
 		}
-	}];
+	}
 	
 	if (!_useTemporaryAttributesForSyntaxHighlight) {
 		[textStorage endEditing];

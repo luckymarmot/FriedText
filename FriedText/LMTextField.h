@@ -22,7 +22,7 @@ extern NSString* LMTextFieldAttributedStringValueBinding;
 
 @optional
 
-- (void)textField:(LMTextField*)textField fieldEditor:(LMTextView*)fieldEditor mouseDownForTokenAtRange:(NSRange)range withBounds:(NSRect)bounds keyPath:(NSArray*)keyPath;
+- (BOOL)textField:(LMTextField*)textField fieldEditor:(LMTextView*)fieldEditor mouseDownForTokenAtRange:(NSRange)range withBounds:(NSRect)bounds keyPath:(NSArray*)keyPath;
 
 - (void)textField:(LMTextField *)textField textDidChangeWithFieldEditor:(LMTextView *)fieldEditor;
 
