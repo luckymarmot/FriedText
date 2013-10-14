@@ -74,7 +74,7 @@ typedef enum {
 {
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(textDidChange:) name:NSTextDidChangeNotification object:self];
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(boundsDidChange:) name:NSViewBoundsDidChangeNotification object:self.enclosingScrollView.contentView];
-	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(textStorageDidProcessEditing:) name:NSTextStorageDidProcessEditingNotification object:self.enclosingScrollView.contentView];
+	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(textStorageDidProcessEditing:) name:NSTextStorageDidProcessEditingNotification object:self.textStorage];
 	
 	NSColor* baseColor = [NSColor colorWithCalibratedRed:93.f/255.f green:72.f/255.f blue:55.f/255.f alpha:1.f];
 	[self setTextColor:baseColor];
@@ -185,7 +185,8 @@ typedef enum {
 // Always called before textDidChange:
 - (void)textStorageDidProcessEditing:(NSNotification*)notification
 {
-//	NSLog(@"textStorageDidProcessEditing:");
+	NSLog(@"textStorageDidProcessEditing:");
+	
 	[self.parser invalidateString];
 	
 	// If Field Editor, enforce field's attributes
