@@ -738,7 +738,8 @@ typedef enum {
 		_completionRange = rangeForUserCompletion;
 		
 		NSAttributedString* originalStringToAdd = [[self textStorage] attributedSubstringFromRange:rangeOfInsertedText];
-		[_originalStringBeforeCompletion appendAttributedString:originalStringToAdd];
+		
+		[_originalStringBeforeCompletion insertAttributedString:originalStringToAdd atIndex:MIN([_originalStringBeforeCompletion length], rangeOfInsertedText.location)];
 		
 		updateCompletions = YES;
 	}
