@@ -195,6 +195,9 @@ typedef enum {
 		LMTextField* textField = (LMTextField*)[self delegate];
 		NSTextStorage* textStorage = [self textStorage];
 		[textStorage addAttributes:[textField textAttributes] range:NSMakeRange(0, [textStorage length])];
+		if ([self parser]) { // We should highlight only if there is a parser, or it will erase attributes
+			[self highlightSyntax:nil];
+		}
 	}
 }
 
@@ -216,7 +219,7 @@ typedef enum {
 
 - (void)textDidChange:(NSNotification *)notification
 {
-//	NSLog(@"textDidChange:");
+	NSLog(@"textDidChange:");
 	
 	// Syntax Highlighting
 	if (_optimizeHighlightingOnEditing) {
