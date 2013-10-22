@@ -130,7 +130,7 @@ typedef enum {
 	}
 	
 	if (shouldSet) {
-		[self setString:string];
+		[self setString:string?:@""];
 		[self didChangeText];
 	}
 	
