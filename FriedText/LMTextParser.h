@@ -9,10 +9,10 @@
 #import <Foundation/Foundation.h>
 
 typedef enum {
-	LMTextParserTokenTypeOther			= 0x0,
-	LMTextParserTokenTypeBoolean		= 0x1,
-	LMTextParserTokenTypeNumber			= 0x2,
-	LMTextParserTokenTypeString			= 0x3,
+	LMTextParserTokenTypeOther			= 0x000,
+	LMTextParserTokenTypeBoolean		= 0x001,
+	LMTextParserTokenTypeNumber			= 0x002,
+	LMTextParserTokenTypeString			= 0x003,
 } LMTextParserTokenType;
 #define LMTextParserTokenTypeMask		0x000f
 #define LMTextParserTokenCustomTypeMask 0xfff0

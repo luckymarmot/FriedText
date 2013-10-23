@@ -68,6 +68,8 @@
 	
 	NSString* string = [self string];
 	
+	NSUInteger k = 0;
+	
 	for (unsigned int i = 0; i < parser.toknext; i++) {
 		NSRange range = NSMakeRange(tokens[i].start, tokens[i].end-tokens[i].start);
 		if (range.location >= characterRange.location &&
@@ -86,9 +88,24 @@
 				else {
 					block(LMTextParserTokenTypeNumber, range);
 				}
+				k++;
+			}
+			else if (tokens[i].type == JSMN_OBJECT) {
+				block(LMTextParserTokenTypeOther | LMTextParserTokenJSONTypeObject, range);
+				k = 0;
+			}
+			else if (tokens[i].type == JSMN_ARRAY) {
+				block(LMTextParserTokenTypeOther | LMTextParserTokenJSONTypeArray, range);
+				k = 0;
 			}
 			else if (tokens[i].type == JSMN_STRING) {
-				block(LMTextParserTokenTypeString, range);
+				if (k % 2 == 0) {
+					block(LMTextParserTokenTypeString | LMTextParserTokenJSONTypeKey, range);
+				}
+				else {
+					block(LMTextParserTokenTypeString, range);
+				}
+				k++;
 			}
 		}
 	}
