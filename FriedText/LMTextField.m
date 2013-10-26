@@ -118,7 +118,12 @@ NSString* LMTextFieldAttributedStringValueBinding = @"attributedStringValue";
 - (NSSize)intrinsicContentSize
 {
     if (![self.cell wraps]) {
-        return [super intrinsicContentSize];
+        NSSize cs = [super intrinsicContentSize];
+#warning This is a hack, needs to be fixed
+		// The problem here, is that [super intrinsicContentSize] returns a
+		// value of 21.f when it has only a Token (Paw's Dynamic Values) inside
+		cs.height = MAX(cs.height, 22.f);
+		return cs;
     }
 	
     NSRect frame = [self frame];
