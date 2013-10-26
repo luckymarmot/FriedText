@@ -55,6 +55,9 @@
 
 @property (nonatomic) BOOL enableAutocompletion;
 
+@property (nonatomic, readonly) NSRange completionRange;
+@property (strong, nonatomic, readonly) NSWindow* completionWindow;
+
 + (NSArray*)defaultTextAttachmentCellClasses;
 
 @property (strong, nonatomic, readonly) NSMutableArray* textAttachmentCellClasses;

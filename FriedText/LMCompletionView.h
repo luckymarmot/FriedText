@@ -29,8 +29,8 @@
 
 @property (strong, nonatomic) id <LMCompletionViewDelegate> delegate;
 
-@property (nonatomic, readonly) CGFloat textFieldHeight;
-@property (nonatomic, readonly) CGSize completionInset;
+@property (nonatomic) CGFloat textFieldHeight;
+@property (nonatomic) CGSize completionInset;
 
 - (id<LMCompletionOption>)currentCompletionOption;
 

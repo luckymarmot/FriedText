@@ -57,8 +57,6 @@
 
 - (void)drawRect:(NSRect)dirtyRect
 {
-	[super drawRect:dirtyRect];
-	
 	CGContextRef context = [[NSGraphicsContext currentContext] graphicsPort];
 	
 	//// Color Declarations
