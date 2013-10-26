@@ -20,7 +20,7 @@
 
 @class LMCompletionTableView;
 
-@interface LMCompletionView : NSView
+@interface LMCompletionView : NSView  <NSTableViewDataSource, NSTableViewDelegate>
 
 @property (strong, nonatomic) LMCompletionTableView* tableView;
 

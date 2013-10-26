@@ -13,7 +13,7 @@
 
 #import "NSView+CocoaExtensions.h"
 
-@interface LMCompletionView () <NSTableViewDataSource, NSTableViewDelegate> {
+@interface LMCompletionView () {
 	id<LMCompletionOption> _lastCompletionOption;
 }
 
