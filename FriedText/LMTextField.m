@@ -18,6 +18,8 @@ NSString* LMTextFieldAttributedStringValueBinding = @"attributedStringValue";
 @interface LMTextField ()
 
 @property (strong, nonatomic, readwrite) NSMutableArray* textAttachmentCellClasses;
+@property (nonatomic, readwrite) BOOL hasChanges;
+@property (nonatomic, readwrite) BOOL hasNotPropagatedChanges;
 
 @end
 
@@ -26,6 +28,8 @@ NSString* LMTextFieldAttributedStringValueBinding = @"attributedStringValue";
 - (void)_setup
 {
 	self.useTemporaryAttributesForSyntaxHighlight = NO; // This is different default than LMTextView
+	self.hasChanges = NO;
+	self.hasNotPropagatedChanges = NO;
 	
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(frameDidChange:) name:NSViewFrameDidChangeNotification object:self];
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(boundsDidChange:) name:NSViewBoundsDidChangeNotification object:self];
@@ -184,9 +188,21 @@ NSString* LMTextFieldAttributedStringValueBinding = @"attributedStringValue";
 
 #pragma mark - NSTextDelegate
 
+- (void)textDidBeginEditing:(NSNotification *)notification
+{
+	if (notification.object == [self currentEditor]) {
+		self.hasChanges = NO;
+		self.hasNotPropagatedChanges = NO;
+		[super textDidBeginEditing:notification];
+	}
+}
+
 - (void)textDidChange:(NSNotification *)notification
 {
 	if (notification.object == [self currentEditor]) {
+		
+		self.hasChanges = YES;
+		self.hasNotPropagatedChanges = YES;
 		
 #warning Fix the shouldUpdateContinuouslyBinding for LMTextFieldAttributedStringValueBinding
 		if ([self shouldUpdateContinuouslyBinding:LMTextFieldAttributedStringValueBinding]) {
@@ -195,6 +211,7 @@ NSString* LMTextFieldAttributedStringValueBinding = @"attributedStringValue";
 		
 		if ([self isEditable]) {
 			[self propagateValue:[[(LMTextView*)[self currentEditor] textStorage] copy] forBinding:LMTextFieldAttributedStringValueBinding];
+			self.hasNotPropagatedChanges = NO;
 		}
 		
 		[super textDidChange:notification];
@@ -209,8 +226,9 @@ NSString* LMTextFieldAttributedStringValueBinding = @"attributedStringValue";
 - (void)textDidEndEditing:(NSNotification *)notification
 {
 	if (notification.object == [self currentEditor]) {
-		if ([self isEditable]) {
+		if (self.hasNotPropagatedChanges && [self isEditable]) {
 			[self propagateValue:[[(LMTextView*)[self currentEditor] textStorage] copy] forBinding:LMTextFieldAttributedStringValueBinding];
+			self.hasNotPropagatedChanges = NO;
 		}
 		
 		[super textDidEndEditing:notification];
@@ -218,6 +236,8 @@ NSString* LMTextFieldAttributedStringValueBinding = @"attributedStringValue";
 		[self setAttributedStringValue:[self attributedStringValue]];
 		
 		[self invalidateIntrinsicContentSize];
+		
+		self.hasChanges = NO;
 	}
 }
 

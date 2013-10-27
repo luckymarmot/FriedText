@@ -73,4 +73,7 @@ extern NSString* LMTextFieldAttributedStringValueBinding;
 
 @property (nonatomic) BOOL enableAutocompletion;
 
+@property (nonatomic, readonly) BOOL hasChanges;
+@property (nonatomic, readonly) BOOL hasNotPropagatedChanges;
+
 @end
