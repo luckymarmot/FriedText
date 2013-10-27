@@ -192,7 +192,10 @@ NSString* LMTextFieldAttributedStringValueBinding = @"attributedStringValue";
 		if ([self shouldUpdateContinuouslyBinding:LMTextFieldAttributedStringValueBinding]) {
 			
 		}
-		[self propagateValue:[[(LMTextView*)[self currentEditor] textStorage] copy] forBinding:LMTextFieldAttributedStringValueBinding];
+		
+		if ([self isEditable]) {
+			[self propagateValue:[[(LMTextView*)[self currentEditor] textStorage] copy] forBinding:LMTextFieldAttributedStringValueBinding];
+		}
 		
 		[super textDidChange:notification];
 		
@@ -206,7 +209,9 @@ NSString* LMTextFieldAttributedStringValueBinding = @"attributedStringValue";
 - (void)textDidEndEditing:(NSNotification *)notification
 {
 	if (notification.object == [self currentEditor]) {
-		[self propagateValue:[[(LMTextView*)[self currentEditor] textStorage] copy] forBinding:LMTextFieldAttributedStringValueBinding];
+		if ([self isEditable]) {
+			[self propagateValue:[[(LMTextView*)[self currentEditor] textStorage] copy] forBinding:LMTextFieldAttributedStringValueBinding];
+		}
 		
 		[super textDidEndEditing:notification];
 		
