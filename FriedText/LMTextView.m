@@ -28,6 +28,8 @@
 #import "NSString+LMCompletionOption.h"
 #import "LMCompletionView.h"
 
+//#define LMTextViewEnableCompletionTemporaryInsertion
+
 #define NSLog(...)
 #define LMTextViewCompletionLog(...)
 //#define LMTextViewCompletionLog NSLog
@@ -51,7 +53,9 @@ typedef enum {
 @interface LMTextView () <LMCompletionViewDelegate> {
 	NSRect _oldBounds;
 	NSRange _completionRange;
+#ifdef LMTextViewEnableCompletionTemporaryInsertion
 	NSMutableAttributedString* _originalStringBeforeCompletion;
+#endif
 	id _insertedString;
 	BOOL _handlingCompletion;
 	LMCompletionView* _completionView;
@@ -82,7 +86,9 @@ typedef enum {
 	self.useTemporaryAttributesForSyntaxHighlight = YES;
 	
 	_completionRange.location = NSNotFound;
+#ifdef LMTextViewEnableCompletionTemporaryInsertion
 	_originalStringBeforeCompletion = nil;
+#endif
 	_insertedString = nil;
 	_handlingCompletion = NO;
 	_underlineTokensOnMouseOver = YES;
@@ -723,7 +729,9 @@ typedef enum {
 		_completionRange.location == NSNotFound) {
 		LMTextViewCompletionLog(@"START completion");
 		_completionRange = rangeForUserCompletion;
+#ifdef LMTextViewEnableCompletionTemporaryInsertion
 		_originalStringBeforeCompletion = [[[self textStorage] attributedSubstringFromRange:rangeForUserCompletion] mutableCopy];
+#endif
 		
 		updateCompletions = YES;
 	}
@@ -742,7 +750,9 @@ typedef enum {
 		
 		NSAttributedString* originalStringToAdd = [[self textStorage] attributedSubstringFromRange:rangeOfInsertedText];
 		
+#ifdef LMTextViewEnableCompletionTemporaryInsertion
 		[_originalStringBeforeCompletion insertAttributedString:originalStringToAdd atIndex:MIN([_originalStringBeforeCompletion length], rangeOfInsertedText.location)];
+#endif
 		
 		updateCompletions = YES;
 	}
@@ -762,16 +772,21 @@ typedef enum {
 			
 			// In the case characters have been deleted
 			if (_completionRange.length + _completionRange.location > [[self textStorage] length]) {
+#ifdef LMTextViewEnableCompletionTemporaryInsertion
 				[_originalStringBeforeCompletion deleteCharactersInRange:NSMakeRange([[self textStorage] length] - _completionRange.location, _completionRange.location + _completionRange.length - [[self textStorage] length])];
+#endif
 				_completionRange.length = [[self textStorage] length] - _completionRange.location;
 			}
 			
+			// For now we don't insert a completion temporarily in the text field to preview, so there is no point to change the text back (plus, it's buggy for now)
+#ifdef LMTextViewEnableCompletionTemporaryInsertion
 			NSAssert(_completionRange.length == [_originalStringBeforeCompletion length], @"Ending completion with a wrong length for original string");
 			
 			[[self textStorage] replaceCharactersInRange:_completionRange withAttributedString:_originalStringBeforeCompletion];
 			_completionRange.location = NSNotFound;
 			
 			[self didChangeText];
+#endif
 		}
 		else {
 			_completionRange.location = NSNotFound;
@@ -782,7 +797,9 @@ typedef enum {
 		_completionWindow = nil;
 		_completionView = nil;
 		
+#ifdef LMTextViewEnableCompletionTemporaryInsertion
 		_originalStringBeforeCompletion = nil;
+#endif
 	}
 	
 	// Nothing to do, completion is already ended
@@ -846,7 +863,9 @@ typedef enum {
 	if (_completionRange.location != NSNotFound) {
 		LMTextViewCompletionLog(@"Completing Range: %@", NSStringFromRange(_completionRange));
 		LMTextViewCompletionLog(@"Completing String: %@", [[[self textStorage] attributedSubstringFromRange:_completionRange] string]);
+#ifdef LMTextViewEnableCompletionTemporaryInsertion
 		LMTextViewCompletionLog(@"String Before Completion: %@", [_originalStringBeforeCompletion string]);
+#endif
 	}
 	
 	_handlingCompletion = NO;
