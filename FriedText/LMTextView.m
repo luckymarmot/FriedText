@@ -705,6 +705,16 @@ typedef enum {
 	}
 }
 
+- (NSArray *)completionsForPartialWordRange:(NSRange)charRange indexOfSelectedItem:(NSInteger *)index
+{
+	if ([self.delegate respondsToSelector:@selector(textView:completions:forPartialWordRange:indexOfSelectedItem:)]) {
+		return [self.delegate textView:self completions:nil forPartialWordRange:charRange indexOfSelectedItem:index];
+	}
+	else {
+		return nil;
+	}
+}
+
 - (void)_handleCompletion:(LMCompletionEventType)completionEvent
 {
 	if (_handlingCompletion) {
