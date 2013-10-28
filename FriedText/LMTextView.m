@@ -707,8 +707,6 @@ typedef enum {
 
 - (void)_handleCompletion:(LMCompletionEventType)completionEvent
 {
-	NSAssert(self.enableAutocompletion, @"Called _handleCompletion when enableAutocompletion is NO");
-	
 	if (_handlingCompletion) {
 		return;
 	}
