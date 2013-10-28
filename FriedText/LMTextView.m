@@ -123,7 +123,7 @@ typedef enum {
 {
 	return @{
 		  NSFontAttributeName:[self font] ?: [NSFont systemFontOfSize:[NSFont systemFontSize]],
-	NSForegroundColorAttributeName:[self textColor] ?: [NSColor blackColor],
+		  NSForegroundColorAttributeName:[self textColor] ?: [NSColor blackColor],
 	};
 }
 
@@ -204,6 +204,10 @@ typedef enum {
 		if ([self parser]) { // We should highlight only if there is a parser, or it will erase attributes
 			[self highlightSyntax:nil];
 		}
+	}
+	else if ([self enforceTextAttributes] != nil) {
+		NSTextStorage* textStorage = [self textStorage];
+		[textStorage addAttributes:[self enforceTextAttributes] range:NSMakeRange(0, [textStorage length])];
 	}
 }
 
