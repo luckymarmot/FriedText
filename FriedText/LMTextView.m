@@ -715,9 +715,11 @@ typedef enum {
 	_handlingCompletion = YES;
 	
 	NSRange rangeForUserCompletion = [self rangeForUserCompletion];
-	NSRange rangeForUserTextChange = [self rangeForUserTextChange];
 	NSUInteger insertedStringLength = _insertedString ? [_insertedString length] : 0;
+#ifdef LMTextViewEnableCompletionTemporaryInsertion
+	NSRange rangeForUserTextChange = [self rangeForUserTextChange];
 	NSRange rangeOfInsertedText = NSMakeRange(rangeForUserTextChange.location - insertedStringLength, insertedStringLength);
+#endif
 	
 	LMTextViewCompletionLog(@"rangeForUserTextChange: %@", NSStringFromRange(rangeForUserTextChange));
 	
@@ -752,9 +754,8 @@ typedef enum {
 		LMTextViewCompletionLog(@"CONTINUE completion");
 		_completionRange = rangeForUserCompletion;
 		
-		NSAttributedString* originalStringToAdd = [[self textStorage] attributedSubstringFromRange:rangeOfInsertedText];
-		
 #ifdef LMTextViewEnableCompletionTemporaryInsertion
+		NSAttributedString* originalStringToAdd = [[self textStorage] attributedSubstringFromRange:rangeOfInsertedText];
 		[_originalStringBeforeCompletion insertAttributedString:originalStringToAdd atIndex:MIN([_originalStringBeforeCompletion length], rangeOfInsertedText.location)];
 #endif
 		
