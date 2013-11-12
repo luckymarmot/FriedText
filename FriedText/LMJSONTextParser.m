@@ -10,13 +10,12 @@
 
 #import "jsmn.h"
 
-#warning Parsing will stop when NUM_TOKENS is exceeded
-
-#define NUM_TOKENS 1048576
+#define INITIAL_NUM_TOKENS 65536
 
 @interface LMJSONTextParser () {
-	jsmn_parser parser;
-	jsmntok_t tokens[NUM_TOKENS];
+	jsmn_parser _parser;
+	jsmntok_t *_tokens;
+	unsigned int _numTokens;
 }
 
 @property (strong, nonatomic) NSString* string;
@@ -28,6 +27,25 @@
 @implementation LMJSONTextParser
 
 @synthesize stringBlock = _stringBlock;
+
+- (id)init
+{
+	self = [super init];
+	if (self) {
+		_tokens = NULL;
+		_numTokens = 0;
+	}
+	return self;
+}
+
+- (void)dealloc
+{
+	if (_tokens != NULL) {
+		free(_tokens);
+	}
+}
+
+#pragma mark - LMTextParser Basics
 
 - (void)invalidateString
 {
@@ -47,14 +65,32 @@
 
 - (void)parse
 {
-	jsmn_init(&parser);
-	jsmnerr_t result = jsmn_parse(&parser, (__bridge CFStringRef)[self string], tokens, NUM_TOKENS);
-	if (result != JSMN_SUCCESS) {
-//		Ignore errors
-//		parser.toknext = 0;
-//		If making the parser more strict, make jsmn strict too
+	jsmn_init(&_parser);
+	if (_tokens == NULL) {
+		_numTokens = INITIAL_NUM_TOKENS; // an arbitrary size to start with
+		_tokens = malloc(sizeof(jsmntok_t) * _numTokens);
+	}
+	while (_tokens != NULL) {
+		jsmnerr_t error = jsmn_parse(&_parser, (__bridge CFStringRef)[self string], _tokens, _numTokens);
+		
+		// If no error, break
+		if (error == JSMN_SUCCESS) {
+			break;
+		}
+		// If not enough memory, realloc twice bigger
+		else if (error == JSMN_ERROR_NOMEM) {
+			_numTokens *= 2;
+			_tokens = realloc(_tokens, sizeof(jsmntok_t) * _numTokens);
+		}
+		// In any error, ignore and just color as much text as we can
+		else {
+			break;
+		}
+		
 	}
 }
+
+#pragma mark - Syntax Highlight
 
 - (void)applyAttributesInRange:(NSRange)characterRange withBlock:(void (^)(NSUInteger, NSRange))block
 {
@@ -70,12 +106,12 @@
 	
 	NSUInteger k = 0;
 	
-	for (unsigned int i = 0; i < parser.toknext; i++) {
-		NSRange range = NSMakeRange(tokens[i].start, tokens[i].end-tokens[i].start);
+	for (unsigned int i = 0; i < _parser.toknext; i++) {
+		NSRange range = NSMakeRange(_tokens[i].start, _tokens[i].end-_tokens[i].start);
 		if (range.location >= characterRange.location &&
 			range.location + range.length <= characterRange.location + characterRange.length) {
-			if (tokens[i].type == JSMN_PRIMITIVE) {
-				unichar c = [string characterAtIndex:tokens[i].start];
+			if (_tokens[i].type == JSMN_PRIMITIVE) {
+				unichar c = [string characterAtIndex:_tokens[i].start];
 				if (c == 't') {
 					block(LMTextParserTokenTypeBoolean | LMTextParserTokenJSONTypeTrue, range);
 				}
@@ -90,15 +126,15 @@
 				}
 				k++;
 			}
-			else if (tokens[i].type == JSMN_OBJECT) {
+			else if (_tokens[i].type == JSMN_OBJECT) {
 				block(LMTextParserTokenTypeOther | LMTextParserTokenJSONTypeObject, range);
 				k = 0;
 			}
-			else if (tokens[i].type == JSMN_ARRAY) {
+			else if (_tokens[i].type == JSMN_ARRAY) {
 				block(LMTextParserTokenTypeOther | LMTextParserTokenJSONTypeArray, range);
 				k = 0;
 			}
-			else if (tokens[i].type == JSMN_STRING) {
+			else if (_tokens[i].type == JSMN_STRING) {
 				if (k % 2 == 0) {
 					block(LMTextParserTokenTypeString | LMTextParserTokenJSONTypeKey, range);
 				}
@@ -111,30 +147,32 @@
 	}
 }
 
+#pragma mark - Token Recognition
+
 - (NSArray *)keyPathForObjectAtRange:(NSRange)range objectRange:(NSRange *)objectRange
 {
 	if (![self isStringValid]) {
 		[self parse];
 	}
 	
-	for (unsigned int i = 0; i < parser.toknext; i++) {
-		if (tokens[i].type == JSMN_PRIMITIVE || tokens[i].type == JSMN_STRING) {
-			if (range.location >= tokens[i].start && range.location+range.length <= tokens[i].end) {
-				NSRange range = NSMakeRange(tokens[i].start, tokens[i].end-tokens[i].start);
+	for (unsigned int i = 0; i < _parser.toknext; i++) {
+		if (_tokens[i].type == JSMN_PRIMITIVE || _tokens[i].type == JSMN_STRING) {
+			if (range.location >= _tokens[i].start && range.location+range.length <= _tokens[i].end) {
+				NSRange range = NSMakeRange(_tokens[i].start, _tokens[i].end-_tokens[i].start);
 				
 				*objectRange = range;
 				
 				NSMutableArray* path = [NSMutableArray array];
-				for (unsigned int j = i; tokens[j].parent != (-1); j = tokens[j].parent) {
+				for (unsigned int j = i; _tokens[j].parent != (-1); j = _tokens[j].parent) {
 					
-					jsmntype_t parentType = tokens[tokens[j].parent].type;
+					jsmntype_t parentType = _tokens[_tokens[j].parent].type;
 					
 					if (parentType == JSMN_OBJECT) {
-						unsigned int previousToken = j-(tokens[j].posinparent%2);
-						[path insertObject:[self.string substringWithRange:NSMakeRange(tokens[previousToken].start, tokens[previousToken].end-tokens[previousToken].start)] atIndex:0];
+						unsigned int previousToken = j-(_tokens[j].posinparent%2);
+						[path insertObject:[self.string substringWithRange:NSMakeRange(_tokens[previousToken].start, _tokens[previousToken].end-_tokens[previousToken].start)] atIndex:0];
 					}
 					else if (parentType == JSMN_ARRAY) {
-						[path insertObject:@(tokens[j].posinparent) atIndex:0];
+						[path insertObject:@(_tokens[j].posinparent) atIndex:0];
 					}
 				}
 				
