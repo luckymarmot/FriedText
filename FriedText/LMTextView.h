@@ -70,6 +70,6 @@
 
 - (NSDictionary*)textAttributes;
 
-@property (nonatomic, readwrite) NSDictionary* enforceTextAttributes;
+@property (strong, nonatomic, readwrite) NSDictionary* enforceTextAttributes;
 
 @end
