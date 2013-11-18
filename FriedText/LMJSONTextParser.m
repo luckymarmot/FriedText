@@ -104,8 +104,6 @@
 	
 	NSString* string = [self string];
 	
-	NSUInteger k = 0;
-	
 	for (unsigned int i = 0; i < _parser.toknext; i++) {
 		NSRange range = NSMakeRange(_tokens[i].start, _tokens[i].end-_tokens[i].start);
 		if (range.location >= characterRange.location &&
@@ -124,24 +122,24 @@
 				else {
 					block(LMTextParserTokenTypeNumber, range);
 				}
-				k++;
 			}
 			else if (_tokens[i].type == JSMN_OBJECT) {
 				block(LMTextParserTokenTypeOther | LMTextParserTokenJSONTypeObject, range);
-				k = 0;
 			}
 			else if (_tokens[i].type == JSMN_ARRAY) {
 				block(LMTextParserTokenTypeOther | LMTextParserTokenJSONTypeArray, range);
-				k = 0;
 			}
 			else if (_tokens[i].type == JSMN_STRING) {
-				if (k % 2 == 0) {
+				int parent = _tokens[i].parent;
+				// If inside an Object and position is even, then it's a Key
+				if (parent >= 0 &&
+					_tokens[parent].type == JSMN_OBJECT &&
+					_tokens[i].posinparent % 2 == 0) {
 					block(LMTextParserTokenTypeString | LMTextParserTokenJSONTypeKey, range);
 				}
 				else {
 					block(LMTextParserTokenTypeString, range);
 				}
-				k++;
 			}
 		}
 	}
