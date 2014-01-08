@@ -87,7 +87,7 @@
 	while (_tokens != NULL) {
 		
 		// Parse
-		jsmnerr_t error = jsmn_parse(&_parser, (__bridge CFStringRef)[self string], _tokens, _numTokens);
+		jsmnerr_t error = jsmn_parse(&_parser, (__bridge CFStringRef)([self string] ?: @""), _tokens, _numTokens);
 		
 		// If no error, break
 		if (error == JSMN_SUCCESS) {
