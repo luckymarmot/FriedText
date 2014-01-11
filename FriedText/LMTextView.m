@@ -698,6 +698,14 @@ typedef enum {
 			[_completionView selectLastCompletion];
 			handled = YES;
 		}
+		else if (aSelector == @selector(insertTab:)) {
+			// Insert completion
+			id<LMCompletionOption>completionOption = [_completionView currentCompletionOption];
+			[self insertCompletionOption:completionOption inRange:[self rangeForUserCompletion] isFinal:YES];
+			// And go to next field
+			[super doCommandBySelector:aSelector];
+			handled = YES;
+		}
 	}
 	
 	if (!handled) {
