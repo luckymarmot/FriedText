@@ -3,8 +3,8 @@
 
 #import <CoreFoundation/CoreFoundation.h>
 
-#define JSMN_PARENT_LINKS 1
-#define JSMN_POSITION_INSIDE_PARENT 1
+#define JSMN_PARENT_LINKS
+#define JSMN_POSITION_INSIDE_PARENT
 
 /**
  * JSON type identifier. Basic types are:

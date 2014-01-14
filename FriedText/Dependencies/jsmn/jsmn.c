@@ -16,6 +16,9 @@ static jsmntok_t *jsmn_alloc_token(jsmn_parser *parser,
 	tok->size = 0;
 #ifdef JSMN_PARENT_LINKS
 	tok->parent = -1;
+#ifdef JSMN_POSITION_INSIDE_PARENT
+	tok->posinparent = -1;
+#endif
 #endif
 	return tok;
 }
@@ -71,10 +74,12 @@ found:
 	}
 	jsmn_fill_token(token, JSMN_PRIMITIVE, start, parser->pos);
 #ifdef JSMN_PARENT_LINKS
-	token->parent = parser->toksuper;
+	if (parser->toksuper != -1) {
+		token->parent = parser->toksuper;
 #ifdef JSMN_POSITION_INSIDE_PARENT
-	token->posinparent = tokens[parser->toksuper].size;
+		token->posinparent = tokens[parser->toksuper].size;
 #endif
+	}
 #endif
 	parser->pos--;
 	return JSMN_SUCCESS;
@@ -104,10 +109,12 @@ static jsmnerr_t jsmn_parse_string(jsmn_parser *parser, CFStringRef js,
 			}
 			jsmn_fill_token(token, JSMN_STRING, start+1, parser->pos);
 #ifdef JSMN_PARENT_LINKS
-			token->parent = parser->toksuper;
+			if (parser->toksuper != -1) {
+				token->parent = parser->toksuper;
 #ifdef JSMN_POSITION_INSIDE_PARENT
-			token->posinparent = tokens[parser->toksuper].size;
+				token->posinparent = tokens[parser->toksuper].size;
 #endif
+			}
 #endif
 			return JSMN_SUCCESS;
 		}
