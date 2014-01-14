@@ -201,6 +201,7 @@ typedef enum {
 		LMTextField* textField = (LMTextField*)[self delegate];
 		NSTextStorage* textStorage = [self textStorage];
 		[textStorage addAttributes:[textField textAttributes] range:NSMakeRange(0, [textStorage length])];
+		[textStorage fixAttributesInRange:NSMakeRange(0, [textStorage length])];
 		if ([self parser]) { // We should highlight only if there is a parser, or it will erase attributes
 			[self highlightSyntax:nil];
 		}
@@ -208,6 +209,7 @@ typedef enum {
 	else if ([self enforceTextAttributes] != nil) {
 		NSTextStorage* textStorage = [self textStorage];
 		[textStorage addAttributes:[self enforceTextAttributes] range:NSMakeRange(0, [textStorage length])];
+		[textStorage fixAttributesInRange:NSMakeRange(0, [textStorage length])];
 	}
 }
 
@@ -575,6 +577,10 @@ typedef enum {
 			[textStorage removeAttribute:NSForegroundColorAttributeName range:fullRange];
 		}
 	}
+	
+	// Fixes attributes
+	// Necessary to ensure non-roman characters are properly handled
+	[textStorage fixAttributesInRange:fullRange];
 	
 	if (!_useTemporaryAttributesForSyntaxHighlight) {
 		[textStorage endEditing];
