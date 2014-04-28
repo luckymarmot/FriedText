@@ -5,6 +5,7 @@
 
 #define JSMN_PARENT_LINKS
 #define JSMN_POSITION_INSIDE_PARENT
+#define JSMN_STRICT
 
 /**
  * JSON type identifier. Basic types are:
