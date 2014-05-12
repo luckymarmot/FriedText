@@ -693,8 +693,10 @@ typedef enum {
 		}
 		else if (aSelector == @selector(insertNewline:)) {
 			id<LMCompletionOption>completionOption = [_completionView currentCompletionOption];
-			[self insertCompletionOption:completionOption inRange:[self rangeForUserCompletion] isFinal:YES];
-			handled = YES;
+			if (completionOption) {
+				[self insertCompletionOption:completionOption inRange:[self rangeForUserCompletion] isFinal:YES];
+				handled = YES;
+			}
 		}
 		else if (aSelector == @selector(moveToBeginningOfDocument:)) {
 			[_completionView selectFirstCompletion];
