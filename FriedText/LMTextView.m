@@ -40,7 +40,7 @@
  * NSRTFDPboardType: NeXT RTFD pasteboard type
  */
 
-#warning Make a smart system to force users to allow rich text if using tokens, while blocking rich text input if needed
+//@TODO: Make a smart system to force users to allow rich text if using tokens, while blocking rich text input if needed
 
 typedef enum {
 	LMCompletionEventTextDidChange,

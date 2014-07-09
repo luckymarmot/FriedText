@@ -123,7 +123,7 @@ NSString* LMTextFieldAttributedStringValueBinding = @"attributedStringValue";
 {
     if (![self.cell wraps]) {
         NSSize cs = [super intrinsicContentSize];
-#warning This is a hack, needs to be fixed
+//@TODO: This is a hack, needs to be fixed
 		// The problem here, is that [super intrinsicContentSize] returns a
 		// value of 21.f when it has only a Token (Paw's Dynamic Values) inside
 		cs.height = MAX(cs.height, 22.f);
@@ -204,7 +204,7 @@ NSString* LMTextFieldAttributedStringValueBinding = @"attributedStringValue";
 		self.hasChanges = YES;
 		self.hasNotPropagatedChanges = YES;
 		
-#warning Fix the shouldUpdateContinuouslyBinding for LMTextFieldAttributedStringValueBinding
+//@TODO: Fix the shouldUpdateContinuouslyBinding for LMTextFieldAttributedStringValueBinding
 		if ([self shouldUpdateContinuouslyBinding:LMTextFieldAttributedStringValueBinding]) {
 			
 		}
