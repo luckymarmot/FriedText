@@ -122,7 +122,9 @@ NSString* LMTextFieldAttributedStringValueBinding = @"attributedStringValue";
 - (NSSize)intrinsicContentSize
 {
     if (![self.cell wraps]) {
+		_LMTextViewDrawingInControlView = self;
         NSSize cs = [super intrinsicContentSize];
+		_LMTextViewDrawingInControlView = nil;
 //@TODO: This is a hack, needs to be fixed
 		// The problem here, is that [super intrinsicContentSize] returns a
 		// value of 21.f when it has only a Token (Paw's Dynamic Values) inside
@@ -146,7 +148,9 @@ NSString* LMTextFieldAttributedStringValueBinding = @"attributedStringValue";
 		height = usedRect.size.height + 5;
 	}
 	else {
+		_LMTextViewDrawingInControlView = self;
 		height = [self.cell cellSizeForBounds: frame].height;
+		_LMTextViewDrawingInControlView = nil;
 	}
 	
 	return NSMakeSize(width, height);

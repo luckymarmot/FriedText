@@ -12,6 +12,7 @@
 
 @class LMTextView, LMTextField, LMCompletionView;
 
+extern NSView* _LMTextViewDrawingInControlView;
 
 #pragma mark - LMTextViewDelegate
 

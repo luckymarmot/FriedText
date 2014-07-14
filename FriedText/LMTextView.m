@@ -28,6 +28,8 @@
 #import "NSString+LMCompletionOption.h"
 #import "LMCompletionView.h"
 
+NSView* _LMTextViewDrawingInControlView = nil;
+
 //#define LMTextViewEnableCompletionTemporaryInsertion
 
 #define NSLog(...)
